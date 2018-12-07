@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="$(SolutionDir)\DnlibCommon.props" Condition="Exists('$(SolutionDir)\DnlibCommon.props')" />
+  <Import Project="$(SolutionDir)\Directory.Build.props" Condition="Exists('$(SolutionDir)\Directory.Build.props')" />
 
   <PropertyGroup>
     <!-- https://docs.microsoft.com/en-US/dotnet/standard/class-libraries -->
@@ -48,13 +48,5 @@
     <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
-    <PublicSign>true</PublicSign>
-    <!-- Workaround for https://github.com/dotnet/sdk/issues/335 -->
-    <FrameworkPathOverride Condition="Exists('/usr/lib/mono/2.0-api')">/usr/lib/mono/2.0-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="Exists('/usr/local/lib/mono/2.0-api')">/usr/local/lib/mono/2.0-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="Exists('/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/2.0-api')">/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/2.0-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="Exists('/usr/local/Cellar/mono/4.6.2.16/lib/mono/2.0-api')">/usr/local/Cellar/mono/4.6.2.16/lib/mono/2.0-api</FrameworkPathOverride>
-  </PropertyGroup>
 
 </Project>
