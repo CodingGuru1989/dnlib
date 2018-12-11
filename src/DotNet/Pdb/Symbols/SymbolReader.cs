@@ -49,6 +49,7 @@ namespace dnlib.DotNet.Pdb.Symbols {
 		/// Cleans up resources
 		/// </summary>
 		public virtual void Dispose() {
+			GC.SuppressFinalize(this);
 		}
 	}
 }
