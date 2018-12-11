@@ -31,4 +31,6 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "<Pending>", Scope = "member", Target = "~M:dnlib.DotNet.Writer.Win32ResourcesChunk.WriteTo(dnlib.DotNet.Writer.DataWriter,dnlib.W32Resources.ResourceDirectory)~System.UInt32")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "<Pending>", Scope = "member", Target = "~M:dnlib.DotNet.ReflectionExtensions.IsSZArray(System.Type)~System.Boolean")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "<Pending>", Scope = "member", Target = "~M:dnlib.DotNet.Pdb.WindowsPdb.PdbCustomDebugInfoReader.GetNestedType(System.String)~dnlib.DotNet.TypeDef")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "<Pending>", Scope = "member", Target = "~M:dnlib.DotNet.UTF8String.ToLower~dnlib.DotNet.UTF8String")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "<Pending>", Scope = "member", Target = "~M:dnlib.DotNet.UTF8String.ToUpper~dnlib.DotNet.UTF8String")]
 
