@@ -3299,7 +3299,7 @@ exit: ;
 				return false;
 			if (et != typeof(IntPtr))	// FnPtr is mapped to System.IntPtr
 				return false;
-			if (!a.FullName.StartsWith("(fnptr)"))
+			if (!a.FullName.StartsWith("(fnptr)", StringComparison.Ordinal))
 				return false;
 
 			return true;

@@ -419,7 +419,7 @@ namespace dnlib.DotNet.Writer {
 			writer.WriteUInt16((ushort)ids.Count);
 
 			// These must be sorted in ascending order. Names are case insensitive.
-			named.Sort((a, b) => a.Name.Name.ToUpperInvariant().CompareTo(b.Name.Name.ToUpperInvariant()));
+			named.Sort((a, b) => string.Compare(a.Name.Name.ToUpperInvariant(), b.Name.Name.ToUpperInvariant(), StringComparison.Ordinal));
 			ids.Sort((a, b) => a.Name.Id.CompareTo(b.Name.Id));
 
 			foreach (var d in named) {

@@ -755,7 +755,7 @@ namespace dnlib.DotNet {
 							if (path == "")
 								continue;
 							var newPath = Path.GetFullPath(Path.Combine(dirName, path.Replace('\\', Path.DirectorySeparatorChar)));
-							if (Directory.Exists(newPath) && newPath.StartsWith(baseDir + Path.DirectorySeparatorChar))
+							if (Directory.Exists(newPath) && newPath.StartsWith(baseDir + Path.DirectorySeparatorChar, StringComparison.Ordinal))
 								searchPaths.Add(newPath);
 						}
 					}

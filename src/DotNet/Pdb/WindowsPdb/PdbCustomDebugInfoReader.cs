@@ -280,7 +280,7 @@ namespace dnlib.DotNet.Pdb.WindowsPdb {
 					if (type.Name == name)
 						return type;
 					var typeName = type.Name.String;
-					if (typeName.StartsWith(name) && typeName.Length >= name.Length + 2) {
+					if (typeName.StartsWith(name, StringComparison.Ordinal) && typeName.Length >= name.Length + 2) {
 						int index = name.Length;
 						if (typeName[index] == '`') {
 							Debug.Assert(index + 1 < typeName.Length);

@@ -82,7 +82,7 @@ namespace dnlib.W32Resources {
 			if (HasId)
 				return id.CompareTo(other.id);
 			else
-				return name.ToUpperInvariant().CompareTo(other.name.ToUpperInvariant());
+				return string.Compare(name.ToUpperInvariant(), other.name.ToUpperInvariant(), StringComparison.Ordinal);
 		}
 
 		/// <inheritdoc/>

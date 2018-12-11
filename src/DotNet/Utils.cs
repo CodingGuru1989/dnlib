@@ -259,9 +259,9 @@ namespace dnlib.DotNet {
 		/// Compares two locales (cultures)
 		/// </summary>
 		/// <param name="a">First</param>
-		/// <param name="b">Second</param>
+		/// <param name="b">Second</param> 
 		/// <returns>&lt; 0 if a &lt; b, 0 if a == b, &gt; 0 if a &gt; b</returns>
-		internal static int LocaleCompareTo(UTF8String a, UTF8String b) => GetCanonicalLocale(a).CompareTo(GetCanonicalLocale(b));
+		internal static int LocaleCompareTo(UTF8String a, UTF8String b) => string.Compare(GetCanonicalLocale(a), GetCanonicalLocale(b), StringComparison.InvariantCulture);
 
 		/// <summary>
 		/// Compares two locales (cultures)
@@ -277,7 +277,7 @@ namespace dnlib.DotNet {
 		/// <param name="a">First</param>
 		/// <param name="b">Second</param>
 		/// <returns>&lt; 0 if a &lt; b, 0 if a == b, &gt; 0 if a &gt; b</returns>
-		internal static int LocaleCompareTo(UTF8String a, string b) => GetCanonicalLocale(a).CompareTo(GetCanonicalLocale(b));
+		internal static int LocaleCompareTo(UTF8String a, string b) => string.Compare(GetCanonicalLocale(a), GetCanonicalLocale(b), StringComparison.InvariantCulture);
 
 		/// <summary>
 		/// Compares two locales (cultures)

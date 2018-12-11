@@ -651,8 +651,8 @@ namespace dnlib.DotNet {
 		public bool IsClr10 {
 			get {
 				var ver = RuntimeVersion ?? string.Empty;
-				return ver.StartsWith(MDHeaderRuntimeVersion.MS_CLR_10_PREFIX) ||
-					ver.StartsWith(MDHeaderRuntimeVersion.MS_CLR_10_PREFIX_X86RETAIL) ||
+				return ver.StartsWith(MDHeaderRuntimeVersion.MS_CLR_10_PREFIX, StringComparison.Ordinal) ||
+					ver.StartsWith(MDHeaderRuntimeVersion.MS_CLR_10_PREFIX_X86RETAIL, StringComparison.Ordinal) ||
 					ver == MDHeaderRuntimeVersion.MS_CLR_10_RETAIL ||
 					ver == MDHeaderRuntimeVersion.MS_CLR_10_COMPLUS;
 			}
@@ -671,7 +671,7 @@ namespace dnlib.DotNet {
 		/// <c>true</c> if <see cref="RuntimeVersion"/> is the CLR v1.1 string (only the major
 		/// and minor version numbers are checked)
 		/// </summary>
-		public bool IsClr11 => (RuntimeVersion ?? string.Empty).StartsWith(MDHeaderRuntimeVersion.MS_CLR_11_PREFIX);
+		public bool IsClr11 => (RuntimeVersion ?? string.Empty).StartsWith(MDHeaderRuntimeVersion.MS_CLR_11_PREFIX, StringComparison.Ordinal);
 
 		/// <summary>
 		/// <c>true</c> if <see cref="RuntimeVersion"/> is the CLR v1.1 string
@@ -693,7 +693,7 @@ namespace dnlib.DotNet {
 		/// <c>true</c> if <see cref="RuntimeVersion"/> is the CLR v2.0 string (only the major
 		/// and minor version numbers are checked)
 		/// </summary>
-		public bool IsClr20 => (RuntimeVersion ?? string.Empty).StartsWith(MDHeaderRuntimeVersion.MS_CLR_20_PREFIX);
+		public bool IsClr20 => (RuntimeVersion ?? string.Empty).StartsWith(MDHeaderRuntimeVersion.MS_CLR_20_PREFIX, StringComparison.Ordinal);
 
 		/// <summary>
 		/// <c>true</c> if <see cref="RuntimeVersion"/> is the CLR v2.0 string
@@ -704,7 +704,7 @@ namespace dnlib.DotNet {
 		/// <c>true</c> if <see cref="RuntimeVersion"/> is the CLR v4.0 string (only the major
 		/// and minor version numbers are checked)
 		/// </summary>
-		public bool IsClr40 => (RuntimeVersion ?? string.Empty).StartsWith(MDHeaderRuntimeVersion.MS_CLR_40_PREFIX);
+		public bool IsClr40 => (RuntimeVersion ?? string.Empty).StartsWith(MDHeaderRuntimeVersion.MS_CLR_40_PREFIX, StringComparison.Ordinal);
 
 		/// <summary>
 		/// <c>true</c> if <see cref="RuntimeVersion"/> is the CLR v4.0 string

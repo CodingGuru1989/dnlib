@@ -246,7 +246,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="value">Value</param>
 		/// <returns></returns>
-		public bool EndsWith(string value) => String.EndsWith(value);
+		public bool EndsWith(string value) => String.EndsWith(value, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Checks whether <paramref name="value"/> matches the end of this string
@@ -270,7 +270,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="value">Value</param>
 		/// <returns></returns>
-		public bool StartsWith(string value) => String.StartsWith(value);
+		public bool StartsWith(string value) => String.StartsWith(value, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Checks whether <paramref name="value"/> matches the beginning of this string
@@ -294,7 +294,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="strB">Other string</param>
 		/// <returns>&lt; 0 if a &lt; b, 0 if a == b, &gt; 0 if a &gt; b</returns>
-		public int CompareTo(string strB) => String.CompareTo(strB);
+		public int CompareTo(string strB) => String.Compare(strB, strB, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Returns the index of the first character <paramref name="value"/> in this string
@@ -328,7 +328,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="value">String</param>
 		/// <returns>The index of <paramref name="value"/> or <c>-1</c> if not found</returns>
-		public int IndexOf(string value) => String.IndexOf(value);
+		public int IndexOf(string value) => String.IndexOf(value, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Returns the index of the first sub string <paramref name="value"/> in this string
@@ -337,7 +337,7 @@ namespace dnlib.DotNet {
 		/// <param name="value">String</param>
 		/// <param name="startIndex">Start index</param>
 		/// <returns>The index of <paramref name="value"/> or <c>-1</c> if not found</returns>
-		public int IndexOf(string value, int startIndex) => String.IndexOf(value, startIndex);
+		public int IndexOf(string value, int startIndex) => String.IndexOf(value, startIndex, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Returns the index of the first sub string <paramref name="value"/> in this string
@@ -348,7 +348,7 @@ namespace dnlib.DotNet {
 		/// <param name="startIndex">Start index</param>
 		/// <param name="count">Max number of chars to scan</param>
 		/// <returns>The index of <paramref name="value"/> or <c>-1</c> if not found</returns>
-		public int IndexOf(string value, int startIndex, int count) => String.IndexOf(value, startIndex, count);
+		public int IndexOf(string value, int startIndex, int count) => String.IndexOf(value, startIndex, count, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Returns the index of the first sub string <paramref name="value"/> in this string
@@ -412,7 +412,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="value">String</param>
 		/// <returns>The index of <paramref name="value"/> or <c>-1</c> if not found</returns>
-		public int LastIndexOf(string value) => String.LastIndexOf(value);
+		public int LastIndexOf(string value) => String.LastIndexOf(value, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Returns the index of the last sub string <paramref name="value"/> in this string
@@ -421,7 +421,7 @@ namespace dnlib.DotNet {
 		/// <param name="value">String</param>
 		/// <param name="startIndex">Start index</param>
 		/// <returns>The index of <paramref name="value"/> or <c>-1</c> if not found</returns>
-		public int LastIndexOf(string value, int startIndex) => String.LastIndexOf(value, startIndex);
+		public int LastIndexOf(string value, int startIndex) => String.LastIndexOf(value, startIndex, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Returns the index of the last sub string <paramref name="value"/> in this string
@@ -432,7 +432,7 @@ namespace dnlib.DotNet {
 		/// <param name="startIndex">Start index</param>
 		/// <param name="count">Max number of chars to scan</param>
 		/// <returns>The index of <paramref name="value"/> or <c>-1</c> if not found</returns>
-		public int LastIndexOf(string value, int startIndex, int count) => String.LastIndexOf(value, startIndex, count);
+		public int LastIndexOf(string value, int startIndex, int count) => String.LastIndexOf(value, startIndex, count, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Returns the index of the last sub string <paramref name="value"/> in this string

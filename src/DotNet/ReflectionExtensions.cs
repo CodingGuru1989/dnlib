@@ -18,7 +18,7 @@ namespace dnlib.DotNet {
 			var prop = self.GetType().GetProperty("IsSzArray", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 			if (prop != null)
 				return (bool)prop.GetValue(self, Array2.Empty<object>());
-			return (self.Name ?? string.Empty).EndsWith("[]");
+			return (self.Name ?? string.Empty).EndsWith("[]", StringComparison.Ordinal);
 		}
 
 		/// <summary>
