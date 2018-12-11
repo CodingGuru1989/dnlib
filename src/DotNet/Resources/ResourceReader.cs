@@ -32,7 +32,7 @@ namespace dnlib.DotNet.Resources {
 		/// </summary>
 		/// <param name="info"></param>
 		/// <param name="context"></param>
-		public ResourceReaderException(SerializationInfo info, StreamingContext context)
+		private ResourceReaderException(SerializationInfo info, StreamingContext context)
 			: base(info, context) {
 		}
 	}

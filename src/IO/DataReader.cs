@@ -14,7 +14,7 @@ namespace dnlib.IO {
 	[Serializable]
 	public sealed class DataReaderException : IOException {
 		internal DataReaderException(string message) : base(message) { }
-		internal DataReaderException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+		private DataReaderException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 	}
 
 	/// <summary>
