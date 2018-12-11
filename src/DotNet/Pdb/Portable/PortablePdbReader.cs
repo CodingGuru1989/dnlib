@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using dnlib.DotNet.Emit;
 using dnlib.DotNet.MD;
 using dnlib.DotNet.Pdb.Symbols;
@@ -84,7 +85,7 @@ namespace dnlib.DotNet.Pdb.Portable {
 		bool TryGetSymbolDocument(uint rid, out SymbolDocument document) {
 			int index = (int)rid - 1;
 			if ((uint)index >= (uint)documents.Length) {
-				Debug.Fail("Couldn't find document with rid 0x" + rid.ToString("X6"));
+				Debug.Fail("Couldn't find document with rid 0x" + rid.ToString("X6", CultureInfo.CurrentCulture));
 				document = null;
 				return false;
 			}

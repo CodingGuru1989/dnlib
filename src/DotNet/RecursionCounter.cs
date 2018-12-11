@@ -1,6 +1,7 @@
 // dnlib: See LICENSE.txt for more info
 
 using System;
+using System.Globalization;
 
 namespace dnlib.DotNet {
 	/// <summary>
@@ -45,6 +46,6 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		public override string ToString() => counter.ToString();
+		public override string ToString() => counter.ToString(CultureInfo.CurrentCulture);
 	}
 }

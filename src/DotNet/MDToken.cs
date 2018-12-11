@@ -2,6 +2,7 @@
 
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using dnlib.DotNet.MD;
 
 namespace dnlib.DotNet {
@@ -152,6 +153,6 @@ namespace dnlib.DotNet {
 		public override int GetHashCode() => (int)token;
 
 		/// <inheritdoc/>
-		public override string ToString() => token.ToString("X8");
+		public override string ToString() => token.ToString("X8", CultureInfo.CurrentCulture);
 	}
 }

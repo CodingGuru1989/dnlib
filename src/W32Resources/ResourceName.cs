@@ -1,6 +1,7 @@
 // dnlib: See LICENSE.txt for more info
 
 ﻿using System;
+using System.Globalization;
 
 namespace dnlib.W32Resources {
 	/// <summary>
@@ -102,6 +103,6 @@ namespace dnlib.W32Resources {
 		}
 
 		/// <inheritdoc/>
-		public override string ToString() => HasId ? id.ToString() : name;
+		public override string ToString() => HasId ? id.ToString(CultureInfo.CurrentCulture) : name;
 	}
 }

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using dnlib.DotNet.Pdb.Symbols;
 using dnlib.IO;
@@ -62,7 +63,7 @@ namespace dnlib.DotNet.Pdb.Managed {
 				Name = name;
 				Data = data;
 			}
-			public override string ToString() => Name + " = (" + Data.Length.ToString() + " bytes)";
+			public override string ToString() => Name + " = (" + Data.Length.ToString(CultureInfo.CurrentCulture) + " bytes)";
 		}
 
 		static readonly byte[] dotNetOemGuid = new byte[] {

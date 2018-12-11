@@ -3,6 +3,7 @@ using System.IO;
 using dnlib.DotNet;
 using dnlib.PE;
 using dnlib.IO;
+using System.Globalization;
 
 namespace dnlib.Examples {
 	/// <summary>
@@ -30,7 +31,7 @@ namespace dnlib.Examples {
 				var reader = peImage.CreateReader(section.VirtualAddress, section.SizeOfRawData);
 
 				// Write the data to disk
-				var fileName = string.Format(sectionFileName, i);
+				var fileName = string.Format(CultureInfo.CurrentCulture, sectionFileName, i);
 				Console.WriteLine("Dumping section {0} to file {1}", section.DisplayName, fileName);
 				File.WriteAllBytes(fileName, reader.ToArray());
 			}

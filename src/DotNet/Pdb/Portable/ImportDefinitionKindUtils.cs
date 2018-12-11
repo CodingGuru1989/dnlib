@@ -1,6 +1,7 @@
 ﻿// dnlib: See LICENSE.txt for more info
 
 using System.Diagnostics;
+using System.Globalization;
 
 namespace dnlib.DotNet.Pdb.Portable {
 	static class ImportDefinitionKindUtils {
@@ -19,7 +20,7 @@ namespace dnlib.DotNet.Pdb.Portable {
 			case 8:		return PdbImportDefinitionKind.AliasAssemblyNamespace;
 			case 9:		return PdbImportDefinitionKind.AliasType;
 			default:
-				Debug.Fail("Unknown import definition kind: 0x" + value.ToString("X"));
+				Debug.Fail("Unknown import definition kind: 0x" + value.ToString("X", CultureInfo.CurrentCulture));
 				return UNKNOWN_IMPORT_KIND;
 			}
 		}

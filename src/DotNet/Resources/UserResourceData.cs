@@ -1,5 +1,6 @@
 ﻿// dnlib: See LICENSE.txt for more info
 
+using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
 using dnlib.IO;
@@ -60,6 +61,6 @@ namespace dnlib.DotNet.Resources {
 		public override void WriteData(BinaryWriter writer, IFormatter formatter) => writer.Write(data);
 
 		/// <inheritdoc/>
-		public override string ToString() => "Binary: Length: " + data.Length.ToString();
+		public override string ToString() => "Binary: Length: " + data.Length.ToString(CultureInfo.CurrentCulture);
 	}
 }

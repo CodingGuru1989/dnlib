@@ -1,6 +1,7 @@
 // dnlib: See LICENSE.txt for more info
 
 ﻿using System;
+using System.Globalization;
 using System.Reflection;
 using dnlib.DotNet.Writer;
 
@@ -422,7 +423,7 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		public void Log(object sender, LoggerEvent loggerEvent, string format, params object[] args) {
 			if (loggerEvent == LoggerEvent.Error && ctor != null)
-				throw (Exception)ctor.Invoke(new object[] { string.Format(format, args) });
+				throw (Exception)ctor.Invoke(new object[] { string.Format(CultureInfo.CurrentCulture, format, args) });
 		}
 
 		/// <inheritdoc/>

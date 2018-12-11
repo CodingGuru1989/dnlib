@@ -12,6 +12,7 @@ using System.Diagnostics;
 using dnlib.DotNet.Pdb;
 using dnlib.DotNet.Pdb.Portable;
 using System.Linq;
+using System.Globalization;
 
 namespace dnlib.DotNet.Writer {
 	/// <summary>
@@ -3373,7 +3374,7 @@ namespace dnlib.DotNet.Writer {
 			Free(ref bwctx);
 			return res;
 		}
-		static readonly byte[] directorySeparatorCharUtf8 = Encoding.UTF8.GetBytes(Path.DirectorySeparatorChar.ToString());
+		static readonly byte[] directorySeparatorCharUtf8 = Encoding.UTF8.GetBytes(Path.DirectorySeparatorChar.ToString(CultureInfo.CurrentCulture));
 		static readonly char[] directorySeparatorCharArray = new char[] { Path.DirectorySeparatorChar };
 
 		uint AddImportScope(PdbImportScope scope) {

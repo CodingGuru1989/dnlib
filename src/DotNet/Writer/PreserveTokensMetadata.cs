@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using dnlib.DotNet.MD;
 
@@ -376,7 +377,7 @@ namespace dnlib.DotNet.Writer {
 				if (extraTypes != 0) { // always >= 0 since currRid > prevRid
 					// At least one type has been removed. Create dummy types.
 					for (int j = 0; j < extraTypes; j++)
-						newTypes.Add(new TypeDefUser("dummy", Guid.NewGuid().ToString("B"), module.CorLibTypes.Object.TypeDefOrRef));
+						newTypes.Add(new TypeDefUser("dummy", Guid.NewGuid().ToString("B", CultureInfo.CurrentCulture), module.CorLibTypes.Object.TypeDefOrRef));
 				}
 				newTypes.Add(type);
 				prevRid = currRid;
@@ -824,7 +825,7 @@ namespace dnlib.DotNet.Writer {
 			int numFields = fieldDefInfos.NeedPtrTable ? fieldDefInfos.Count : fieldDefInfos.TableSize;
 			int numMethods = methodDefInfos.NeedPtrTable ? methodDefInfos.Count : methodDefInfos.TableSize;
 			var row = new RawTypeDefRow((uint)flags,
-						stringsHeap.Add(Guid.NewGuid().ToString("B")),
+						stringsHeap.Add(Guid.NewGuid().ToString("B", CultureInfo.CurrentCulture)),
 						stringsHeap.Add("dummy_ptr"),
 						AddTypeDefOrRef(module.CorLibTypes.Object.TypeDefOrRef),
 						(uint)numFields + 1,

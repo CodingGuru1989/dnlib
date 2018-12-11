@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using dnlib.DotNet.Emit;
@@ -262,7 +263,7 @@ namespace dnlib.DotNet.Pdb.WindowsPdb {
 				return tupleListRec;
 
 			default:
-				Debug.Fail("Unknown custom debug info kind: 0x" + ((int)recKind).ToString("X"));
+				Debug.Fail("Unknown custom debug info kind: 0x" + ((int)recKind).ToString("X", CultureInfo.CurrentCulture));
 				data = reader.ReadBytes((int)(recPosEnd - reader.Position));
 				return new PdbUnknownCustomDebugInfo(recKind, data);
 			}
