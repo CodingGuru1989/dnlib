@@ -538,7 +538,7 @@ namespace dnlib.DotNet {
 		/// Returns the lower case version of this string using the invariant culture
 		/// </summary>
 		/// <returns>A new instance</returns>
-		public UTF8String ToLowerInvariant() => new UTF8String(String.ToLowerInvariant());
+		public UTF8String ToLowerInvariant() => new UTF8String(String.ToUpperInvariant());
 
 		/// <summary>
 		/// Returns the upper case version of this string
