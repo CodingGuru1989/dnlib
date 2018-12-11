@@ -22,19 +22,20 @@ namespace dnlib.DotNet.Emit {
 		static readonly FieldInfo signatureFieldInfo = typeof(SignatureHelper).GetField("m_signature", BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 		static readonly FieldInfo ptrFieldInfo = typeof(RuntimeTypeHandle).GetField("m_ptr", BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 		static readonly Dictionary<IntPtr, Type> addrToType = new Dictionary<IntPtr, Type>();
-		static ModuleBuilder moduleBuilder;
+		static ModuleBuilder moduleBuilder = InitializeModuleBuilder();
 		static int numNewTypes;
 		static object lockObj = new object();
+		private static AssemblyBuilder asmb;
 
-		static MethodTableToTypeConverter() {
+		static ModuleBuilder InitializeModuleBuilder() {
 			if (ptrFieldInfo == null) {
 #if NETSTANDARD2_0 || NETCOREAPP
 				var asmb = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("DynAsm"), AssemblyBuilderAccess.Run);
 #else
 				var asmb = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName("DynAsm"), AssemblyBuilderAccess.Run);
 #endif
-				moduleBuilder = asmb.DefineDynamicModule("DynMod");
 			}
+			return asmb.DefineDynamicModule("DynMod");
 		}
 
 		/// <summary>

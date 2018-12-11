@@ -6,15 +6,15 @@ using System.Runtime.InteropServices;
 
 namespace dnlib.IO {
 	static class DataReaderFactoryFactory {
-		static readonly bool isUnix;
+		static readonly bool isUnix = GetOSVersion();
 
-		static DataReaderFactoryFactory() {
+		static bool GetOSVersion() {
 			// https://github.com/dotnet/platform-compat/blob/master/docs/DE0009.md
 			bool IsWindows() => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 			bool IsMacOS() => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 			bool IsLinux() => RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
-			isUnix = !IsWindows() && (IsLinux() || IsMacOS());
+			return !IsWindows() && (IsLinux() || IsMacOS());
 		}
 
 		public static DataReaderFactory Create(string fileName, bool mapAsImage) {

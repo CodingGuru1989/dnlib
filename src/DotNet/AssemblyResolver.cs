@@ -54,7 +54,9 @@ namespace dnlib.DotNet {
 			}
 		}
 
+#pragma warning disable CA1810 // Initialize reference type static fields inline
 		static AssemblyResolver() {
+#pragma warning restore CA1810 // Initialize reference type static fields inline
 			gacInfos = new List<GacInfo>();
 
 			if (Type.GetType("Mono.Runtime") != null) {

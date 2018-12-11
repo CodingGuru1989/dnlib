@@ -8,8 +8,8 @@ namespace dnlib.DotNet {
 	/// Redirects .NET framework assembly references from older to newer versions
 	/// </summary>
 	public static class FrameworkRedirect {
-		static readonly Dictionary<string, FrameworkRedirectInfo> frmRedir2;
-		static readonly Dictionary<string, FrameworkRedirectInfo> frmRedir4;
+		static readonly Dictionary<string, FrameworkRedirectInfo> frmRedir2 = new Dictionary<string, FrameworkRedirectInfo>(StringComparer.OrdinalIgnoreCase);
+		static readonly Dictionary<string, FrameworkRedirectInfo> frmRedir4 = new Dictionary<string, FrameworkRedirectInfo>(StringComparer.OrdinalIgnoreCase);
 
 		readonly struct FrameworkRedirectInfo {
 			public readonly PublicKeyToken publicKeyToken;
@@ -19,13 +19,6 @@ namespace dnlib.DotNet {
 				this.publicKeyToken = new PublicKeyToken(publicKeyToken);
 				this.redirectVersion = new Version(redirectVersion);
 			}
-		}
-
-		static FrameworkRedirect() {
-			frmRedir2 = new Dictionary<string, FrameworkRedirectInfo>(StringComparer.OrdinalIgnoreCase);
-			frmRedir4 = new Dictionary<string, FrameworkRedirectInfo>(StringComparer.OrdinalIgnoreCase);
-			InitFrameworkRedirectV2();
-			InitFrameworkRedirectV4();
 		}
 
 		static void InitFrameworkRedirectV2() {
