@@ -525,7 +525,7 @@ namespace dnlib.DotNet {
 		/// Returns the lower case version of this string
 		/// </summary>
 		/// <returns>A new instance</returns>
-		public UTF8String ToLower() => new UTF8String(String.ToLower());
+		public UTF8String ToLower() => new UTF8String(String.ToLower(CultureInfo.CurrentCulture));
 
 		/// <summary>
 		/// Returns the lower case version of this string
@@ -544,7 +544,7 @@ namespace dnlib.DotNet {
 		/// Returns the upper case version of this string
 		/// </summary>
 		/// <returns>A new instance</returns>
-		public UTF8String ToUpper() => new UTF8String(String.ToUpper());
+		public UTF8String ToUpper() => new UTF8String(String.ToUpper(CultureInfo.CurrentCulture));
 
 		/// <summary>
 		/// Returns the upper case version of this string
