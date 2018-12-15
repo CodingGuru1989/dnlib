@@ -1,0 +1,61 @@
+# https://www.appveyor.com/docs/appveyor-yml/
+# https://ci.appveyor.com/project/0xd4d/dnlib
+# https://github.com/joaope/LocalAppVeyor/blob/master/appveyor.yml
+# Alpha, for testing
+
+version: x.x.{build}
+
+branches:
+  only:
+    - master
+
+skip_tags: true
+
+image: Visual Studio 2017
+
+clone_folder: C:\projects\dnlib
+
+init:
+  - dotnet --info
+
+configuration: Release
+
+
+before_build:
+  - appveyor-retry nuget restore dnlib.sln
+
+build:
+  parallel: true
+  project: dnlib.sln
+  verbosity: normal
+
+test: off
+
+artifacts:
+
+  - path: src\bin\Release\netstandard2.0
+    name: dnlib-netstandard2.0
+
+
+#deploy:
+
+#  - provider: GitHub
+#    artifact: /src/bin/Release/netstandard2.0          
+#    draft: false
+#    prerelease: false
+#    on:
+#      branch: master                
+#      appveyor_repo_tag: true
+#      configuration: release
+#    skip_symbols: true       
+
+notifications:
+
+  - provider: Email
+    to:
+      - wangtianjiao.wang959@gmail.com
+    subject: 'Build {{status}}'                  
+    message: "{{message}}, {{commitId}}, ..."    
+    on_build_success: true
+    on_build_failure: true
+    on_build_status_changed: true
