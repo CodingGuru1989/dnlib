@@ -11,7 +11,7 @@ dist: xenial
 osx_image: xcode10.1
 
 mono:
-  - latest
+  - 5.16.0
 
 dotnet: 2.2.100
 
