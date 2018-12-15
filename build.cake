@@ -36,7 +36,9 @@ Task("Build")
 {
       // Use MSBuild
       MSBuild("./dnlib.sln", settings =>
-        settings.SetConfiguration(configuration));
+        settings.SetConfiguration(configuration)
+        .SetMaxCpuCount(System.Environment.ProcessorCount)
+);
 
 });
 
