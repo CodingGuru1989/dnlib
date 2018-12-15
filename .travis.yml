@@ -15,7 +15,6 @@ matrix:
 
     - os: windows
       mono: none
-      dotnet: latest
 
 before_install:
   - dotnet --info
