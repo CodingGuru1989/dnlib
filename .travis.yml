@@ -25,7 +25,7 @@ before_install:
 
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell Get-ExecutionPolicy -List; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell Set-ExecutionPolicy RemoteSigned -Scope LocalMachine; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell .\InstallNETCoreSDK.ps1; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell -NoProfile -ExecutionPolicy unrestricted -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -useb 'https://dot.net/v1/dotnet-install.ps1')))"; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then dotnet --info; fi
 
 script:
