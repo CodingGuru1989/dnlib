@@ -15,10 +15,10 @@ matrix:
 
     - os: windows
       mono: none
-      dotnet: 2.2.101
+      dotnet: latest
 
 before_install:
-
+  - dotnet --info
   - git fetch --unshallow # Travis always does a shallow clone, but GitVersion needs the full history including branches and tags
   - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
   - git fetch origin
