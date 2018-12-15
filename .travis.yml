@@ -14,6 +14,7 @@ matrix:
       dotnet: 2.2.100
 
     - os: windows
+      mono: none
       dotnet: 2.2.100
 
 before_install:
