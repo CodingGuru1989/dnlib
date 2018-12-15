@@ -3,12 +3,11 @@ os:
   - osx
   - linux
 
-# Ubuntu 14.04
+# Ubuntu Xenial 16.04
 sudo: required
-dist: trusty
+dist: xenial
 
-# OS X 10.12
-osx_image: xcode9.2
+osx_image: xcode10.1
 
 mono:
   - latest
@@ -16,12 +15,6 @@ mono:
 dotnet: 2.2.100
 
 before_install:
-  - wget -q https://packages.microsoft.com/config/ubuntu/14.04/packages-microsoft-prod.deb
-  - sudo dpkg -i packages-microsoft-prod.deb
-
-  - sudo apt-get install apt-transport-https
-  - sudo apt-get update
-  - sudo apt-get install dotnet-sdk-2.2
 
   - git fetch --unshallow # Travis always does a shallow clone, but GitVersion needs the full history including branches and tags
   - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
