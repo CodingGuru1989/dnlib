@@ -17,13 +17,16 @@ matrix:
       mono: none
 
 before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell ./InstallNETCoreSDK.ps1; fi
   - dotnet --info
   - git fetch --unshallow # Travis always does a shallow clone, but GitVersion needs the full history including branches and tags
   - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
   - git fetch origin
 
 script:
-  - ./build.sh --verbosity diagnostic
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./build.sh --verbosity diagnostic; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./build.sh --verbosity diagnostic; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell ./build.ps1 --verbosity diagnostic; fi
 
 cache:
   directories:
