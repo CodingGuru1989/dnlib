@@ -6,16 +6,16 @@ matrix:
       dist: xenial
       sudo: required
       mono: latest
-      dotnet: 2.2.100
+      dotnet: 2.2.101
 
     - os: osx
       osx_image: xcode10.1
       mono: latest
-      dotnet: 2.2.100
+      dotnet: 2.2.101
 
     - os: windows
       mono: none
-      dotnet: 2.2.100
+      dotnet: 2.2.101
 
 before_install:
 
