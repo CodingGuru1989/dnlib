@@ -2,10 +2,9 @@
 
 | Build server | Platform     | Build status                                                                                                                                  |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| AppVeyor     | Windows      | [![](https://img.shields.io/appveyor/ci/Tianjiao/dnlib/master.svg)](https://ci.appveyor.com/project/Tianjiao/dnlib/branch/master) |                              |
-| Travis       | Linux / OS X | [![](https://travis-ci.org/Tianjiao/dnlib.svg?branch=master)](https://travis-ci.org/Tianjiao/dnlib)                               |
+| Travis       | Linux / OS X / Windows| [![](https://travis-ci.org/Tianjiao/dnlib.svg?branch=master)](https://travis-ci.org/Tianjiao/dnlib)                               |
 
-.NET module/assembly reader/writer library written for [de4dot](https://github.com/0xd4d/de4dot/).
+.NET module/assembly reader/writer library written for [de4dot](https://github.com/Tianjiao/de4dot/).
 
 
 dnlib was created because de4dot needed a robust .NET assembly library that
