@@ -21,13 +21,8 @@ init:
 configuration: Release
 
 
-before_build:
-  - appveyor-retry nuget restore dnlib.sln
-
-build:
-  parallel: true
-  project: dnlib.sln
-  verbosity: normal
+build_script:
+  - ps: .\build.ps1
 
 test: off
 
@@ -36,6 +31,9 @@ artifacts:
   - path: src\bin\Release\netstandard2.0
     name: dnlib-netstandard2.0
 
+# Build cache
+cache:
+  - tools -> build.cake
 
 #deploy:
 
