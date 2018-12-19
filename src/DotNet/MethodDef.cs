@@ -373,6 +373,7 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		public ModuleDef Module => declaringType2?.Module;
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IIsTypeOrMethod.IsType => false;
 		bool IIsTypeOrMethod.IsMethod => true;
 		bool IMemberRef.IsField => false;
@@ -386,6 +387,7 @@ namespace dnlib.DotNet {
 		bool IMemberRef.IsPropertyDef => false;
 		bool IMemberRef.IsEventDef => false;
 		bool IMemberRef.IsGenericParam => false;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <summary>
 		/// Gets/sets the CIL method body. See also <see cref="FreeMethodBody()"/>
@@ -450,7 +452,7 @@ namespace dnlib.DotNet {
 		public ParameterList Parameters => parameterList;
 
 		/// <inheritdoc/>
-		int IGenericParameterProvider.NumberOfGenericParameters {
+		public int NumberOfGenericParameters {
 			get {
 				var sig = MethodSig;
 				return sig == null ? 0 : (int)sig.GenParamCount;
@@ -915,7 +917,7 @@ namespace dnlib.DotNet {
 		public bool IsConstructor => IsStaticConstructor || IsInstanceConstructor;
 
 		/// <inheritdoc/>
-		void IListListener<GenericParam>.OnLazyAdd(int index, ref GenericParam value) => OnLazyAdd2(index, ref value);
+		public void OnLazyAdd(int index, ref GenericParam value) => OnLazyAdd2(index, ref value);
 
 		internal virtual void OnLazyAdd2(int index, ref GenericParam value) {
 #if DEBUG
@@ -925,14 +927,14 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<GenericParam>.OnAdd(int index, GenericParam value) {
+		public void OnAdd(int index, GenericParam value) {
 			if (value.Owner != null)
 				throw new InvalidOperationException("Generic param is already owned by another type/method. Set Owner to null first.");
 			value.Owner = this;
 		}
 
 		/// <inheritdoc/>
-		void IListListener<GenericParam>.OnRemove(int index, GenericParam value) => value.Owner = null;
+		public void OnRemove(int index, GenericParam value) => value.Owner = null;
 
 		/// <inheritdoc/>
 		void IListListener<GenericParam>.OnResize(int index) {
@@ -969,7 +971,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<ParamDef>.OnClear() {
+		public void OnClear() {
 			foreach (var pd in paramDefs.GetEnumerable_NoLock())
 				pd.DeclaringMethod = null;
 		}

@@ -158,6 +158,7 @@ namespace dnlib.DotNet {
 			return tr;
 		}
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IIsTypeOrMethod.IsType => false;
 		bool IIsTypeOrMethod.IsMethod => IsMethodRef;
 		bool IMemberRef.IsField => IsFieldRef;
@@ -171,7 +172,7 @@ namespace dnlib.DotNet {
 		bool IMemberRef.IsPropertyDef => false;
 		bool IMemberRef.IsEventDef => false;
 		bool IMemberRef.IsGenericParam => false;
-
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 		/// <summary>
 		/// <c>true</c> if this is a method reference (<see cref="MethodSig"/> != <c>null</c>)
 		/// </summary>
@@ -243,8 +244,10 @@ namespace dnlib.DotNet {
 			}
 		}
 
-		/// <inheritdoc/>
+#pragma warning disable CA1033 // Interface methods should be callable by child types
+	    /// <inheritdoc/>
 		int IGenericParameterProvider.NumberOfGenericParameters => (int)(MethodSig?.GenParamCount ?? 0);
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <summary>
 		/// Gets the full name
@@ -346,7 +349,9 @@ namespace dnlib.DotNet {
 			throw new MemberRefResolveException($"Could not resolve method: {this} ({this.GetDefinitionAssembly()})");
 		}
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IContainsGenericParameter.ContainsGenericParameter => TypeHelper.ContainsGenericParameter(this);
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <summary>
 		/// Gets a <see cref="GenericParamContext"/> that can be used as signature context

@@ -414,6 +414,7 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		public ModuleDef Module => declaringType2?.Module;
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IIsTypeOrMethod.IsType => false;
 		bool IIsTypeOrMethod.IsMethod => false;
 		bool IMemberRef.IsField => true;
@@ -427,6 +428,7 @@ namespace dnlib.DotNet {
 		bool IMemberRef.IsPropertyDef => false;
 		bool IMemberRef.IsEventDef => false;
 		bool IMemberRef.IsGenericParam => false;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <summary>
 		/// <c>true</c> if <see cref="FieldOffset"/> is not <c>null</c>

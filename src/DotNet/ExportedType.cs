@@ -138,14 +138,20 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		public ModuleDef Module => module;
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		/// <inheritdoc/>
 		bool IIsTypeOrMethod.IsMethod => false;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		/// <inheritdoc/>
 		bool IIsTypeOrMethod.IsType => true;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		/// <inheritdoc/>
 		int IGenericParameterProvider.NumberOfGenericParameters => 0;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <summary>
 		/// From column ExportedType.Flags

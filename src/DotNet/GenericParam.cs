@@ -164,6 +164,7 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		public string FullName => UTF8String.ToSystemStringOrEmpty(name);
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IIsTypeOrMethod.IsType => false;
 		bool IIsTypeOrMethod.IsMethod => false;
 		bool IMemberRef.IsField => false;
@@ -177,6 +178,7 @@ namespace dnlib.DotNet {
 		bool IMemberRef.IsPropertyDef => false;
 		bool IMemberRef.IsEventDef => false;
 		bool IMemberRef.IsGenericParam => true;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <summary>
 		/// Modify <see cref="attributes"/> property: <see cref="attributes"/> =
@@ -261,7 +263,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<GenericParamConstraint>.OnLazyAdd(int index, ref GenericParamConstraint value) => OnLazyAdd2(index, ref value);
+		public void OnLazyAdd(int index, ref GenericParamConstraint value) => OnLazyAdd2(index, ref value);
 
 		internal virtual void OnLazyAdd2(int index, ref GenericParamConstraint value) {
 #if DEBUG
@@ -271,21 +273,21 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<GenericParamConstraint>.OnAdd(int index, GenericParamConstraint value) {
+		public void OnAdd(int index, GenericParamConstraint value) {
 			if (value.Owner != null)
 				throw new InvalidOperationException("Generic param constraint is already owned by another generic param. Set Owner to null first.");
 			value.Owner = this;
 		}
 
 		/// <inheritdoc/>
-		void IListListener<GenericParamConstraint>.OnRemove(int index, GenericParamConstraint value) => value.Owner = null;
+		public void OnRemove(int index, GenericParamConstraint value) => value.Owner = null;
 
 		/// <inheritdoc/>
 		void IListListener<GenericParamConstraint>.OnResize(int index) {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<GenericParamConstraint>.OnClear() {
+		public void OnClear() {
 			foreach (var gpc in genericParamConstraints.GetEnumerable_NoLock())
 				gpc.Owner = null;
 		}

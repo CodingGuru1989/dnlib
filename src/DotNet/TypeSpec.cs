@@ -41,7 +41,7 @@ namespace dnlib.DotNet {
 		public int MemberRefParentTag => 4;
 
 		/// <inheritdoc/>
-		int IGenericParameterProvider.NumberOfGenericParameters {
+		public int NumberOfGenericParameters {
 			get {
 				var ts = TypeSig;
 				return ts == null ? 0 : ((IGenericParameterProvider)ts).NumberOfGenericParameters;
@@ -49,7 +49,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		UTF8String IFullName.Name {
+		public UTF8String Name {
 			get {
 				var mr = ScopeType;
 				return mr == null ? UTF8String.Empty : mr.Name;
@@ -62,7 +62,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		ITypeDefOrRef IMemberRef.DeclaringType {
+		public ITypeDefOrRef DeclaringType {
 			get {
 				var sig = TypeSig.RemovePinnedAndModifiers();
 
@@ -79,6 +79,7 @@ namespace dnlib.DotNet {
 			}
 		}
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IIsTypeOrMethod.IsType => true;
 		bool IIsTypeOrMethod.IsMethod => false;
 		bool IMemberRef.IsField => false;
@@ -92,6 +93,7 @@ namespace dnlib.DotNet {
 		bool IMemberRef.IsPropertyDef => false;
 		bool IMemberRef.IsEventDef => false;
 		bool IMemberRef.IsGenericParam => false;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <inheritdoc/>
 		public bool IsValueType {
@@ -115,8 +117,10 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		public string ReflectionName => FullNameFactory.Name(this, true, null);
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		/// <inheritdoc/>
 		string IType.Namespace => FullNameFactory.Namespace(this, false, null);
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <inheritdoc/>
 		public string ReflectionNamespace => FullNameFactory.Namespace(this, true, null);

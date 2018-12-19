@@ -474,7 +474,7 @@ namespace dnlib.DotNet.Emit {
 			return tokens[(int)index];
 		}
 
-		ITypeDefOrRef ISignatureReaderHelper.ResolveTypeDefOrRef(uint codedToken, GenericParamContext gpContext) {
+		public ITypeDefOrRef ResolveTypeDefOrRef(uint codedToken, GenericParamContext gpContext) {
 			if (!CodedToken.TypeDefOrRef.Decode(codedToken, out uint token))
 				return null;
 			uint rid = MDToken.ToRID(token);
@@ -487,6 +487,6 @@ namespace dnlib.DotNet.Emit {
 			return null;
 		}
 
-		TypeSig ISignatureReaderHelper.ConvertRTInternalAddress(IntPtr address) => importer.ImportAsTypeSig(MethodTableToTypeConverter.Convert(address));
+		public TypeSig ConvertRTInternalAddress(IntPtr address) => importer.ImportAsTypeSig(MethodTableToTypeConverter.Convert(address));
 	}
 }

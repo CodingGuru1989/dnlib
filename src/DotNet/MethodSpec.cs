@@ -91,7 +91,7 @@ namespace dnlib.DotNet {
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
 
 		/// <inheritdoc/>
-		MethodSig IMethod.MethodSig {
+		public MethodSig MethodSig {
 			get => method?.MethodSig;
 			set {
 				var m = method;
@@ -125,7 +125,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		int IGenericParameterProvider.NumberOfGenericParameters => GenericInstMethodSig?.GenericArguments.Count ?? 0;
+		public int NumberOfGenericParameters => GenericInstMethodSig?.GenericArguments.Count ?? 0;
 
 		/// <inheritdoc/>
 		public ModuleDef Module => method?.Module;
@@ -153,6 +153,7 @@ namespace dnlib.DotNet {
 			}
 		}
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IIsTypeOrMethod.IsType => false;
 		bool IIsTypeOrMethod.IsMethod => true;
 		bool IMemberRef.IsField => false;
@@ -167,6 +168,7 @@ namespace dnlib.DotNet {
 		bool IMemberRef.IsEventDef => false;
 		bool IMemberRef.IsGenericParam => false;
 		bool IContainsGenericParameter.ContainsGenericParameter => TypeHelper.ContainsGenericParameter(this);
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <inheritdoc/>
 		public override string ToString() => FullName;

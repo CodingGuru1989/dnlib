@@ -48,11 +48,15 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		public int TypeOrMethodDefTag => 0;
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		/// <inheritdoc/>
 		int IGenericParameterProvider.NumberOfGenericParameters => GenericParameters.Count;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
-		/// <inheritdoc/>
+#pragma warning disable CA1033 // Interface methods should be callable by child types
+							  /// <inheritdoc/>
 		string IType.TypeName => FullNameFactory.Name(this, false, null);
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <inheritdoc/>
 		public string ReflectionName => FullNameFactory.Name(this, true, null);
@@ -131,6 +135,7 @@ namespace dnlib.DotNet {
 		/// <summary>Called to initialize <see cref="module2"/></summary>
 		protected virtual ModuleDef GetModule2_NoLock() => null;
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IIsTypeOrMethod.IsType => true;
 		bool IIsTypeOrMethod.IsMethod => false;
 		bool IMemberRef.IsField => false;
@@ -144,6 +149,7 @@ namespace dnlib.DotNet {
 		bool IMemberRef.IsPropertyDef => false;
 		bool IMemberRef.IsEventDef => false;
 		bool IMemberRef.IsGenericParam => false;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <summary>
 		/// From column TypeDef.Flags
@@ -1588,7 +1594,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<FieldDef>.OnLazyAdd(int index, ref FieldDef value) => OnLazyAdd2(index, ref value);
+		public void OnLazyAdd(int index, ref FieldDef value) => OnLazyAdd2(index, ref value);
 
 		internal virtual void OnLazyAdd2(int index, ref FieldDef value) {
 #if DEBUG
@@ -1598,7 +1604,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<FieldDef>.OnAdd(int index, FieldDef value) {
+		public void OnAdd(int index, FieldDef value) {
 			if (value.DeclaringType != null)
 				throw new InvalidOperationException("Field is already owned by another type. Set DeclaringType to null first.");
 			value.DeclaringType2 = this;
@@ -1683,7 +1689,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<TypeDef>.OnClear() {
+		public void OnClear() {
 			foreach (var type in nestedTypes.GetEnumerable_NoLock())
 				type.DeclaringType2 = null;
 		}
@@ -1766,7 +1772,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<GenericParam>.OnRemove(int index, GenericParam value) => value.Owner = null;
+		public void OnRemove(int index, GenericParam value) => value.Owner = null;
 
 		/// <inheritdoc/>
 		void IListListener<GenericParam>.OnResize(int index) {

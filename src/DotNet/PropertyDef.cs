@@ -335,6 +335,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		public string FullName => FullNameFactory.PropertyFullName(declaringType2?.FullName, name, type, null, null);
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IIsTypeOrMethod.IsType => false;
 		bool IIsTypeOrMethod.IsMethod => false;
 		bool IMemberRef.IsField => false;
@@ -348,6 +349,7 @@ namespace dnlib.DotNet {
 		bool IMemberRef.IsPropertyDef => true;
 		bool IMemberRef.IsEventDef => false;
 		bool IMemberRef.IsGenericParam => false;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <summary>
 		/// Set or clear flags in <see cref="attributes"/>

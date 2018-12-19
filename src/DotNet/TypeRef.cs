@@ -48,11 +48,15 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		public int ResolutionScopeTag => 3;
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		/// <inheritdoc/>
 		int IGenericParameterProvider.NumberOfGenericParameters => 0;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		/// <inheritdoc/>
 		string IType.TypeName => FullNameFactory.Name(this, false, null);
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <inheritdoc/>
 		public string ReflectionName => FullNameFactory.Name(this, true, null);
@@ -216,6 +220,7 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		ITypeDefOrRef IMemberRef.DeclaringType => DeclaringType;
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IIsTypeOrMethod.IsType => true;
 		bool IIsTypeOrMethod.IsMethod => false;
 		bool IMemberRef.IsField => false;
@@ -229,6 +234,7 @@ namespace dnlib.DotNet {
 		bool IMemberRef.IsPropertyDef => false;
 		bool IMemberRef.IsEventDef => false;
 		bool IMemberRef.IsGenericParam => false;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <summary>
 		/// Resolves the type

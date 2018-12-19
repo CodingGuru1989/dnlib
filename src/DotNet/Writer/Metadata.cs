@@ -3471,13 +3471,13 @@ namespace dnlib.DotNet.Writer {
 		}
 
 		/// <inheritdoc/>
-		uint ISignatureWriterHelper.ToEncodedToken(ITypeDefOrRef typeDefOrRef) => AddTypeDefOrRef(typeDefOrRef);
+		public uint ToEncodedToken(ITypeDefOrRef typeDefOrRef) => AddTypeDefOrRef(typeDefOrRef);
 
 		/// <inheritdoc/>
 		void IWriterError.Error(string message) => Error(message);
 
 		/// <inheritdoc/>
-		bool IFullNameFactoryHelper.MustUseAssemblyName(IType type) => FullNameFactory.MustUseAssemblyName(module, type);
+		public bool MustUseAssemblyName(IType type) => FullNameFactory.MustUseAssemblyName(module, type);
 
 		/// <summary>
 		/// Called before any other methods

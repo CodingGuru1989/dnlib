@@ -90,7 +90,9 @@ namespace dnlib.DotNet {
 		protected virtual void InitializeCustomDebugInfos() =>
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		bool IContainsGenericParameter.ContainsGenericParameter => TypeHelper.ContainsGenericParameter(this);
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 	}
 
 	/// <summary>

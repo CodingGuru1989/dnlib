@@ -1160,7 +1160,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<TypeDef>.OnLazyAdd(int index, ref TypeDef value) {
+		public void OnLazyAdd(int index, ref TypeDef value) {
 #if DEBUG
 			if (value.DeclaringType != null)
 				throw new InvalidOperationException("Added type's DeclaringType != null");
@@ -1169,7 +1169,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<TypeDef>.OnAdd(int index, TypeDef value) {
+		public void OnAdd(int index, TypeDef value) {
 			if (value.DeclaringType != null)
 				throw new InvalidOperationException("Nested type is already owned by another type. Set DeclaringType to null first.");
 			if (value.Module != null)
@@ -1178,14 +1178,14 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<TypeDef>.OnRemove(int index, TypeDef value) => value.Module2 = null;
+		public void OnRemove(int index, TypeDef value) => value.Module2 = null;
 
 		/// <inheritdoc/>
 		void IListListener<TypeDef>.OnResize(int index) {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<TypeDef>.OnClear() {
+		public void OnClear() {
 			foreach (var type in types.GetEnumerable_NoLock())
 				type.Module2 = null;
 		}
@@ -1399,13 +1399,13 @@ namespace dnlib.DotNet {
 			return foundVer == null || (newVer != null && newVer >= foundVer);
 		}
 
-		ITypeDefOrRef ISignatureReaderHelper.ResolveTypeDefOrRef(uint codedToken, GenericParamContext gpContext) {
+		public ITypeDefOrRef ResolveTypeDefOrRef(uint codedToken, GenericParamContext gpContext) {
 			if (!CodedToken.TypeDefOrRef.Decode(codedToken, out uint token))
 				return null;
 			return ResolveToken(token) as ITypeDefOrRef;
 		}
 
-		TypeSig ISignatureReaderHelper.ConvertRTInternalAddress(IntPtr address) => null;
+		public TypeSig ConvertRTInternalAddress(IntPtr address) => null;
 	}
 
 	/// <summary>

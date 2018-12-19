@@ -61,14 +61,18 @@ namespace dnlib.DotNet {
 			set => rid = value;
 		}
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		/// <inheritdoc/>
 		bool IIsTypeOrMethod.IsMethod => false;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 		/// <inheritdoc/>
 		bool IIsTypeOrMethod.IsType => true;
+#pragma warning restore CA1033 // Interface methods should be callable by child types
 
 		/// <inheritdoc/>
-		int IGenericParameterProvider.NumberOfGenericParameters {
+		public int NumberOfGenericParameters {
 			get {
 				var type = this.RemovePinnedAndModifiers() as GenericInstSig;
 				return type == null ? 0 : type.GenericArguments.Count;
@@ -98,7 +102,7 @@ namespace dnlib.DotNet {
 		public string TypeName => FullNameFactory.Name(this, false, null);
 
 		/// <inheritdoc/>
-		UTF8String IFullName.Name {
+		public UTF8String Name {
 			get => new UTF8String(FullNameFactory.Name(this, false, null));
 			set => throw new NotSupportedException();
 		}

@@ -1245,11 +1245,11 @@ namespace dnlib.DotNet.Writer {
 		ILogger GetLogger() => TheOptions.Logger ?? DummyLogger.ThrowModuleWriterExceptionOnErrorInstance;
 
 		/// <inheritdoc/>
-		void ILogger.Log(object sender, LoggerEvent loggerEvent, string format, params object[] args) =>
+		public void Log(object sender, LoggerEvent loggerEvent, string format, params object[] args) =>
 			GetLogger().Log(this, loggerEvent, format, args);
 
 		/// <inheritdoc/>
-		bool ILogger.IgnoresEvent(LoggerEvent loggerEvent) => GetLogger().IgnoresEvent(loggerEvent);
+		public bool IgnoresEvent(LoggerEvent loggerEvent) => GetLogger().IgnoresEvent(loggerEvent);
 
 		/// <summary>
 		/// Logs an error message

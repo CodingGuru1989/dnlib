@@ -697,7 +697,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<ModuleDef>.OnLazyAdd(int index, ref ModuleDef module) {
+		public void OnLazyAdd(int index, ref ModuleDef module) {
 			if (module == null)
 				return;
 #if DEBUG
@@ -707,7 +707,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<ModuleDef>.OnAdd(int index, ModuleDef module) {
+		public void OnAdd(int index, ModuleDef module) {
 			if (module == null)
 				return;
 			if (module.Assembly != null)
@@ -716,7 +716,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<ModuleDef>.OnRemove(int index, ModuleDef module) {
+		public void OnRemove(int index, ModuleDef module) {
 			if (module != null)
 				module.Assembly = null;
 		}
@@ -726,7 +726,7 @@ namespace dnlib.DotNet {
 		}
 
 		/// <inheritdoc/>
-		void IListListener<ModuleDef>.OnClear() {
+		public void OnClear() {
 			foreach (var module in modules.GetEnumerable_NoLock()) {
 				if (module != null)
 					module.Assembly = null;
