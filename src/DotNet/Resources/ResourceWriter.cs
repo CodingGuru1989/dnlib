@@ -11,7 +11,7 @@ namespace dnlib.DotNet.Resources {
 	/// <summary>
 	/// Writes .NET resources
 	/// </summary>
-	public sealed class ResourceWriter {
+	public sealed class ResourceWriter : IDisposable {
 		ModuleDef module;
 		BinaryWriter writer;
 		ResourceElementSet resources;
@@ -131,6 +131,26 @@ namespace dnlib.DotNet.Resources {
 			if (module.CorLibTypes.AssemblyRef.Name == "mscorlib")
 				return module.CorLibTypes.AssemblyRef.FullName;
 			return "mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
+		}
+
+		/// <summary>
+		/// Dispose writer resources
+		/// </summary>
+		/// <param name="disposing">bool disposing</param>
+		private void Dispose(bool disposing) {
+			if (disposing) {
+				// dispose managed resources
+				writer.Close();
+			}
+			// free native resources
+		}
+
+		/// <summary>
+		/// Dispose
+		/// </summary>
+		public void Dispose() {
+			Dispose(true);
+			GC.SuppressFinalize(this);
 		}
 	}
 }

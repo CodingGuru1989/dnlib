@@ -329,7 +329,11 @@ namespace dnlib.DotNet.Writer {
 		}
 	}
 
+#pragma warning disable CA1001 // Types that own disposable fields should be 
+	// MemoryStream Class does not actually have any resources to dispose. 
+	// https://docs.microsoft.com/en-us/dotnet/api/system.io.memorystream?view=netframework-4.7.2
 	sealed class DataWriterContext {
+#pragma warning restore CA1001 // Types that own disposable fields should be disposable
 		public readonly MemoryStream OutStream;
 		public readonly DataWriter Writer;
 		public DataWriterContext() {

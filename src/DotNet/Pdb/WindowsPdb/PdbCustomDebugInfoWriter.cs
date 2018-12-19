@@ -11,7 +11,11 @@ using dnlib.DotNet.Emit;
 using dnlib.DotNet.Writer;
 
 namespace dnlib.DotNet.Pdb.WindowsPdb {
+#pragma warning disable CA1001 // Types that own disposable fields should be disposable
+	// MemoryStream Class does not actually have any resources to dispose. 
+	// https://docs.microsoft.com/en-us/dotnet/api/system.io.memorystream?view=netframework-4.7.2
 	sealed class PdbCustomDebugInfoWriterContext {
+#pragma warning restore CA1001 // Types that own disposable fields should be disposable
 		public ILogger Logger;
 		public readonly MemoryStream MemoryStream;
 		public readonly DataWriter Writer;
