@@ -35,6 +35,9 @@ namespace dnlib.DotNet.Resources {
 		private ResourceReaderException(SerializationInfo info, StreamingContext context)
 			: base(info, context) {
 		}
+
+		public ResourceReaderException(string message, Exception innerException) : base(message, innerException) {
+		}
 	}
 
 	/// <summary>

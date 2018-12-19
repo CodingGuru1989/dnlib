@@ -74,6 +74,12 @@ namespace dnlib.IO {
 		sealed class MemoryMappedIONotSupportedException : IOException {
 			public MemoryMappedIONotSupportedException(string s) : base(s) { }
 			public MemoryMappedIONotSupportedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
+			public MemoryMappedIONotSupportedException() {
+			}
+
+			public MemoryMappedIONotSupportedException(string message, Exception innerException) : base(message, innerException) {
+			}
 		}
 
 		static class Windows {

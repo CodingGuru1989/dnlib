@@ -191,6 +191,15 @@ namespace dnlib.DotNet.Resources {
 			public class OkException : Exception {
 				public string AssemblyName { get; set; }
 				public string TypeName { get; set; }
+
+				public OkException() {
+				}
+
+				public OkException(string message) : base(message) {
+				}
+
+				public OkException(string message, Exception innerException) : base(message, innerException) {
+				}
 			}
 
 			public override Type BindToType(string assemblyName, string typeName) =>

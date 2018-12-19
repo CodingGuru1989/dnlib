@@ -39,5 +39,8 @@ namespace dnlib.DotNet.Pdb.Managed {
 		public PdbException(SerializationInfo info, StreamingContext context)
 			: base(info, context) {
 		}
+
+		public PdbException(string message, Exception innerException) : base(message, innerException) {
+		}
 	}
 }
