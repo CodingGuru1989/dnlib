@@ -86,10 +86,10 @@ namespace dnlib.IO {
 			const uint SECTION_MAP_READ = 0x0004;
 			const uint FILE_MAP_READ = SECTION_MAP_READ;
 
-			[DllImport("kernel32", SetLastError = true, CharSet = CharSet.Auto)]
+			[DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
 			static extern SafeFileHandle CreateFile(string lpFileName, uint dwDesiredAccess, uint dwShareMode, IntPtr lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, IntPtr hTemplateFile);
 
-			[DllImport("kernel32", CharSet = CharSet.Auto, SetLastError = true)]
+			[DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
 			static extern SafeFileHandle CreateFileMapping(SafeFileHandle hFile, IntPtr lpAttributes, uint flProtect, uint dwMaximumSizeHigh, uint dwMaximumSizeLow, string lpName);
 
 			[DllImport("kernel32", CharSet = CharSet.Auto, SetLastError = true)]
@@ -137,7 +137,7 @@ namespace dnlib.IO {
 		static class Unix {
 			// Can't use SafeFileHandle. Seems like a bug in mono. You'll get
 			// "_wapi_handle_unref_full: Attempting to unref unused handle 0xYYY" when Dispose() is called.
-			[DllImport("libc")]
+			[DllImport("libc", CharSet = CharSet.Unicode)]
 			static extern int open(string pathname, int flags);
 			const int O_RDONLY = 0;
 
