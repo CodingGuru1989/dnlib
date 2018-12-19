@@ -2,7 +2,8 @@
 
 | Build server | Platform     | Build status                                                                                                                                  |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Travis       | Linux / OS X / Windows| [![](https://travis-ci.org/Tianjiao/dnlib.svg?branch=master)](https://travis-ci.org/Tianjiao/dnlib)                               |
+| Travis       | Linux / macOS / Windows| [![Build Status](https://travis-ci.org/Tianjiao/dnlib.svg?branch=master)](https://travis-ci.org/Tianjiao/dnlib)                               |
+| Azure Pipelines       | Linux / macOS / Windows| [![Build Status](https://dev.azure.com/TianjiaoW/de4dot/_apis/build/status/Tianjiao.dnlib?branchName=master)](https://dev.azure.com/TianjiaoW/de4dot/_build/latest?definitionId=2?branchName=master)                               |
 
 .NET module/assembly reader/writer library written for [de4dot](https://github.com/Tianjiao/de4dot/).
 
