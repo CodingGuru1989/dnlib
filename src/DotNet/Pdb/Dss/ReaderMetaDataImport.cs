@@ -26,9 +26,9 @@ namespace dnlib.DotNet.Pdb.Dss {
 		public override void GetTypeRefProps(uint tr, uint* ptkResolutionScope, ushort* szName, uint cchName, uint* pchName) {
 			var token = new MDToken(tr);
 			if (token.Table != Table.TypeRef)
-				throw new ArgumentException();
+				throw new ArgumentException("token.Table");
 			if (!metadata.TablesStream.TryReadTypeRefRow(token.Rid, out var row))
-				throw new ArgumentException();
+				throw new ArgumentException("metadata.TablesStream.TryReadTypeRefRow(token.Rid, out var row)");
 			if (ptkResolutionScope != null)
 				*ptkResolutionScope = row.ResolutionScope;
 			if (szName != null || pchName != null) {
@@ -41,9 +41,9 @@ namespace dnlib.DotNet.Pdb.Dss {
 		public override void GetTypeDefProps(uint td, ushort* szTypeDef, uint cchTypeDef, uint* pchTypeDef, uint* pdwTypeDefFlags, uint* ptkExtends) {
 			var token = new MDToken(td);
 			if (token.Table != Table.TypeDef)
-				throw new ArgumentException();
+				throw new ArgumentException("token.Table");
 			if (!metadata.TablesStream.TryReadTypeDefRow(token.Rid, out var row))
-				throw new ArgumentException();
+				throw new ArgumentException("metadata.TablesStream.TryReadTypeDefRow(token.Rid, out var row)");
 			if (pdwTypeDefFlags != null)
 				*pdwTypeDefFlags = row.Flags;
 			if (ptkExtends != null)
@@ -58,11 +58,11 @@ namespace dnlib.DotNet.Pdb.Dss {
 		public override void GetSigFromToken(uint mdSig, byte** ppvSig, uint* pcbSig) {
 			var token = new MDToken(mdSig);
 			if (token.Table != Table.StandAloneSig)
-				throw new ArgumentException();
+				throw new ArgumentException("token.Table");
 			if (!metadata.TablesStream.TryReadStandAloneSigRow(token.Rid, out var row))
-				throw new ArgumentException();
+				throw new ArgumentException("metadata.TablesStream.TryReadStandAloneSigRow(token.Rid, out var row)");
 			if (!metadata.BlobStream.TryCreateReader(row.Signature, out var reader))
-				throw new ArgumentException();
+				throw new ArgumentException("metadata.BlobStream.TryCreateReader(row.Signature, out var reader)");
 			if (ppvSig != null)
 				*ppvSig = blobPtr + (reader.StartOffset - (uint)metadata.BlobStream.StartOffset);
 			if (pcbSig != null)

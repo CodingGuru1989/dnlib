@@ -125,7 +125,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 4;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -135,7 +135,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 2/*padding*/ + 6;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -145,7 +145,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 2/*padding*/;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -166,7 +166,7 @@ namespace dnlib.DotNet {
 				relocDirectory.Add(chunk, stubOffset + 4);
 				break;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -179,7 +179,7 @@ namespace dnlib.DotNet {
 				writer.WriteUInt32((uint)imageBase + managedFuncRva);
 				break;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 	}
@@ -191,7 +191,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 4;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -201,7 +201,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 2/*padding*/ + 12;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -211,7 +211,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 2/*padding*/;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -239,7 +239,7 @@ namespace dnlib.DotNet {
 				relocDirectory.Add(chunk, stubOffset + 4);
 				break;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -253,7 +253,7 @@ namespace dnlib.DotNet {
 				writer.WriteUInt16(0xE0FF);
 				break;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 	}
@@ -265,7 +265,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 16;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -275,7 +275,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 0x30;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -285,7 +285,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 0x20;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -334,7 +334,7 @@ namespace dnlib.DotNet {
 				relocDirectory.Add(chunk, stubOffset + 0x28);
 				break;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -350,7 +350,7 @@ namespace dnlib.DotNet {
 				writer.WriteUInt64(imageBase + managedFuncRva);
 				break;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 	}
@@ -362,7 +362,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 4;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -372,7 +372,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 8;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -382,7 +382,7 @@ namespace dnlib.DotNet {
 			case StubType.EntryPoint:
 				return 0;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -404,7 +404,7 @@ namespace dnlib.DotNet {
 				relocDirectory.Add(chunk, stubOffset + 4);
 				break;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 
@@ -416,7 +416,7 @@ namespace dnlib.DotNet {
 				writer.WriteUInt32((uint)imageBase + managedFuncRva);
 				break;
 			default:
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("stubType");
 			}
 		}
 	}

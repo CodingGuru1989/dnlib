@@ -396,7 +396,7 @@ namespace dnlib.DotNet {
 		/// <param name="assembly">Assembly</param>
 		public AssemblyRefUser(IAssembly assembly) {
 			if (assembly == null)
-				throw new ArgumentNullException("asmName");
+				throw new ArgumentNullException("assembly", "asmName");
 
 			version = assembly.Version ?? new Version(0, 0, 0, 0);
 			publicKeyOrToken = assembly.PublicKeyOrToken;

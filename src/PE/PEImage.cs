@@ -138,7 +138,9 @@ namespace dnlib.PE {
 			switch (imageLayout) {
 			case ImageLayout.File: return FileLayout;
 			case ImageLayout.Memory: return MemoryLayout;
+#pragma warning disable CA2208 // Instantiate argument exceptions correctly
 			default: throw new ArgumentException("imageLayout");
+#pragma warning restore CA2208 // Instantiate argument exceptions correctly
 			}
 		}
 

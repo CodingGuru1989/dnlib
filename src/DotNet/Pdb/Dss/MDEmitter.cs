@@ -33,7 +33,7 @@ namespace dnlib.DotNet.Pdb.Dss {
 
 		public override void GetMethodProps(uint mb, uint* pClass, ushort* szMethod, uint cchMethod, uint* pchMethod, uint* pdwAttr, IntPtr* ppvSigBlob, uint* pcbSigBlob, uint* pulCodeRVA, uint* pdwImplFlags) {
 			if ((mb >> 24) != 0x06)
-				throw new ArgumentException();
+				throw new ArgumentException("(mb >> 24)");
 			var method = tokenToMethodDef[mb];
 			var row = metadata.TablesHeap.MethodTable[mb & 0x00FFFFFF];
 
@@ -64,7 +64,7 @@ namespace dnlib.DotNet.Pdb.Dss {
 
 		public override void GetTypeDefProps(uint td, ushort* szTypeDef, uint cchTypeDef, uint* pchTypeDef, uint* pdwTypeDefFlags, uint* ptkExtends) {
 			if ((td >> 24) != 0x02)
-				throw new ArgumentException();
+				throw new ArgumentException("(td >> 24)");
 			var type = tokenToTypeDef[td];
 			var row = metadata.TablesHeap.TypeDefTable[td & 0x00FFFFFF];
 			if (pdwTypeDefFlags != null)
@@ -76,7 +76,7 @@ namespace dnlib.DotNet.Pdb.Dss {
 
 		public override void GetNestedClassProps(uint tdNestedClass, uint* ptdEnclosingClass) {
 			if ((tdNestedClass >> 24) != 0x02)
-				throw new ArgumentException();
+				throw new ArgumentException("(tdNestedClass >> 24)");
 			var type = tokenToTypeDef[tdNestedClass];
 			var declType = type.DeclaringType;
 			if (ptdEnclosingClass != null) {

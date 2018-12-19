@@ -44,7 +44,7 @@ namespace dnlib.DotNet.Pdb.Dss {
 			if (asyncMethodWriter == null)
 				throw new InvalidOperationException();
 			if (yieldOffsets.Length != breakpointOffset.Length || yieldOffsets.Length != breakpointMethod.Length)
-				throw new ArgumentException();
+				throw new ArgumentException("yieldOffsets.Length");
 			asyncMethodWriter.DefineAsyncStepInfo((uint)yieldOffsets.Length, yieldOffsets, breakpointOffset, breakpointMethod);
 		}
 
