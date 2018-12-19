@@ -346,9 +346,9 @@ namespace dnlib.DotNet.MD {
 				new ColumnInfo(0, "Owner", ColumnSize.GenericParam),
 				new ColumnInfo(1, "Constraint", ColumnSize.TypeDefOrRef),
 			});
-			tableInfos[0x2D] = new TableInfo((Table)0x2D, string.Empty, new ColumnInfo[] { });
-			tableInfos[0x2E] = new TableInfo((Table)0x2E, string.Empty, new ColumnInfo[] { });
-			tableInfos[0x2F] = new TableInfo((Table)0x2F, string.Empty, new ColumnInfo[] { });
+			tableInfos[0x2D] = new TableInfo((Table)0x2D, string.Empty, Array.Empty<ColumnInfo>());
+			tableInfos[0x2E] = new TableInfo((Table)0x2E, string.Empty, Array.Empty<ColumnInfo>());
+			tableInfos[0x2F] = new TableInfo((Table)0x2F, string.Empty, Array.Empty<ColumnInfo>());
 			tableInfos[(int)Table.Document] = new TableInfo(Table.Document, "Document", new ColumnInfo[] {
 				new ColumnInfo(0, "Name", ColumnSize.Blob),
 				new ColumnInfo(1, "HashAlgorithm", ColumnSize.GUID),

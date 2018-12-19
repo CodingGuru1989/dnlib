@@ -6,7 +6,7 @@ namespace System {
 		public static T[] Empty<T>() => EmptyClass<T>.Empty;
 
 		static class EmptyClass<T> {
-			public static readonly T[] Empty = new T[0];
+			public static readonly T[] Empty = Array.Empty<T>();
 		}
 	}
 }
