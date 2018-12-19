@@ -88,7 +88,7 @@ namespace dnlib.DotNet {
 				if (paths != null) {
 					foreach (var tmp in paths.Split(Path.PathSeparator)) {
 						var path = tmp.Trim();
-						if (path != string.Empty && Directory.Exists(path))
+						if (!String.IsNullOrEmpty(path) && Directory.Exists(path))
 							extraMonoPathsList.Add(path);
 					}
 				}
@@ -132,7 +132,7 @@ namespace dnlib.DotNet {
 			if (!string.IsNullOrEmpty(prefixes)) {
 				foreach (var tmp in prefixes.Split(Path.PathSeparator)) {
 					var prefix = tmp.Trim();
-					if (prefix != string.Empty)
+					if (!String.IsNullOrEmpty(prefix))
 						yield return prefix;
 				}
 			}
@@ -721,7 +721,7 @@ namespace dnlib.DotNet {
 			string baseDir = null;
 			try {
 				var imageName = module.Location;
-				if (imageName != string.Empty) {
+				if (!String.IsNullOrEmpty(imageName)) {
 					baseDir = Directory.GetParent(imageName).FullName;
 					var configName = imageName + ".config";
 					if (File.Exists(configName))
@@ -754,7 +754,7 @@ namespace dnlib.DotNet {
 							continue;
 						foreach (var tmp2 in privatePath.Split(';')) {
 							var path = tmp2.Trim();
-							if (path == "")
+							if (!String.IsNullOrEmpty(path))
 								continue;
 							var newPath = Path.GetFullPath(Path.Combine(dirName, path.Replace('\\', Path.DirectorySeparatorChar)));
 							if (Directory.Exists(newPath) && newPath.StartsWith(baseDir + Path.DirectorySeparatorChar, StringComparison.Ordinal))
