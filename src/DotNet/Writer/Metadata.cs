@@ -1360,12 +1360,14 @@ namespace dnlib.DotNet.Writer {
 			1,// An extra one so we can get the next base progress without checking the index
 		};
 
-		/// <summary>
-		/// Raises the progress event
-		/// </summary>
-		/// <param name="evt">Base event</param>
-		/// <param name="subProgress">Sub progress</param>
+#pragma warning disable CA1030 // Use events where appropriate
+							  /// <summary>
+							  /// Raises the progress event
+							  /// </summary>
+							  /// <param name="evt">Base event</param>
+							  /// <param name="subProgress">Sub progress</param>
 		protected void RaiseProgress(MetadataEvent evt, double subProgress) {
+#pragma warning restore CA1030 // Use events where appropriate
 			subProgress = Math.Min(1, Math.Max(0, subProgress));
 			var baseProgress = eventToProgress[(int)evt];
 			var nextProgress = eventToProgress[(int)evt + 1];
