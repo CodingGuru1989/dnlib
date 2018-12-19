@@ -99,8 +99,8 @@ namespace dnlib.DotNet.Writer {
 				return false;
 			}
 
-			fileOffset = offset + offs;
-			rva = this.rva + offs;
+			fileOffset = offset + (int)offs;
+			rva = this.rva + (int)offs;
 			return true;
 		}
 
@@ -143,8 +143,8 @@ namespace dnlib.DotNet.Writer {
 				return false;
 			}
 
-			fileOffset = offset + offs;
-			rva = this.rva + offs;
+			fileOffset = offset + (int)offs;
+			rva = this.rva + (int)offs;
 			return true;
 		}
 
@@ -188,8 +188,8 @@ namespace dnlib.DotNet.Writer {
 				return false;
 			}
 
-			fileOffset = offset + offs;
-			rva = this.rva + offs;
+			fileOffset = offset + (int)offs;
+			rva = this.rva + (int)offs;
 			return true;
 		}
 

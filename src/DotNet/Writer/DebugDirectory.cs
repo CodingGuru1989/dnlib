@@ -127,7 +127,7 @@ namespace dnlib.DotNet.Writer {
 			uint length = HEADER_SIZE * (uint)entries.Count;
 			foreach (var entry in entries) {
 				length = Utils.AlignUp(length, DEFAULT_DEBUGDIRECTORY_ALIGNMENT);
-				entry.Chunk.SetOffset(offset + length, rva + length);
+				entry.Chunk.SetOffset(offset + (int)length, rva + (int)length);
 				length += entry.Chunk.GetFileLength();
 			}
 			return length;

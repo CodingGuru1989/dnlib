@@ -443,7 +443,7 @@ namespace dnlib.DotNet.Writer {
 				foreach (var info in reusedChunks) {
 					if (fileOffsetDelta == 0 && (info.Chunk == metadata || info.Chunk == win32Resources))
 						continue;
-					var offset = peImage.ToFileOffset(info.RVA) + fileOffsetDelta;
+					var offset = peImage.ToFileOffset(info.RVA) + (int)fileOffsetDelta;
 					info.Chunk.SetOffset(offset, info.RVA);
 				}
 				metadata.UpdateMethodAndFieldRvas();
@@ -746,7 +746,7 @@ namespace dnlib.DotNet.Writer {
 				return 0;
 			foreach (var sect in origSections) {
 				var section = sect.PESection;
-				if (section.VirtualAddress <= rva && rva < section.VirtualAddress + Math.Max(section.VirtualSize, section.SizeOfRawData))
+				if (section.VirtualAddress <= rva && rva < section.VirtualAddress + (int)Math.Max(section.VirtualSize, section.SizeOfRawData))
 					return destStreamBaseOffset + (long)sect.Chunk.FileOffset + (rva - section.VirtualAddress);
 			}
 			return 0;

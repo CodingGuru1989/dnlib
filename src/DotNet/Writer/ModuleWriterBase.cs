@@ -791,8 +791,8 @@ namespace dnlib.DotNet.Writer {
 				chunk.SetOffset(offset, rva);
 				// If it has zero size, it's not present in the file (eg. a section that wasn't needed)
 				if (chunk.GetVirtualSize() != 0) {
-					offset += chunk.GetFileLength();
-					rva += chunk.GetVirtualSize();
+					offset += (int)chunk.GetFileLength();
+					rva += (int)chunk.GetVirtualSize();
 					offset = offset.AlignUp(fileAlignment);
 					rva = rva.AlignUp(sectionAlignment);
 				}
@@ -813,7 +813,7 @@ namespace dnlib.DotNet.Writer {
 				chunk.VerifyWriteTo(writer);
 				// If it has zero size, it's not present in the file (eg. a section that wasn't needed)
 				if (chunk.GetVirtualSize() != 0) {
-					offset += chunk.GetFileLength();
+					offset += (int)chunk.GetFileLength();
 					var newOffset = offset.AlignUp(fileAlignment);
 					writer.WriteZeroes((int)(newOffset - offset));
 					offset = newOffset;

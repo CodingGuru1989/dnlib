@@ -78,7 +78,7 @@ namespace dnlib.PE {
 		/// <returns></returns>
 		public ImageSectionHeader ToImageSectionHeader(RVA rva) {
 			foreach (var section in imageSectionHeaders) {
-				if (rva >= section.VirtualAddress && rva < section.VirtualAddress + Math.Max(section.VirtualSize, section.SizeOfRawData))
+				if (rva >= section.VirtualAddress && rva < section.VirtualAddress + (int)Math.Max(section.VirtualSize, section.SizeOfRawData))
 					return section;
 			}
 			return null;
@@ -92,7 +92,7 @@ namespace dnlib.PE {
 		public RVA ToRVA(FileOffset offset) {
 			var section = ToImageSectionHeader(offset);
 			if (section != null)
-				return (uint)(offset - section.PointerToRawData) + section.VirtualAddress;
+				return (RVA)(offset - (int)section.PointerToRawData) + (int)section.VirtualAddress;
 			return (RVA)offset;
 		}
 

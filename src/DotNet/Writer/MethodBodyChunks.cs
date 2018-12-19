@@ -103,7 +103,7 @@ namespace dnlib.DotNet.Writer {
 
 		internal void InitializeReusedMethodBodies(IPEImage peImage, uint fileOffsetDelta) {
 			foreach (var info in reusedMethods) {
-				var offset = peImage.ToFileOffset(info.RVA) + fileOffsetDelta;
+				var offset = peImage.ToFileOffset(info.RVA) + (int)fileOffsetDelta;
 				info.MethodBody.SetOffset(offset, info.RVA);
 			}
 		}
@@ -131,20 +131,20 @@ namespace dnlib.DotNet.Writer {
 			foreach (var mb in tinyMethods) {
 				mb.SetOffset(offset, rva2);
 				uint len = mb.GetFileLength();
-				rva2 += len;
-				offset += len;
+				rva2 += (int)len;
+				offset += (int)len;
 			}
 
 			foreach (var mb in fatMethods) {
 				if (alignFatBodies) {
 					uint padding = (uint)rva2.AlignUp(FAT_BODY_ALIGNMENT) - (uint)rva2;
-					rva2 += padding;
-					offset += padding;
+					rva2 += (int)padding;
+					offset += (int)padding;
 				}
 				mb.SetOffset(offset, rva2);
 				uint len = mb.GetFileLength();
-				rva2 += len;
-				offset += len;
+				rva2 += (int)len;
+				offset += (int)len;
 			}
 
 			length = (uint)rva2 - (uint)rva;
@@ -161,17 +161,17 @@ namespace dnlib.DotNet.Writer {
 			var rva2 = rva;
 			foreach (var mb in tinyMethods) {
 				mb.VerifyWriteTo(writer);
-				rva2 += mb.GetFileLength();
+				rva2 += (int)mb.GetFileLength();
 			}
 
 			foreach (var mb in fatMethods) {
 				if (alignFatBodies) {
 					int padding = (int)rva2.AlignUp(FAT_BODY_ALIGNMENT) - (int)rva2;
 					writer.WriteZeroes(padding);
-					rva2 += (uint)padding;
+					rva2 += (int)padding;
 				}
 				mb.VerifyWriteTo(writer);
-				rva2 += mb.GetFileLength();
+				rva2 += (int)mb.GetFileLength();
 			}
 		}
 	}

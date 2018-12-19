@@ -22,7 +22,7 @@ namespace dnlib.IO {
 		public FileOffset StartOffset => startOffset;
 
 		/// <inheritdoc/>
-		public FileOffset EndOffset => startOffset + size;
+		public FileOffset EndOffset => startOffset + (int)size;
 
 		/// <summary>
 		/// Set <see cref="startOffset"/> to <paramref name="reader"/>'s current position

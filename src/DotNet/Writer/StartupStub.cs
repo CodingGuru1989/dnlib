@@ -36,7 +36,7 @@ namespace dnlib.DotNet.Writer {
 		/// <summary>
 		/// Gets the address of the JMP instruction
 		/// </summary>
-		public RVA EntryPointRVA => rva + (cpuArch == null ? 0 : cpuArch.GetStubCodeOffset(stubType));
+		public RVA EntryPointRVA => rva + (int)(cpuArch == null ? 0 : cpuArch.GetStubCodeOffset(stubType));
 
 		internal bool Enable { get; set; }
 		internal uint Alignment => cpuArch == null ? 1 : cpuArch.GetStubAlignment(stubType);

@@ -142,8 +142,8 @@ namespace dnlib.DotNet.Resources {
 				long nextDataOffset = i == infos.Count - 1 ? end : infos[i + 1].offset;
 				int size = (int)(nextDataOffset - info.offset);
 				element.ResourceData = ReadResourceData(userTypes, size);
-				element.ResourceData.StartOffset = baseFileOffset + (FileOffset)info.offset;
-				element.ResourceData.EndOffset = baseFileOffset + (FileOffset)reader.Position;
+				element.ResourceData.StartOffset = (int)baseFileOffset + (FileOffset)info.offset;
+				element.ResourceData.EndOffset = (int)baseFileOffset + (FileOffset)reader.Position;
 
 				resources.Add(element);
 			}

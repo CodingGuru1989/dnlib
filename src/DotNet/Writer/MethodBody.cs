@@ -101,9 +101,9 @@ namespace dnlib.DotNet.Writer {
 		internal bool CanReuse(RVA origRva, uint origSize) {
 			uint length;
 			if (HasExtraSections) {
-				var rva2 = origRva + (uint)code.Length;
+				var rva2 = origRva + (int)code.Length;
 				rva2 = rva2.AlignUp(EXTRA_SECTIONS_ALIGNMENT);
-				rva2 += (uint)extraSections.Length;
+				rva2 += (int)extraSections.Length;
 				length = (uint)rva2 - (uint)origRva;
 			}
 			else
@@ -117,9 +117,9 @@ namespace dnlib.DotNet.Writer {
 			this.offset = offset;
 			this.rva = rva;
 			if (HasExtraSections) {
-				var rva2 = rva + (uint)code.Length;
+				var rva2 = rva + (int)code.Length;
 				rva2 = rva2.AlignUp(EXTRA_SECTIONS_ALIGNMENT);
-				rva2 += (uint)extraSections.Length;
+				rva2 += (int)extraSections.Length;
 				length = (uint)rva2 - (uint)rva;
 			}
 			else
@@ -136,7 +136,7 @@ namespace dnlib.DotNet.Writer {
 		public void WriteTo(DataWriter writer) {
 			writer.WriteBytes(code);
 			if (HasExtraSections) {
-				var rva2 = rva + (uint)code.Length;
+				var rva2 = rva + (int)code.Length;
 				writer.WriteZeroes((int)rva2.AlignUp(EXTRA_SECTIONS_ALIGNMENT) - (int)rva2);
 				writer.WriteBytes(extraSections);
 			}

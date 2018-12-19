@@ -64,14 +64,14 @@ namespace dnlib.DotNet.Writer {
 			this.rva = rva;
 
 			length = 0x28;
-			importLookupTableRVA = rva + length;
+			importLookupTableRVA = rva + (int)length;
 			length += is64bit ? 16U : 8;
 
 			stringsPadding = (int)(rva.AlignUp(STRINGS_ALIGNMENT) - rva);
 			length += (uint)stringsPadding;
-			corXxxMainRVA = rva + length;
+			corXxxMainRVA = rva + (int)length;
 			length += 0xE;
-			mscoreeDllRVA = rva + length;
+			mscoreeDllRVA = rva + (int)length;
 			length += 0xC;
 			length++;
 		}

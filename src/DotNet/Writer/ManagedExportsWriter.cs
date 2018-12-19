@@ -31,8 +31,8 @@ namespace dnlib.DotNet.Writer {
 		uint exportDirOffset;
 
 		bool Is64Bit => machine.Is64Bit();
-		FileOffset ExportDirOffset => sdataChunk.FileOffset + exportDirOffset;
-		RVA ExportDirRVA => sdataChunk.RVA + exportDirOffset;
+		FileOffset ExportDirOffset => sdataChunk.FileOffset + (int)exportDirOffset;
+		RVA ExportDirRVA => sdataChunk.RVA + (int)exportDirOffset;
 		uint ExportDirSize => 0x28;
 		internal bool HasExports => vtables.Count != 0;
 

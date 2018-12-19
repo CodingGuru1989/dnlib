@@ -63,8 +63,8 @@ namespace dnlib.DotNet.Writer {
 				rva = rva.AlignUp(alignment);
 				resource.SetOffset(offset + 4, rva + 4);
 				uint len = 4 + resource.GetFileLength();
-				offset += len;
-				rva += len;
+				offset += (int)len;
+				rva += (int)len;
 			}
 		}
 
@@ -80,10 +80,10 @@ namespace dnlib.DotNet.Writer {
 			foreach (var resourceData in resources) {
 				int padding = (int)rva2.AlignUp(alignment) - (int)rva2;
 				writer.WriteZeroes(padding);
-				rva2 += (uint)padding;
+				rva2 += (int)padding;
 				writer.WriteUInt32(resourceData.GetFileLength());
 				resourceData.VerifyWriteTo(writer);
-				rva2 += 4 + resourceData.GetFileLength();
+				rva2 += 4 + (int)resourceData.GetFileLength();
 			}
 		}
 	}
