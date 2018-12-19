@@ -1,5 +1,6 @@
 ﻿// dnlib: See LICENSE.txt for more info
 
+using System;
 using System.IO;
 using System.Text;
 using dnlib.DotNet.MD;
@@ -22,7 +23,7 @@ namespace dnlib.DotNet.Pdb {
 			else
 				pdbFilename = pdbWindowsFilename;
 
-			var fileToCheck = assemblyFileName == string.Empty ? pdbFilename : Path.Combine(Path.GetDirectoryName(assemblyFileName), pdbFilename);
+			var fileToCheck = String.IsNullOrEmpty(assemblyFileName) ? pdbFilename : Path.Combine(Path.GetDirectoryName(assemblyFileName), pdbFilename);
 			if (!File.Exists(fileToCheck)) {
 				var ext = Path.GetExtension(pdbFilename);
 				if (string.IsNullOrEmpty(ext))
