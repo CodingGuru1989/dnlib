@@ -4,7 +4,7 @@ namespace dnlib.PE {
 	/// <summary>
 	/// Image debug type, see <c>IMAGE_DEBUG_TYPE_*</c> in winnt.n
 	/// </summary>
-	public enum ImageDebugType : uint {
+	public enum ImageDebugType : int {
 #pragma warning disable 1591 // Missing XML comment for publicly visible type or member
 		Unknown = 0,
 		Coff = 1,

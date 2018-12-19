@@ -4,7 +4,7 @@
 	/// <summary>
 	/// CIL opcode type
 	/// </summary>
-	public enum OpCodeType : byte {
+	public enum OpCodeType : int {
 		/// <summary/>
 		Annotation,
 		/// <summary/>

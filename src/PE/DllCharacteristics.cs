@@ -7,7 +7,7 @@ namespace dnlib.PE {
 	/// IMAGE_OPTIONAL_HEADER.DllCharacteristics
 	/// </summary>
 	[Flags]
-	public enum DllCharacteristics : ushort {
+	public enum DllCharacteristics : int {
 		/// <summary/>
 		Reserved1			= 0x0001,
 		/// <summary/>

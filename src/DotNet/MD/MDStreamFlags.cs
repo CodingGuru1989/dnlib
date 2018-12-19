@@ -7,7 +7,7 @@ namespace dnlib.DotNet.MD {
 	/// MDStream flags
 	/// </summary>
 	[Flags]
-	public enum MDStreamFlags : byte {
+	public enum MDStreamFlags : int {
 		/// <summary>#Strings stream is big and requires 4 byte offsets</summary>
 		BigStrings = 1,
 		/// <summary>#GUID stream is big and requires 4 byte offsets</summary>

@@ -4,7 +4,7 @@
 	/// <summary>
 	/// Any ALG_CLASS_HASH type in WinCrypt.h can be used by Microsoft's CLI implementation
 	/// </summary>
-	public enum AssemblyHashAlgorithm : uint {
+	public enum AssemblyHashAlgorithm : int {
 		/// <summary/>
 		None				= 0,
 		/// <summary/>

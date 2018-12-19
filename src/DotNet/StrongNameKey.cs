@@ -48,7 +48,7 @@ namespace dnlib.DotNet {
 	/// <summary>
 	/// Type of signature algorithm. See WinCrypt.h in the Windows SDK
 	/// </summary>
-	public enum SignatureAlgorithm : uint {
+	public enum SignatureAlgorithm : int {
 		/// <summary>
 		/// RSA signature algorithm
 		/// </summary>

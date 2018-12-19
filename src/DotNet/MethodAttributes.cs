@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// Method attributes, see CorHdr.h/CorMethodAttr
 	/// </summary>
 	[Flags]
-	public enum MethodAttributes : ushort {
+	public enum MethodAttributes : int {
 		/// <summary>member access mask - Use this mask to retrieve accessibility information.</summary>
 		MemberAccessMask	= 0x0007,
 		/// <summary>Member not referenceable.</summary>

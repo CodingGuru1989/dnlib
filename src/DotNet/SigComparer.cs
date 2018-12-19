@@ -331,7 +331,7 @@ namespace dnlib.DotNet {
 	/// Decides how to compare types, sigs, etc
 	/// </summary>
 	[Flags]
-	public enum SigComparerOptions : uint {
+	public enum SigComparerOptions : int {
 		/// <summary>
 		/// Don't compare a type's (assembly/module) scope
 		/// </summary>

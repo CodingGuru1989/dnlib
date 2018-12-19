@@ -4,7 +4,7 @@
 	/// <summary>
 	/// IMAGE_FILE_HEADER.Machine enum
 	/// </summary>
-	public enum Machine : ushort {
+	public enum Machine : int {
 		/// <summary>Unknown machine</summary>
 		Unknown		= 0,
 		/// <summary>x86</summary>

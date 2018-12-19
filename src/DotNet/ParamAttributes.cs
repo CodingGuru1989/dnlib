@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// Parameter flags. See CorHdr.h/CorParamAttr
 	/// </summary>
 	[Flags]
-	public enum ParamAttributes : ushort {
+	public enum ParamAttributes : int {
 		/// <summary>Param is [In]</summary>
 		In					= 0x0001,
 		/// <summary>Param is [out]</summary>

@@ -4,7 +4,7 @@
 	/// <summary>
 	/// Security action. See CorHdr.h/CorDeclSecurity
 	/// </summary>
-	public enum SecurityAction : short {
+	public enum SecurityAction : int {
 		/// <summary>Mask allows growth of enum.</summary>
 		ActionMask			= 0x001F,
 		/// <summary/>

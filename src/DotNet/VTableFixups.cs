@@ -81,7 +81,7 @@ namespace dnlib.DotNet {
 	/// See COR_VTABLE_XXX in CorHdr.h
 	/// </summary>
 	[Flags]
-	public enum VTableFlags : ushort {
+	public enum VTableFlags : int {
 		/// <summary>
 		/// 32-bit vtable slots
 		/// </summary>

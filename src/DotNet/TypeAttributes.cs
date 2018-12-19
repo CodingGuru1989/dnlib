@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// TypeDef and ExportedType flags. See CorHdr.h/CorTypeAttr
 	/// </summary>
 	[Flags]
-	public enum TypeAttributes : uint {
+	public enum TypeAttributes : int {
 		/// <summary>Use this mask to retrieve the type visibility information.</summary>
 		VisibilityMask			= 0x00000007,
 		/// <summary>Class is not public scope.</summary>

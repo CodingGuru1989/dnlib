@@ -4,7 +4,7 @@ namespace dnlib.DotNet {
 	/// <summary>
 	/// Variant type (<c>VT_XXX</c> in the Windows SDK)
 	/// </summary>
-	public enum VariantType : uint {
+	public enum VariantType : int {
 		/// <summary/>
 		Empty			= 0,
 		/// <summary/>
@@ -112,6 +112,6 @@ namespace dnlib.DotNet {
 		/// <summary/>
 		TypeMask		= 0x0FFF,
 		/// <summary>This wasn't present in the blob</summary>
-		NotInitialized	= 0xFFFFFFFF,
+		NotInitialized	= unchecked((int)0xFFFFFFFF),
 	}
 }

@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// ManifestResource flags. See CorHdr.h/CorManifestResourceFlags
 	/// </summary>
 	[Flags]
-	public enum ManifestResourceAttributes : uint {
+	public enum ManifestResourceAttributes : int {
 		/// <summary/>
 		VisibilityMask	= 0x0007,
 		/// <summary>The Resource is exported from the Assembly.</summary>

@@ -4,7 +4,7 @@ namespace dnlib.DotNet.MD {
 	/// <summary>
 	/// Heap type. The values are set in stone by MS. Don't change.
 	/// </summary>
-	public enum HeapType : uint {
+	public enum HeapType : int {
 		/// <summary>#Strings heap</summary>
 		Strings	= 0,
 		/// <summary>#GUID heap</summary>

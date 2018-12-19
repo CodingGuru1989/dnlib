@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// P/Invoke attributes, see CorHdr.h/CorPinvokeMap
 	/// </summary>
 	[Flags]
-	public enum PInvokeAttributes : ushort {
+	public enum PInvokeAttributes : int {
 		/// <summary>Pinvoke is to use the member name as specified.</summary>
 		NoMangle			= 0x0001,
 

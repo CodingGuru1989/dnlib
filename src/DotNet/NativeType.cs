@@ -4,7 +4,7 @@ namespace dnlib.DotNet {
 	/// <summary>
 	/// Native types used by field marshals. See CorHdr.h/CorNativeType
 	/// </summary>
-	public enum NativeType : uint {
+	public enum NativeType : int {
 		/// <summary>Deprecated</summary>
 		End					= 0x00,
 		/// <summary>void</summary>
@@ -102,8 +102,8 @@ namespace dnlib.DotNet {
 		/// <summary>first invalid element type</summary>
 		Max					= 0x50,
 		/// <summary>Value wasn't present in the blob</summary>
-		NotInitialized		= 0xFFFFFFFE,
+		NotInitialized		= unchecked((int)0xFFFFFFFE),
 		/// <summary>Raw marshal blob type</summary>
-		RawBlob				= 0xFFFFFFFF,
+		RawBlob				= unchecked((int)0xFFFFFFFF),
 	}
 }

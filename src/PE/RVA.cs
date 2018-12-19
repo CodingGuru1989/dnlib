@@ -4,7 +4,7 @@
 	/// <summary>
 	/// Represents an RVA (relative virtual address)
 	/// </summary>
-	public enum RVA : uint {
+	public enum RVA : int {
 	}
 
 	partial class PEExtensions {

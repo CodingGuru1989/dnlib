@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// Property attributes, see CorHdr.h/CorPropertyAttr
 	/// </summary>
 	[Flags]
-	public enum PropertyAttributes : ushort {
+	public enum PropertyAttributes : int {
 		/// <summary>property is special.  Name describes how.</summary>
 		SpecialName			= 0x0200,
 		/// <summary>Runtime(metadata internal APIs) should check name encoding.</summary>

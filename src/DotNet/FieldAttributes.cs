@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// Field flags, see CorHdr.h/CorFieldAttr
 	/// </summary>
 	[Flags]
-	public enum FieldAttributes : ushort {
+	public enum FieldAttributes : int {
 		/// <summary>member access mask - Use this mask to retrieve accessibility information.</summary>
 		FieldAccessMask		= 0x0007,
 		/// <summary>Member not referenceable.</summary>

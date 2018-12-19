@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// Event attributes, see CorHdr.h/CorEventAttr
 	/// </summary>
 	[Flags]
-	public enum EventAttributes : ushort {
+	public enum EventAttributes : int {
 		/// <summary>event is special.  Name describes how.</summary>
 		SpecialName			= 0x0200,
 		/// <summary>Runtime(metadata internal APIs) should check name encoding.</summary>

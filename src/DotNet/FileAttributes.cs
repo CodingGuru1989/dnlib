@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// File row flags. See CorHdr.h/CorFileFlags
 	/// </summary>
 	[Flags]
-	public enum FileAttributes : uint {
+	public enum FileAttributes : int {
 		/// <summary>This is not a resource file</summary>
 		ContainsMetadata	= 0x0000,
 		/// <summary>This is a resource file or other non-metadata-containing file</summary>

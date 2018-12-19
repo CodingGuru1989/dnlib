@@ -4,7 +4,7 @@
 	/// <summary>
 	/// CIL opcode stack behavior
 	/// </summary>
-	public enum StackBehaviour : byte {
+	public enum StackBehaviour : int {
 		/// <summary/>
 		Pop0,
 		/// <summary/>

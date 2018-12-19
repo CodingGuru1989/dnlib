@@ -8,7 +8,7 @@ namespace dnlib.DotNet {
 	/// </summary>
 	/// <remarks>See CorHdr.h/CorAssemblyFlags</remarks>
 	[Flags]
-	public enum AssemblyAttributes : uint {
+	public enum AssemblyAttributes : int {
 		/// <summary>No flags set</summary>
 		None						= 0,
 

@@ -7,7 +7,7 @@ namespace dnlib.PE {
 	/// IMAGE_FILE_HEADER.Characteristics flags
 	/// </summary>
 	[Flags]
-	public enum Characteristics : ushort {
+	public enum Characteristics : int {
 		/// <summary>Relocation info stripped from file.</summary>
 		RelocsStripped		= 0x0001,
 		/// <summary>File is executable  (i.e. no unresolved externel references).</summary>

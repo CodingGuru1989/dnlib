@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// See CorHdr.h/CorCallingConvention
 	/// </summary>
 	[Flags]
-	public enum CallingConvention : byte {
+	public enum CallingConvention : int {
 		/// <summary>The managed calling convention</summary>
 		Default			= 0x0,
 		/// <summary/>

@@ -4,7 +4,7 @@
 	/// <summary>
 	/// The metadata tables
 	/// </summary>
-	public enum Table : byte {
+	public enum Table : int {
 		/// <summary>Module table (00h)</summary>
 		Module,
 		/// <summary>TypeRef table (01h)</summary>

@@ -19,7 +19,7 @@ namespace dnlib.DotNet.Writer {
 	/// <see cref="Metadata"/> flags
 	/// </summary>
 	[Flags]
-	public enum MetadataFlags : uint {
+	public enum MetadataFlags : int {
 		/// <summary>
 		/// Preserves all rids in the <c>TypeRef</c> table
 		/// </summary>
@@ -3593,21 +3593,21 @@ namespace dnlib.DotNet.Writer {
 
 			metadataHeader.SetOffset(offset, rva);
 			uint len = metadataHeader.GetFileLength();
-			offset += len;
-			rva += len;
+			offset += (int)len;
+			rva += (int)len;
 
 			foreach (var heap in metadataHeader.Heaps) {
 				offset = offset.AlignUp(HEAP_ALIGNMENT);
 				rva = rva.AlignUp(HEAP_ALIGNMENT);
 				heap.SetOffset(offset, rva);
 				len = heap.GetFileLength();
-				offset += len;
-				rva += len;
+				offset += (int)len;
+				rva += (int)len;
 			}
 			Debug.Assert(initAll || length == rva - this.rva);
 			if (!(initAll || length == rva - this.rva))
 				throw new InvalidOperationException();
-			length = rva - this.rva;
+			length = (uint)rva - (uint)this.rva;
 
 			if (!isStandaloneDebugMetadata && initAll)
 				UpdateMethodAndFieldRvas();
@@ -3661,13 +3661,13 @@ namespace dnlib.DotNet.Writer {
 		public void WriteTo(DataWriter writer) {
 			var rva2 = rva;
 			metadataHeader.VerifyWriteTo(writer);
-			rva2 += metadataHeader.GetFileLength();
+			rva2 += (int)metadataHeader.GetFileLength();
 
 			foreach (var heap in metadataHeader.Heaps) {
 				writer.WriteZeroes((int)(rva2.AlignUp(HEAP_ALIGNMENT) - rva2));
 				rva2 = rva2.AlignUp(HEAP_ALIGNMENT);
 				heap.VerifyWriteTo(writer);
-				rva2 += heap.GetFileLength();
+				rva2 += (int)heap.GetFileLength();
 			}
 		}
 

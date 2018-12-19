@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// Method semantics flags, see CorHdr.h/CorMethodSemanticsAttr
 	/// </summary>
 	[Flags]
-	public enum MethodSemanticsAttributes : ushort {
+	public enum MethodSemanticsAttributes : int {
 		/// <summary>No bit is set</summary>
 		None		= 0,
 		/// <summary>Setter for property</summary>

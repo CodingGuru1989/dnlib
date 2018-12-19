@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// Method impl attributes, see CorHdr.h/CorMethodImpl
 	/// </summary>
 	[Flags]
-	public enum MethodImplAttributes : ushort {
+	public enum MethodImplAttributes : int {
 		/// <summary>Flags about code type.</summary>
 		CodeTypeMask			= 0x0003,
 		/// <summary>Method impl is IL.</summary>

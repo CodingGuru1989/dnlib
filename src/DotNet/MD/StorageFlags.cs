@@ -7,7 +7,7 @@ namespace dnlib.DotNet.MD {
 	/// Storage flags found in the MD header
 	/// </summary>
 	[Flags]
-	public enum StorageFlags : byte {
+	public enum StorageFlags : int {
 		/// <summary>
 		/// Normal flags
 		/// </summary>

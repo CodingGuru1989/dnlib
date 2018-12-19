@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// Generic parameter flags. See CorHdr.h/CorGenericParamAttr
 	/// </summary>
 	[Flags]
-	public enum GenericParamAttributes : ushort {
+	public enum GenericParamAttributes : int {
 		/// <summary/>
 		VarianceMask			= 0x0003,
 		/// <summary/>

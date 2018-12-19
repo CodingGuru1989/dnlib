@@ -4,7 +4,7 @@
 	/// <summary>
 	/// IMAGE_OPTIONAL_HEADER.Subsystem
 	/// </summary>
-	public enum Subsystem : ushort {
+	public enum Subsystem : int {
 		/// <summary>Unknown subsystem.</summary>
 		Unknown = 0,
 		/// <summary>Image doesn't require a subsystem.</summary>

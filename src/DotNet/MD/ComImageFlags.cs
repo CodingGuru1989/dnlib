@@ -7,7 +7,7 @@ namespace dnlib.DotNet.MD {
 	/// See COMIMAGE_FLAGS_XXX in CorHdr.h in the Windows SDK
 	/// </summary>
 	[Flags]
-	public enum ComImageFlags : uint {
+	public enum ComImageFlags : int {
 		/// <summary>
 		/// See COMIMAGE_FLAGS_ILONLY in the Windows SDK
 		/// </summary>
