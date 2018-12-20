@@ -8,40 +8,69 @@
 		/// <summary>
 		/// First instruction of try block
 		/// </summary>
-		public Instruction TryStart;
+		private Instruction tryStart;
 
 		/// <summary>
 		/// One instruction past the end of try block or <c>null</c> if it ends at the end
 		/// of the method.
 		/// </summary>
-		public Instruction TryEnd;
+		private Instruction tryEnd;
 
 		/// <summary>
 		/// Start of filter handler or <c>null</c> if none. The end of filter handler is
 		/// always <see cref="HandlerStart"/>.
 		/// </summary>
-		public Instruction FilterStart;
+		private Instruction filterStart;
 
 		/// <summary>
 		/// First instruction of try handler block
 		/// </summary>
-		public Instruction HandlerStart;
+		private Instruction handlerStart;
 
 		/// <summary>
 		/// One instruction past the end of try handler block or <c>null</c> if it ends at the end
 		/// of the method.
 		/// </summary>
-		public Instruction HandlerEnd;
+		private Instruction handlerEnd;
 
 		/// <summary>
 		/// The catch type if <see cref="HandlerType"/> is <see cref="ExceptionHandlerType.Catch"/>
 		/// </summary>
-		public ITypeDefOrRef CatchType;
+		private ITypeDefOrRef catchType;
 
 		/// <summary>
 		/// Type of exception handler clause
 		/// </summary>
-		public ExceptionHandlerType HandlerType;
+		private ExceptionHandlerType handlerType;
+
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public Instruction TryStart { get => tryStart; set => tryStart = value; }
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public Instruction TryEnd { get => tryEnd; set => tryEnd = value; }
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public Instruction FilterStart { get => filterStart; set => filterStart = value; }
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public Instruction HandlerStart { get => handlerStart; set => handlerStart = value; }
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public Instruction HandlerEnd { get => handlerEnd; set => handlerEnd = value; }
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public ITypeDefOrRef CatchType { get => catchType; set => catchType = value; }
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public ExceptionHandlerType HandlerType { get => handlerType; set => handlerType = value; }
 
 		/// <summary>
 		/// Default constructor

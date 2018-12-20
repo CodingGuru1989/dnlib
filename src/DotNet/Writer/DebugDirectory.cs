@@ -14,12 +14,22 @@ namespace dnlib.DotNet.Writer {
 		/// <summary>
 		/// Gets the header
 		/// </summary>
-		public IMAGE_DEBUG_DIRECTORY DebugDirectory;
+		internal IMAGE_DEBUG_DIRECTORY debugDirectory;
 
 		/// <summary>
 		/// Gets the data
 		/// </summary>
-		public readonly IChunk Chunk;
+		private IChunk chunk;
+
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public IMAGE_DEBUG_DIRECTORY DebugDirectory { get => debugDirectory; set => debugDirectory = value; }
+
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public IChunk Chunk { get => chunk; set => chunk = value; }
 
 		/// <summary>
 		/// Constructor
@@ -98,10 +108,10 @@ namespace dnlib.DotNet.Writer {
 		/// <returns></returns>
 		public DebugDirectoryEntry Add(IChunk chunk, ImageDebugType type, ushort majorVersion, ushort minorVersion, uint timeDateStamp) {
 			var entry = Add(chunk);
-			entry.DebugDirectory.Type = type;
-			entry.DebugDirectory.MajorVersion = majorVersion;
-			entry.DebugDirectory.MinorVersion = minorVersion;
-			entry.DebugDirectory.TimeDateStamp = timeDateStamp;
+			entry.debugDirectory.Type = type;
+			entry.debugDirectory.MajorVersion = majorVersion;
+			entry.debugDirectory.MinorVersion = minorVersion;
+			entry.debugDirectory.TimeDateStamp = timeDateStamp;
 			return entry;
 		}
 

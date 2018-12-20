@@ -15,7 +15,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The row id in its table
 		/// </summary>
-		protected uint rid;
+		private uint rid;
 
 		/// <inheritdoc/>
 		public MDToken MDToken => new MDToken(Table.File, rid);
@@ -35,12 +35,12 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// From column File.Flags
 		/// </summary>
-		public FileAttributes Flags {
+		public FileAttributes Attributes {
 			get => (FileAttributes)attributes;
 			set => attributes = (int)value;
 		}
 		/// <summary>Attributes</summary>
-		protected int attributes;
+		private int attributes;
 
 		/// <summary>
 		/// From column File.Name
@@ -50,7 +50,7 @@ namespace dnlib.DotNet {
 			set => name = value;
 		}
 		/// <summary>Name</summary>
-		protected UTF8String name;
+		private UTF8String name;
 
 		/// <summary>
 		/// From column File.HashValue
@@ -60,7 +60,7 @@ namespace dnlib.DotNet {
 			set => hashValue = value;
 		}
 		/// <summary/>
-		protected byte[] hashValue;
+		private byte[] hashValue;
 
 		/// <summary>
 		/// Gets all custom attributes
@@ -73,7 +73,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected CustomAttributeCollection customAttributes;
+		internal CustomAttributeCollection customAttributes;
 		/// <summary>Initializes <see cref="customAttributes"/></summary>
 		protected virtual void InitializeCustomAttributes() =>
 			Interlocked.CompareExchange(ref customAttributes, new CustomAttributeCollection(), null);
@@ -98,7 +98,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected IList<PdbCustomDebugInfo> customDebugInfos;
+		internal IList<PdbCustomDebugInfo> customDebugInfos;
 		/// <summary>Initializes <see cref="customDebugInfos"/></summary>
 		protected virtual void InitializeCustomDebugInfos() =>
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
@@ -156,9 +156,9 @@ namespace dnlib.DotNet {
 		/// <param name="flags">Flags</param>
 		/// <param name="hashValue">File hash</param>
 		public FileDefUser(UTF8String name, FileAttributes flags, byte[] hashValue) {
-			this.name = name;
-			attributes = (int)flags;
-			this.hashValue = hashValue;
+			this.Name = name;
+			Attributes = (FileAttributes)flags;
+			this.HashValue = hashValue;
 		}
 	}
 
@@ -203,13 +203,13 @@ namespace dnlib.DotNet {
 				throw new BadImageFormatException($"File rid {rid} does not exist");
 #endif
 			origRid = rid;
-			this.rid = rid;
+			this.Rid = rid;
 			this.readerModule = readerModule;
 			bool b = readerModule.TablesStream.TryReadFileRow(origRid, out var row);
 			Debug.Assert(b);
-			attributes = (int)row.Flags;
-			name = readerModule.StringsStream.ReadNoNull(row.Name);
-			hashValue = readerModule.BlobStream.Read(row.HashValue);
+			Attributes = (FileAttributes)row.Flags;
+			Name = readerModule.StringsStream.ReadNoNull(row.Name);
+			HashValue = readerModule.BlobStream.Read(row.HashValue);
 		}
 	}
 }

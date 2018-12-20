@@ -185,7 +185,7 @@ namespace dnlib.DotNet.MD {
 				throw new Exception("Initialize() has already been called");
 			initialized = true;
 
-			var reader = dataReader;
+			var reader = DataReader;
 			reserved1 = reader.ReadUInt32();
 			majorVersion = reader.ReadByte();
 			minorVersion = reader.ReadByte();
@@ -238,7 +238,7 @@ namespace dnlib.DotNet.MD {
 		protected override void OnReaderRecreated() => InitializeMdTableReaders();
 
 		void InitializeMdTableReaders() {
-			var reader = dataReader;
+			var reader = DataReader;
 			reader.Position = mdTablesPos;
 			var currentPos = reader.Position;
 			foreach (var mdTable in mdTables) {

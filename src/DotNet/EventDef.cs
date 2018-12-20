@@ -16,7 +16,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The row id in its table
 		/// </summary>
-		protected uint rid;
+		private uint rid;
 
 #if THREAD_SAFE
 		readonly Lock theLock = Lock.Create();
@@ -45,7 +45,7 @@ namespace dnlib.DotNet {
 			set => attributes = (int)value;
 		}
 		/// <summary/>
-		protected int attributes;
+		private int attributes;
 
 		/// <summary>
 		/// From column Event.Name
@@ -55,7 +55,7 @@ namespace dnlib.DotNet {
 			set => name = value;
 		}
 		/// <summary>Name</summary>
-		protected UTF8String name;
+		private UTF8String name;
 
 		/// <summary>
 		/// From column Event.EventType
@@ -65,7 +65,7 @@ namespace dnlib.DotNet {
 			set => eventType = value;
 		}
 		/// <summary/>
-		protected ITypeDefOrRef eventType;
+		private ITypeDefOrRef eventType;
 
 		/// <summary>
 		/// Gets all custom attributes
@@ -78,7 +78,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected CustomAttributeCollection customAttributes;
+		internal CustomAttributeCollection customAttributes;
 		/// <summary>Initializes <see cref="customAttributes"/></summary>
 		protected virtual void InitializeCustomAttributes() =>
 			Interlocked.CompareExchange(ref customAttributes, new CustomAttributeCollection(), null);
@@ -100,7 +100,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected IList<PdbCustomDebugInfo> customDebugInfos;
+		internal IList<PdbCustomDebugInfo> customDebugInfos;
 		/// <summary>Initializes <see cref="customDebugInfos"/></summary>
 		protected virtual void InitializeCustomDebugInfos() =>
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
@@ -183,13 +183,13 @@ namespace dnlib.DotNet {
 			otherMethods = new List<MethodDef>();
 
 		/// <summary/>
-		protected MethodDef addMethod;
+		internal MethodDef addMethod;
 		/// <summary/>
-		protected MethodDef invokeMethod;
+		internal MethodDef invokeMethod;
 		/// <summary/>
-		protected MethodDef removeMethod;
+		internal MethodDef removeMethod;
 		/// <summary/>
-		protected IList<MethodDef> otherMethods;
+		internal IList<MethodDef> otherMethods;
 
 		/// <summary>Reset <see cref="AddMethod"/>, <see cref="InvokeMethod"/>, <see cref="RemoveMethod"/>, <see cref="OtherMethods"/></summary>
 		protected void ResetMethods() => otherMethods = null;
@@ -241,7 +241,7 @@ namespace dnlib.DotNet {
 			set => declaringType2 = value;
 		}
 		/// <summary/>
-		protected TypeDef declaringType2;
+		private TypeDef declaringType2;
 
 		/// <inheritdoc/>
 		public ModuleDef Module => declaringType2?.Module;
@@ -334,9 +334,9 @@ namespace dnlib.DotNet {
 		/// <param name="type">Type</param>
 		/// <param name="flags">Flags</param>
 		public EventDefUser(UTF8String name, ITypeDefOrRef type, EventAttributes flags) {
-			this.name = name;
-			eventType = type;
-			attributes = (int)flags;
+			this.Name = name;
+			EventType = type;
+			Attributes = (EventAttributes)flags;
 		}
 	}
 
@@ -362,7 +362,7 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		protected override void InitializeCustomDebugInfos() {
 			var list = new List<PdbCustomDebugInfo>();
-			readerModule.InitializeCustomDebugInfos(new MDToken(MDToken.Table, origRid), new GenericParamContext(declaringType2), list);
+			readerModule.InitializeCustomDebugInfos(new MDToken(MDToken.Table, origRid), new GenericParamContext(DeclaringType2), list);
 			Interlocked.CompareExchange(ref customDebugInfos, list, null);
 		}
 
@@ -381,14 +381,14 @@ namespace dnlib.DotNet {
 				throw new BadImageFormatException($"Event rid {rid} does not exist");
 #endif
 			origRid = rid;
-			this.rid = rid;
+			this.Rid = rid;
 			this.readerModule = readerModule;
 			bool b = readerModule.TablesStream.TryReadEventRow(origRid, out var row);
 			Debug.Assert(b);
-			attributes = row.EventFlags;
-			name = readerModule.StringsStream.ReadNoNull(row.Name);
-			declaringType2 = readerModule.GetOwnerType(this);
-			eventType = readerModule.ResolveTypeDefOrRef(row.EventType, new GenericParamContext(declaringType2));
+			Attributes = (EventAttributes)row.EventFlags;
+			Name = readerModule.StringsStream.ReadNoNull(row.Name);
+			DeclaringType2 = readerModule.GetOwnerType(this);
+			EventType = readerModule.ResolveTypeDefOrRef(row.EventType, new GenericParamContext(DeclaringType2));
 		}
 
 		internal EventDefMD InitializeAll() {
@@ -407,7 +407,7 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		protected override void InitializeEventMethods_NoLock() {
 			IList<MethodDef> newOtherMethods;
-			var dt = declaringType2 as TypeDefMD;
+			var dt = DeclaringType2 as TypeDefMD;
 			if (dt == null)
 				newOtherMethods = new List<MethodDef>();
 			else

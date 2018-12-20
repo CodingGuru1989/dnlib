@@ -47,7 +47,7 @@ namespace dnlib.DotNet.MD {
 			streamSize = reader.ReadUInt32();
 			name = ReadString(ref reader, 32, verify, ref failedVerification);
 			SetEndoffset(ref reader);
-			if (verify && offset + size < offset)
+			if (verify && offset + Size < offset)
 				failedVerification = true;
 			if (throwOnError && failedVerification)
 				throw new BadImageFormatException("Invalid stream header");

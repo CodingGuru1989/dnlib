@@ -15,7 +15,7 @@ namespace dnlib.DotNet.MD {
 		/// 
 		/// NOTE: Always copy this field to a local variable before using it since it must be thread safe.
 		/// </summary>
-		protected DataReader dataReader;
+		private DataReader dataReader;
 
 		/// <summary>
 		/// <c>null</c> if it wasn't present in the file
@@ -45,6 +45,11 @@ namespace dnlib.DotNet.MD {
 		/// Gets the name of the stream
 		/// </summary>
 		public string Name => streamHeader == null ? string.Empty : streamHeader.Name;
+
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		protected DataReader DataReader { get => dataReader; set => dataReader = value; }
 
 		/// <summary>
 		/// Gets a data reader that can read the full stream

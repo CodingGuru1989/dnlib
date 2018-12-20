@@ -15,7 +15,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The row id in its table
 		/// </summary>
-		protected uint rid;
+		private uint rid;
 
 		/// <inheritdoc/>
 		public MDToken MDToken => new MDToken(Table.GenericParamConstraint, rid);
@@ -37,7 +37,7 @@ namespace dnlib.DotNet {
 			internal set => owner = value;
 		}
 		/// <summary/>
-		protected GenericParam owner;
+		private GenericParam owner;
 
 		/// <summary>
 		/// From column GenericParamConstraint.Constraint
@@ -47,7 +47,7 @@ namespace dnlib.DotNet {
 			set => constraint = value;
 		}
 		/// <summary/>
-		protected ITypeDefOrRef constraint;
+		private ITypeDefOrRef constraint;
 
 		/// <summary>
 		/// Gets all custom attributes
@@ -60,7 +60,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected CustomAttributeCollection customAttributes;
+		internal CustomAttributeCollection customAttributes;
 		/// <summary>Initializes <see cref="customAttributes"/></summary>
 		protected virtual void InitializeCustomAttributes() =>
 			Interlocked.CompareExchange(ref customAttributes, new CustomAttributeCollection(), null);
@@ -85,7 +85,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected IList<PdbCustomDebugInfo> customDebugInfos;
+		internal IList<PdbCustomDebugInfo> customDebugInfos;
 		/// <summary>Initializes <see cref="customDebugInfos"/></summary>
 		protected virtual void InitializeCustomDebugInfos() =>
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
@@ -109,7 +109,7 @@ namespace dnlib.DotNet {
 		/// Constructor
 		/// </summary>
 		/// <param name="constraint">The constraint</param>
-		public GenericParamConstraintUser(ITypeDefOrRef constraint) => this.constraint = constraint;
+		public GenericParamConstraintUser(ITypeDefOrRef constraint) => this.Constraint = constraint;
 	}
 
 	/// <summary>
@@ -155,13 +155,13 @@ namespace dnlib.DotNet {
 				throw new BadImageFormatException($"GenericParamConstraint rid {rid} does not exist");
 #endif
 			origRid = rid;
-			this.rid = rid;
+			this.Rid = rid;
 			this.readerModule = readerModule;
 			this.gpContext = gpContext;
 			bool b = readerModule.TablesStream.TryReadGenericParamConstraintRow(origRid, out var row);
 			Debug.Assert(b);
-			constraint = readerModule.ResolveTypeDefOrRef(row.Constraint, gpContext);
-			owner = readerModule.GetOwner(this);
+			Constraint = readerModule.ResolveTypeDefOrRef(row.Constraint, gpContext);
+			Owner = readerModule.GetOwner(this);
 		}
 
 		internal GenericParamConstraintMD InitializeAll() {

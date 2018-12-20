@@ -11,18 +11,24 @@ namespace dnlib.IO {
 		/// <summary>
 		/// The start file offset of this section
 		/// </summary>
-		protected FileOffset startOffset;
+		private FileOffset startOffset;
 
 		/// <summary>
 		/// Size of the section
 		/// </summary>
-		protected uint size;
+		private uint size;
 
-		/// <inheritdoc/>
-		public FileOffset StartOffset => startOffset;
+		/// <summary>
+		/// Encapsulate field.
+		/// </summary>
+		public FileOffset StartOffset { get => startOffset; set => startOffset = value; }
 
 		/// <inheritdoc/>
 		public FileOffset EndOffset => startOffset + (int)size;
+		/// <summary>
+		/// Encapsulate field.
+		/// </summary>
+		protected uint Size { get => size; set => size = value; }
 
 		/// <summary>
 		/// Set <see cref="startOffset"/> to <paramref name="reader"/>'s current position

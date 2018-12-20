@@ -28,7 +28,7 @@ namespace dnlib.DotNet.MD {
 		public Guid? Read(uint index) {
 			if (index == 0 || !IsValidIndex(index))
 				return null;
-			var reader = dataReader;
+			var reader = DataReader;
 			reader.Position = (index - 1) * 16;
 			return reader.ReadGuid();
 		}

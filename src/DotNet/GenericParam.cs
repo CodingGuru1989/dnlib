@@ -17,7 +17,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The row id in its table
 		/// </summary>
-		protected uint rid;
+		private uint rid;
 
 		/// <inheritdoc/>
 		public MDToken MDToken => new MDToken(Table.GenericParam, rid);
@@ -39,7 +39,7 @@ namespace dnlib.DotNet {
 			internal set => owner = value;
 		}
 		/// <summary/>
-		protected ITypeOrMethodDef owner;
+		private ITypeOrMethodDef owner;
 
 		/// <summary>
 		/// Gets the declaring type or <c>null</c> if none or if <see cref="Owner"/> is
@@ -64,17 +64,17 @@ namespace dnlib.DotNet {
 			set => number = value;
 		}
 		/// <summary/>
-		protected ushort number;
+		private ushort number;
 
 		/// <summary>
 		/// From column GenericParam.Flags
 		/// </summary>
-		public GenericParamAttributes Flags {
+		public GenericParamAttributes Attributes {
 			get => (GenericParamAttributes)attributes;
 			set => attributes = (int)value;
 		}
 		/// <summary>Attributes</summary>
-		protected int attributes;
+		private int attributes;
 
 		/// <summary>
 		/// From column GenericParam.Name
@@ -84,7 +84,7 @@ namespace dnlib.DotNet {
 			set => name = value;
 		}
 		/// <summary>Name</summary>
-		protected UTF8String name;
+		private UTF8String name;
 
 		/// <summary>
 		/// From column GenericParam.Kind (v1.1 only)
@@ -94,7 +94,7 @@ namespace dnlib.DotNet {
 			set => kind = value;
 		}
 		/// <summary/>
-		protected ITypeDefOrRef kind;
+		private ITypeDefOrRef kind;
 
 		/// <summary>
 		/// Gets the generic param constraints
@@ -107,7 +107,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected LazyList<GenericParamConstraint> genericParamConstraints;
+		internal LazyList<GenericParamConstraint> genericParamConstraints;
 		/// <summary>Initializes <see cref="genericParamConstraints"/></summary>
 		protected virtual void InitializeGenericParamConstraints() =>
 			Interlocked.CompareExchange(ref genericParamConstraints, new LazyList<GenericParamConstraint>(this), null);
@@ -123,7 +123,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected CustomAttributeCollection customAttributes;
+		internal CustomAttributeCollection customAttributes;
 		/// <summary>Initializes <see cref="customAttributes"/></summary>
 		protected virtual void InitializeCustomAttributes() =>
 			Interlocked.CompareExchange(ref customAttributes, new CustomAttributeCollection(), null);
@@ -148,7 +148,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected IList<PdbCustomDebugInfo> customDebugInfos;
+		internal IList<PdbCustomDebugInfo> customDebugInfos;
 		/// <summary>Initializes <see cref="customDebugInfos"/></summary>
 		protected virtual void InitializeCustomDebugInfos() =>
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
@@ -338,9 +338,9 @@ namespace dnlib.DotNet {
 		/// <param name="name">Name</param>
 		public GenericParamUser(ushort number, GenericParamAttributes flags, UTF8String name) {
 			genericParamConstraints = new LazyList<GenericParamConstraint>(this);
-			this.number = number;
-			attributes = (int)flags;
-			this.name = name;
+			this.Number = number;
+			Attributes = (GenericParamAttributes)flags;
+			this.Name = name;
 		}
 	}
 
@@ -366,14 +366,14 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		protected override void InitializeCustomDebugInfos() {
 			var list = new List<PdbCustomDebugInfo>();
-			readerModule.InitializeCustomDebugInfos(new MDToken(MDToken.Table, origRid), GetGenericParamContext(owner), list);
+			readerModule.InitializeCustomDebugInfos(new MDToken(MDToken.Table, origRid), GetGenericParamContext(Owner), list);
 			Interlocked.CompareExchange(ref customDebugInfos, list, null);
 		}
 
 		/// <inheritdoc/>
 		protected override void InitializeGenericParamConstraints() {
 			var list = readerModule.Metadata.GetGenericParamConstraintRidList(origRid);
-			var tmp = new LazyList<GenericParamConstraint, RidList>(list.Count, this, list, (list2, index) => readerModule.ResolveGenericParamConstraint(list2[index], GetGenericParamContext(owner)));
+			var tmp = new LazyList<GenericParamConstraint, RidList>(list.Count, this, list, (list2, index) => readerModule.ResolveGenericParamConstraint(list2[index], GetGenericParamContext(Owner)));
 			Interlocked.CompareExchange(ref genericParamConstraints, tmp, null);
 		}
 
@@ -398,22 +398,22 @@ namespace dnlib.DotNet {
 				throw new BadImageFormatException($"GenericParam rid {rid} does not exist");
 #endif
 			origRid = rid;
-			this.rid = rid;
+			this.Rid = rid;
 			this.readerModule = readerModule;
 			bool b = readerModule.TablesStream.TryReadGenericParamRow(origRid, out var row);
 			Debug.Assert(b);
-			number = row.Number;
-			attributes = row.Flags;
-			name = readerModule.StringsStream.ReadNoNull(row.Name);
-			owner = readerModule.GetOwner(this);
+			Number = row.Number;
+			Attributes = (GenericParamAttributes)row.Flags;
+			Name = readerModule.StringsStream.ReadNoNull(row.Name);
+			Owner = readerModule.GetOwner(this);
 			if (row.Kind != 0)
-				kind = readerModule.ResolveTypeDefOrRef(row.Kind, GetGenericParamContext(owner));
+				Kind = readerModule.ResolveTypeDefOrRef(row.Kind, GetGenericParamContext(Owner));
 		}
 
 		internal GenericParamMD InitializeAll() {
 			MemberMDInitializer.Initialize(Owner);
 			MemberMDInitializer.Initialize(Number);
-			MemberMDInitializer.Initialize(Flags);
+			MemberMDInitializer.Initialize(Attributes);
 			MemberMDInitializer.Initialize(Name);
 			MemberMDInitializer.Initialize(Kind);
 			MemberMDInitializer.Initialize(CustomAttributes);
@@ -425,7 +425,7 @@ namespace dnlib.DotNet {
 		internal override void OnLazyAdd2(int index, ref GenericParamConstraint value) {
 			if (value.Owner != this) {
 				// More than one owner... This module has invalid metadata.
-				value = readerModule.ForceUpdateRowId(readerModule.ReadGenericParamConstraint(value.Rid, GetGenericParamContext(owner)).InitializeAll());
+				value = readerModule.ForceUpdateRowId(readerModule.ReadGenericParamConstraint(value.Rid, GetGenericParamContext(Owner)).InitializeAll());
 				value.Owner = this;
 			}
 		}

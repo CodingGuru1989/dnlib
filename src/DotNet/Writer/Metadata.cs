@@ -2492,7 +2492,7 @@ namespace dnlib.DotNet.Writer {
 				encodedOwner = 0;
 			}
 			var row = new RawGenericParamRow(gp.Number,
-							(ushort)gp.Flags,
+							(ushort)gp.Attributes,
 							encodedOwner,
 							stringsHeap.Add(gp.Name),
 							gp.Kind == null ? 0 : AddTypeDefOrRef(gp.Kind));
@@ -2950,7 +2950,7 @@ namespace dnlib.DotNet.Writer {
 			}
 			if (fileDefInfos.TryGetRid(file, out uint rid))
 				return rid;
-			var row = new RawFileRow((uint)file.Flags,
+			var row = new RawFileRow((uint)file.Attributes,
 						stringsHeap.Add(file.Name),
 						blobHeap.Add(file.HashValue));	//TODO: Re-calculate the hash value if possible
 			rid = tablesHeap.FileTable.Add(row);

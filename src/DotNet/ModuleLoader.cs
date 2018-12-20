@@ -518,7 +518,7 @@ namespace dnlib.DotNet {
 		void Load(FileDef obj) {
 			if (obj == null)
 				return;
-			Add(obj.Flags);
+			Add(obj.Attributes);
 			Add(obj.Name);
 			Add(obj.HashValue);
 			Add(obj.CustomAttributes);
@@ -579,7 +579,7 @@ namespace dnlib.DotNet {
 				return;
 			Add(obj.Owner);
 			Add(obj.Number);
-			Add(obj.Flags);
+			Add(obj.Attributes);
 			Add(obj.Name);
 			Add(obj.Kind);
 			Add(obj.GenericParamConstraints);

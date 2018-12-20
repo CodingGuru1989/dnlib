@@ -57,7 +57,7 @@ namespace dnlib.DotNet.MD {
 		/// <param name="reader">Updated with the reader</param>
 		/// <returns></returns>
 		public bool TryCreateReader(uint offset, out DataReader reader) {
-			reader = dataReader;
+			reader = DataReader;
 			if (!IsValidOffset(offset))
 				return false;
 			reader.Position = offset;

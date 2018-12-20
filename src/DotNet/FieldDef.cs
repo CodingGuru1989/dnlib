@@ -17,7 +17,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The row id in its table
 		/// </summary>
-		protected uint rid;
+		private uint rid;
 
 #if THREAD_SAFE
 		readonly Lock theLock = Lock.Create();
@@ -55,7 +55,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected CustomAttributeCollection customAttributes;
+		internal CustomAttributeCollection customAttributes;
 		/// <summary>Initializes <see cref="customAttributes"/></summary>
 		protected virtual void InitializeCustomAttributes() =>
 			Interlocked.CompareExchange(ref customAttributes, new CustomAttributeCollection(), null);
@@ -77,7 +77,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected IList<PdbCustomDebugInfo> customDebugInfos;
+		internal IList<PdbCustomDebugInfo> customDebugInfos;
 		/// <summary>Initializes <see cref="customDebugInfos"/></summary>
 		protected virtual void InitializeCustomDebugInfos() =>
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
@@ -90,7 +90,7 @@ namespace dnlib.DotNet {
 			set => attributes = (int)value;
 		}
 		/// <summary>Attributes</summary>
-		protected int attributes;
+		private int attributes;
 
 		/// <summary>
 		/// From column Field.Name
@@ -100,7 +100,7 @@ namespace dnlib.DotNet {
 			set => name = value;
 		}
 		/// <summary>Name</summary>
-		protected UTF8String name;
+		private UTF8String name;
 
 		/// <summary>
 		/// From column Field.Signature
@@ -110,7 +110,7 @@ namespace dnlib.DotNet {
 			set => signature = value;
 		}
 		/// <summary/>
-		protected CallingConventionSig signature;
+		private CallingConventionSig signature;
 
 		/// <summary>
 		/// Gets/sets the field layout offset
@@ -133,9 +133,9 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected uint? fieldOffset;
+		private uint? fieldOffset;
 		/// <summary/>
-		protected bool fieldOffset_isInitialized;
+		private bool fieldOffset_isInitialized;
 
 		void InitializeFieldOffset() {
 #if THREAD_SAFE
@@ -172,9 +172,9 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected MarshalType marshalType;
+		private MarshalType marshalType;
 		/// <summary/>
-		protected bool marshalType_isInitialized;
+		private bool marshalType_isInitialized;
 
 		void InitializeMarshalType() {
 #if THREAD_SAFE
@@ -217,9 +217,9 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected RVA rva;
+		private RVA rva;
 		/// <summary/>
-		protected bool rva_isInitialized;
+		private bool rva_isInitialized;
 
 		void InitializeRVA() {
 #if THREAD_SAFE
@@ -262,9 +262,9 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected byte[] initialValue;
+		private byte[] initialValue;
 		/// <summary/>
-		protected bool initialValue_isInitialized;
+		private bool initialValue_isInitialized;
 
 		void InitializeInitialValue() {
 #if THREAD_SAFE
@@ -304,9 +304,9 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected ImplMap implMap;
+		private ImplMap implMap;
 		/// <summary/>
-		protected bool implMap_isInitialized;
+		private bool implMap_isInitialized;
 
 		void InitializeImplMap() {
 #if THREAD_SAFE
@@ -343,9 +343,9 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected Constant constant;
+		private Constant constant;
 		/// <summary/>
-		protected bool constant_isInitialized;
+		private bool constant_isInitialized;
 
 		void InitializeConstant() {
 #if THREAD_SAFE
@@ -401,7 +401,7 @@ namespace dnlib.DotNet {
 			set => declaringType2 = value;
 		}
 		/// <summary/>
-		protected TypeDef declaringType2;
+		private TypeDef declaringType2;
 
 		/// <summary>
 		/// Gets/sets the <see cref="FieldSig"/>
@@ -623,6 +623,35 @@ namespace dnlib.DotNet {
 		public string FullName => FullNameFactory.FieldFullName(declaringType2?.FullName, name, FieldSig, null, null);
 
 		/// <summary>
+		/// Encapsulate field.
+		/// </summary>
+		protected bool FieldOffset_isInitialized { get => fieldOffset_isInitialized; set => fieldOffset_isInitialized = value; }
+		/// <summary>
+		/// Encapsulate field.
+		/// </summary>
+		protected bool MarshalType_isInitialized { get => marshalType_isInitialized; set => marshalType_isInitialized = value; }
+		/// <summary>
+		/// Encapsulate field.
+		/// </summary>
+		protected RVA Rva { get => rva; set => rva = value; }
+		/// <summary>
+		/// Encapsulate field.
+		/// </summary>
+		protected bool Rva_isInitialized { get => rva_isInitialized; set => rva_isInitialized = value; }
+		/// <summary>
+		/// Encapsulate field.
+		/// </summary>
+		protected bool InitialValue_isInitialized { get => initialValue_isInitialized; set => initialValue_isInitialized = value; }
+		/// <summary>
+		/// Encapsulate field.
+		/// </summary>
+		protected bool ImplMap_isInitialized { get => implMap_isInitialized; set => implMap_isInitialized = value; }
+		/// <summary>
+		/// Encapsulate field.
+		/// </summary>
+		protected bool Constant_isInitialized { get => constant_isInitialized; set => constant_isInitialized = value; }
+
+		/// <summary>
 		/// Gets the size of this field in bytes or <c>0</c> if unknown.
 		/// </summary>
 		public uint GetFieldSize() {
@@ -736,9 +765,9 @@ namespace dnlib.DotNet {
 		/// <param name="signature">Signature</param>
 		/// <param name="attributes">Flags</param>
 		public FieldDefUser(UTF8String name, FieldSig signature, FieldAttributes attributes) {
-			this.name = name;
-			this.signature = signature;
-			this.attributes = (int)attributes;
+			this.Name = name;
+			this.Signature = signature;
+			this.Attributes = (FieldAttributes)attributes;
 		}
 	}
 
@@ -765,7 +794,7 @@ namespace dnlib.DotNet {
 		/// <inheritdoc/>
 		protected override void InitializeCustomDebugInfos() {
 			var list = new List<PdbCustomDebugInfo>();
-			readerModule.InitializeCustomDebugInfos(new MDToken(MDToken.Table, origRid), new GenericParamContext(declaringType2), list);
+			readerModule.InitializeCustomDebugInfos(new MDToken(MDToken.Table, origRid), new GenericParamContext(DeclaringType2), list);
 			Interlocked.CompareExchange(ref customDebugInfos, list, null);
 		}
 
@@ -778,7 +807,7 @@ namespace dnlib.DotNet {
 
 		/// <inheritdoc/>
 		protected override MarshalType GetMarshalType_NoLock() =>
-			readerModule.ReadMarshalType(Table.Field, origRid, new GenericParamContext(declaringType2));
+			readerModule.ReadMarshalType(Table.Field, origRid, new GenericParamContext(DeclaringType2));
 
 		/// <inheritdoc/>
 		protected override RVA GetRVA_NoLock() {
@@ -816,15 +845,15 @@ namespace dnlib.DotNet {
 				throw new BadImageFormatException($"Field rid {rid} does not exist");
 #endif
 			origRid = rid;
-			this.rid = rid;
+			this.Rid = rid;
 			this.readerModule = readerModule;
 			bool b = readerModule.TablesStream.TryReadFieldRow(origRid, out var row);
 			Debug.Assert(b);
-			name = readerModule.StringsStream.ReadNoNull(row.Name);
-			attributes = row.Flags;
-			origAttributes = (FieldAttributes)attributes;
-			declaringType2 = readerModule.GetOwnerType(this);
-			signature = readerModule.ReadSignature(row.Signature, new GenericParamContext(declaringType2));
+			Name = readerModule.StringsStream.ReadNoNull(row.Name);
+			Attributes = (FieldAttributes)row.Flags;
+			origAttributes = (FieldAttributes)Attributes;
+			DeclaringType2 = readerModule.GetOwnerType(this);
+			Signature = readerModule.ReadSignature(row.Signature, new GenericParamContext(DeclaringType2));
 		}
 
 		internal FieldDefMD InitializeAll() {
@@ -856,7 +885,7 @@ namespace dnlib.DotNet {
 		}
 
 		byte[] ReadInitialValue_NoLock(RVA rva) {
-			if (!GetFieldSize(declaringType2, signature as FieldSig, out uint size))
+			if (!GetFieldSize(DeclaringType2, Signature as FieldSig, out uint size))
 				return null;
 			if (size >= int.MaxValue)
 				return null;

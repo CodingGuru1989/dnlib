@@ -239,7 +239,7 @@ namespace dnlib.DotNet {
 		/// <summary/>
 		private uint genParamCount;
 		/// <summary/>
-		protected IList<TypeSig> paramsAfterSentinel;
+		private IList<TypeSig> paramsAfterSentinel;
 
 		/// <summary>
 		/// Gets/sets the calling convention
@@ -580,13 +580,13 @@ namespace dnlib.DotNet {
 			this.GenParamCount = genParamCount;
 			this.RetType = retType;
 			Parameters = new List<TypeSig>(argTypes);
-			this.paramsAfterSentinel = paramsAfterSentinel == null ? null : new List<TypeSig>(paramsAfterSentinel);
+			this.ParamsAfterSentinel = paramsAfterSentinel == null ? null : new List<TypeSig>(paramsAfterSentinel);
 		}
 
 		/// <summary>
 		/// Clone this
 		/// </summary>
-		public MethodSig Clone() => new MethodSig(CallingConvention, GenParamCount, RetType, Parameters, paramsAfterSentinel);
+		public MethodSig Clone() => new MethodSig(CallingConvention, GenParamCount, RetType, Parameters, ParamsAfterSentinel);
 
 		/// <inheritdoc/>
 		public override string ToString() => FullNameFactory.MethodBaseSigFullName(this, null);
@@ -771,13 +771,13 @@ namespace dnlib.DotNet {
 			this.GenParamCount = genParamCount;
 			this.RetType = retType;
 			Parameters = new List<TypeSig>(argTypes);
-			this.paramsAfterSentinel = paramsAfterSentinel == null ? null : new List<TypeSig>(paramsAfterSentinel);
+			this.ParamsAfterSentinel = paramsAfterSentinel == null ? null : new List<TypeSig>(paramsAfterSentinel);
 		}
 
 		/// <summary>
 		/// Clone this
 		/// </summary>
-		public PropertySig Clone() => new PropertySig(CallingConvention, GenParamCount, RetType, Parameters, paramsAfterSentinel);
+		public PropertySig Clone() => new PropertySig(CallingConvention, GenParamCount, RetType, Parameters, ParamsAfterSentinel);
 
 		/// <inheritdoc/>
 		public override string ToString() => FullNameFactory.MethodBaseSigFullName(this, null);

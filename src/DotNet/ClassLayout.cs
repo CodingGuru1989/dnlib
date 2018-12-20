@@ -31,7 +31,7 @@ namespace dnlib.DotNet {
 			set => packingSize = value;
 		}
 		/// <summary/>
-		protected ushort packingSize;
+		private ushort packingSize;
 
 		/// <summary>
 		/// From column ClassLayout.ClassSize
@@ -41,7 +41,7 @@ namespace dnlib.DotNet {
 			set => classSize = value;
 		}
 		/// <summary/>
-		protected uint classSize;
+		private uint classSize;
 	}
 
 	/// <summary>
@@ -60,8 +60,8 @@ namespace dnlib.DotNet {
 		/// <param name="packingSize">PackingSize</param>
 		/// <param name="classSize">ClassSize</param>
 		public ClassLayoutUser(ushort packingSize, uint classSize) {
-			this.packingSize = packingSize;
-			this.classSize = classSize;
+			this.PackingSize = packingSize;
+			this.ClassSize = classSize;
 		}
 	}
 
@@ -92,8 +92,8 @@ namespace dnlib.DotNet {
 			this.Rid = rid;
 			bool b = readerModule.TablesStream.TryReadClassLayoutRow(origRid, out var row);
 			Debug.Assert(b);
-			classSize = row.ClassSize;
-			packingSize = row.PackingSize;
+			ClassSize = row.ClassSize;
+			PackingSize = row.PackingSize;
 		}
 	}
 }

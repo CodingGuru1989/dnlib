@@ -922,8 +922,8 @@ namespace dnlib.DotNet.Writer {
 					if (codeViewData == null)
 						throw new InvalidOperationException();
 					var entry = debugDirectory.Add(codeViewData);
-					entry.DebugDirectory = idd;
-					entry.DebugDirectory.TimeDateStamp = GetTimeDateStamp();
+					entry.debugDirectory = idd;
+					entry.debugDirectory.TimeDateStamp = GetTimeDateStamp();
 				}
 
 				//TODO: Only do this if symWriter supports PDB checksums

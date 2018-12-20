@@ -237,13 +237,13 @@ namespace dnlib.PE {
 			loaderFlags = reader.ReadUInt32();
 			numberOfRvaAndSizes = reader.ReadUInt32();
 			for (int i = 0; i < dataDirectories.Length; i++) {
-				uint len = reader.Position - (uint)startOffset;
+				uint len = reader.Position - (uint)StartOffset;
 				if (len + 8 <= totalSize)
 					dataDirectories[i] = new ImageDataDirectory(ref reader, verify);
 				else
 					dataDirectories[i] = new ImageDataDirectory();
 			}
-			reader.Position = (uint)startOffset + totalSize;
+			reader.Position = (uint)StartOffset + totalSize;
 			SetEndoffset(ref reader);
 		}
 	}

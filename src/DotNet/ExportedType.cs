@@ -52,7 +52,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected CustomAttributeCollection customAttributes;
+		internal CustomAttributeCollection customAttributes;
 		/// <summary>Initializes <see cref="customAttributes"/></summary>
 		protected virtual void InitializeCustomAttributes() =>
 			Interlocked.CompareExchange(ref customAttributes, new CustomAttributeCollection(), null);
@@ -77,7 +77,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected IList<PdbCustomDebugInfo> customDebugInfos;
+		internal IList<PdbCustomDebugInfo> customDebugInfos;
 		/// <summary>Initializes <see cref="customDebugInfos"/></summary>
 		protected virtual void InitializeCustomDebugInfos() =>
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
@@ -161,7 +161,7 @@ namespace dnlib.DotNet {
 			set => attributes = (int)value;
 		}
 		/// <summary>Attributes</summary>
-		protected int attributes;
+		private int attributes;
 
 		/// <summary>
 		/// From column ExportedType.TypeDefId
@@ -171,7 +171,7 @@ namespace dnlib.DotNet {
 			set => typeDefId = value;
 		}
 		/// <summary/>
-		protected uint typeDefId;
+		private uint typeDefId;
 
 		/// <summary>
 		/// From column ExportedType.TypeName
@@ -181,7 +181,7 @@ namespace dnlib.DotNet {
 			set => typeName = value;
 		}
 		/// <summary/>
-		protected UTF8String typeName;
+		private UTF8String typeName;
 
 		/// <summary>
 		/// From column ExportedType.TypeNamespace
@@ -191,7 +191,7 @@ namespace dnlib.DotNet {
 			set => typeNamespace = value;
 		}
 		/// <summary/>
-		protected UTF8String typeNamespace;
+		private UTF8String typeNamespace;
 
 		/// <summary>
 		/// From column ExportedType.Implementation
@@ -214,9 +214,9 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected IImplementation implementation;
+		private IImplementation implementation;
 		/// <summary/>
-		protected bool implementation_isInitialized;
+		private bool implementation_isInitialized;
 
 		void InitializeImplementation() {
 #if THREAD_SAFE
@@ -487,6 +487,10 @@ namespace dnlib.DotNet {
 				return false;
 			}
 		}
+		/// <summary/>
+		/// Encapsulate field
+		/// <summary/>
+		protected bool Implementation_isInitialized { get => implementation_isInitialized; set => implementation_isInitialized = value; }
 
 		/// <summary>
 		/// Resolves the type
@@ -627,12 +631,12 @@ namespace dnlib.DotNet {
 		/// <param name="implementation">Implementation</param>
 		public ExportedTypeUser(ModuleDef module, uint typeDefId, UTF8String typeNamespace, UTF8String typeName, TypeAttributes flags, IImplementation implementation) {
 			this.Module = module;
-			this.typeDefId = typeDefId;
-			this.typeName = typeName;
-			this.typeNamespace = typeNamespace;
-			attributes = (int)flags;
-			this.implementation = implementation;
-			implementation_isInitialized = true;
+			this.TypeDefId = typeDefId;
+			this.TypeName = typeName;
+			this.TypeNamespace = typeNamespace;
+			Attributes = (TypeAttributes)flags;
+			this.Implementation = implementation;
+			Implementation_isInitialized = true;
 		}
 	}
 
@@ -687,10 +691,10 @@ namespace dnlib.DotNet {
 			Module = readerModule;
 			bool b = readerModule.TablesStream.TryReadExportedTypeRow(origRid, out var row);
 			implementationRid = row.Implementation;
-			attributes = (int)row.Flags;
-			typeDefId = row.TypeDefId;
-			typeName = readerModule.StringsStream.ReadNoNull(row.TypeName);
-			typeNamespace = readerModule.StringsStream.ReadNoNull(row.TypeNamespace);
+			Attributes = (TypeAttributes)row.Flags;
+			TypeDefId = row.TypeDefId;
+			TypeName = readerModule.StringsStream.ReadNoNull(row.TypeName);
+			TypeNamespace = readerModule.StringsStream.ReadNoNull(row.TypeNamespace);
 		}
 	}
 }

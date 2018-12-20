@@ -25,7 +25,7 @@ namespace dnlib.DotNet.MD {
 			if (offset >= StreamLength)
 				return null;
 			byte[] data;
-			var reader = dataReader;
+			var reader = DataReader;
 			reader.Position = offset;
 			data = reader.TryReadBytesUntil(0);
 			if (data == null)
