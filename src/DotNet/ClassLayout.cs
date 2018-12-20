@@ -12,7 +12,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The row id in its table
 		/// </summary>
-		protected uint rid;
+		private uint rid;
 
 		/// <inheritdoc/>
 		public MDToken MDToken => new MDToken(Table.ClassLayout, rid);
@@ -89,7 +89,7 @@ namespace dnlib.DotNet {
 				throw new BadImageFormatException($"ClassLayout rid {rid} does not exist");
 #endif
 			origRid = rid;
-			this.rid = rid;
+			this.Rid = rid;
 			bool b = readerModule.TablesStream.TryReadClassLayoutRow(origRid, out var row);
 			Debug.Assert(b);
 			classSize = row.ClassSize;

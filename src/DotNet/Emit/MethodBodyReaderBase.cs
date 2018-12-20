@@ -10,9 +10,9 @@ namespace dnlib.DotNet.Emit {
 	/// </summary>
 	public abstract class MethodBodyReaderBase {
 		/// <summary>The method reader</summary>
-		protected DataReader reader;
+		internal DataReader reader;
 		/// <summary>All parameters</summary>
-		protected IList<Parameter> parameters;
+		private IList<Parameter> parameters;
 		/// <summary>All locals</summary>
 		protected IList<Local> locals = new List<Local>();
 		/// <summary>All instructions</summary>
@@ -26,9 +26,9 @@ namespace dnlib.DotNet.Emit {
 		protected uint codeStartOffs;
 
 		/// <summary>
-		/// Gets all parameters
+		/// Gets and sets all parameters
 		/// </summary>
-		public IList<Parameter> Parameters => parameters;
+		protected IList<Parameter> Parameters { get => parameters; set => parameters = value; }
 
 		/// <summary>
 		/// Gets all locals
@@ -44,6 +44,11 @@ namespace dnlib.DotNet.Emit {
 		/// Gets all exception handlers
 		/// </summary>
 		public IList<ExceptionHandler> ExceptionHandlers => exceptionHandlers;
+
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public DataReader Reader { get => reader; set => reader = value; }
 
 		/// <summary>
 		/// Constructor

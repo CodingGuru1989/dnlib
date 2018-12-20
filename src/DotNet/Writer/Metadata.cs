@@ -2418,7 +2418,7 @@ namespace dnlib.DotNet.Writer {
 							blobHeap.Add(PublicKeyBase.GetRawData(asmRef.PublicKeyOrToken)),
 							stringsHeap.Add(asmRef.Name),
 							stringsHeap.Add(asmRef.Culture),
-							blobHeap.Add(asmRef.Hash));
+							blobHeap.Add(asmRef.HashValue));
 			rid = tablesHeap.AssemblyRefTable.Add(row);
 			assemblyRefInfos.Add(asmRef, rid);
 			AddCustomAttributes(Table.AssemblyRef, rid, asmRef);

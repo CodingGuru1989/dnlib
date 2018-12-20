@@ -16,7 +16,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The row id in its table
 		/// </summary>
-		protected uint rid;
+		private uint rid;
 
 		/// <inheritdoc/>
 		public MDToken MDToken => new MDToken(Table.DeclSecurity, rid);
@@ -38,7 +38,7 @@ namespace dnlib.DotNet {
 			set => action = value;
 		}
 		/// <summary/>
-		protected SecurityAction action;
+		private SecurityAction action;
 
 		/// <summary>
 		/// From column DeclSecurity.PermissionSet
@@ -49,9 +49,10 @@ namespace dnlib.DotNet {
 					InitializeSecurityAttributes();
 				return securityAttributes;
 			}
+			set { securityAttributes = value; }
 		}
 		/// <summary/>
-		protected IList<SecurityAttribute> securityAttributes;
+		internal IList<SecurityAttribute> securityAttributes;
 		/// <summary>Initializes <see cref="securityAttributes"/></summary>
 		protected virtual void InitializeSecurityAttributes() =>
 			Interlocked.CompareExchange(ref securityAttributes, new List<SecurityAttribute>(), null);
@@ -67,7 +68,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected CustomAttributeCollection customAttributes;
+		internal CustomAttributeCollection customAttributes;
 		/// <summary>Initializes <see cref="customAttributes"/></summary>
 		protected virtual void InitializeCustomAttributes() =>
 			Interlocked.CompareExchange(ref customAttributes, new CustomAttributeCollection(), null);
@@ -92,7 +93,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected IList<PdbCustomDebugInfo> customDebugInfos;
+		internal IList<PdbCustomDebugInfo> customDebugInfos;
 		/// <summary>Initializes <see cref="customDebugInfos"/></summary>
 		protected virtual void InitializeCustomDebugInfos() =>
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
@@ -155,8 +156,8 @@ namespace dnlib.DotNet {
 		/// <param name="action">The security action</param>
 		/// <param name="securityAttrs">The security attributes (now owned by this)</param>
 		public DeclSecurityUser(SecurityAction action, IList<SecurityAttribute> securityAttrs) {
-			this.action = action;
-			securityAttributes = securityAttrs;
+			this.Action = action;
+			SecurityAttributes = securityAttrs;
 		}
 
 		/// <inheritdoc/>
@@ -213,12 +214,12 @@ namespace dnlib.DotNet {
 				throw new BadImageFormatException($"DeclSecurity rid {rid} does not exist");
 #endif
 			origRid = rid;
-			this.rid = rid;
+			this.Rid = rid;
 			this.readerModule = readerModule;
 			bool b = readerModule.TablesStream.TryReadDeclSecurityRow(origRid, out var row);
 			Debug.Assert(b);
 			permissionSet = row.PermissionSet;
-			action = (SecurityAction)row.Action;
+			Action = (SecurityAction)row.Action;
 		}
 
 		/// <inheritdoc/>

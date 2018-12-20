@@ -110,7 +110,7 @@ namespace dnlib.DotNet.Writer {
 				return;
 			}
 
-			if (ca.ConstructorArguments.Count != methodSig.Params.Count)
+			if (ca.ConstructorArguments.Count != methodSig.Parameters.Count)
 				helper.Error("Custom attribute arguments count != method sig arguments count");
 			if (methodSig.ParamsAfterSentinel != null && methodSig.ParamsAfterSentinel.Count > 0)
 				helper.Error("Custom attribute ctor has parameters after the sentinel");
@@ -124,9 +124,9 @@ namespace dnlib.DotNet.Writer {
 
 			writer.WriteUInt16((ushort)1);
 
-			int numArgs = Math.Min(methodSig.Params.Count, ca.ConstructorArguments.Count);
+			int numArgs = Math.Min(methodSig.Parameters.Count, ca.ConstructorArguments.Count);
 			for (int i = 0; i < numArgs; i++)
-				WriteValue(FixTypeSig(methodSig.Params[i]), ca.ConstructorArguments[i]);
+				WriteValue(FixTypeSig(methodSig.Parameters[i]), ca.ConstructorArguments[i]);
 
 			int numNamedArgs = Math.Min((int)ushort.MaxValue, ca.NamedArguments.Count);
 			writer.WriteUInt16((ushort)numNamedArgs);

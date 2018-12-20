@@ -22,7 +22,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The calling convention
 		/// </summary>
-		protected CallingConvention callingConvention;
+		private CallingConvention callingConvention;
 
 		byte[] extraData;
 
@@ -158,6 +158,11 @@ namespace dnlib.DotNet {
 		public bool ContainsGenericParameter => TypeHelper.ContainsGenericParameter(this);
 
 		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public CallingConvention CallingConvention { get => callingConvention; set => callingConvention = value; }
+
+		/// <summary>
 		/// Default constructor
 		/// </summary>
 		protected CallingConventionSig() {
@@ -172,7 +177,8 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// Gets the calling convention
 		/// </summary>
-		public CallingConvention GetCallingConvention() => callingConvention;
+		public CallingConvention GettingCallingConvention() => callingConvention;
+
 	}
 
 	/// <summary>
@@ -192,14 +198,14 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public FieldSig() => callingConvention = CallingConvention.Field;
+		public FieldSig() => CallingConvention = CallingConvention.Field;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="type">Field type</param>
 		public FieldSig(TypeSig type) {
-			callingConvention = CallingConvention.Field;
+			CallingConvention = CallingConvention.Field;
 			this.type = type;
 		}
 
@@ -209,14 +215,14 @@ namespace dnlib.DotNet {
 		/// <param name="type">Field type</param>
 		/// <param name="callingConvention">The calling convention (must have Field set)</param>
 		internal FieldSig(CallingConvention callingConvention, TypeSig type) {
-			this.callingConvention = callingConvention;
+			this.CallingConvention = callingConvention;
 			this.type = type;
 		}
 
 		/// <summary>
 		/// Clone this
 		/// </summary>
-		public FieldSig Clone() => new FieldSig(callingConvention, type);
+		public FieldSig Clone() => new FieldSig(CallingConvention, type);
 
 		/// <inheritdoc/>
 		public override string ToString() => FullNameFactory.FullName(type, false, null, null, null, null);
@@ -227,11 +233,11 @@ namespace dnlib.DotNet {
 	/// </summary>
 	public abstract class MethodBaseSig : CallingConventionSig {
 		/// <summary/>
-		protected TypeSig retType;
+		private TypeSig retType;
 		/// <summary/>
-		protected IList<TypeSig> parameters;
+		private IList<TypeSig> parameters;
 		/// <summary/>
-		protected uint genParamCount;
+		private uint genParamCount;
 		/// <summary/>
 		protected IList<TypeSig> paramsAfterSentinel;
 
@@ -239,8 +245,8 @@ namespace dnlib.DotNet {
 		/// Gets/sets the calling convention
 		/// </summary>
 		public CallingConvention CallingConvention {
-			get => callingConvention;
-			set => callingConvention = value;
+			get => CallingConvention;
+			set => CallingConvention = value;
 		}
 
 		/// <summary>
@@ -252,9 +258,12 @@ namespace dnlib.DotNet {
 		}
 
 		/// <summary>
-		/// Gets the parameters. This is never <c>null</c>
+		/// Gets/sets the parameters. This is never <c>null</c>
 		/// </summary>
-		public IList<TypeSig> Params => parameters;
+		public IList<TypeSig> Parameters {
+			get => parameters;
+			set => parameters = value;
+		}
 
 		/// <summary>
 		/// Gets/sets the generic param count
@@ -450,15 +459,15 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public MethodSig() => parameters = new List<TypeSig>();
+		public MethodSig() => Parameters = new List<TypeSig>();
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="callingConvention">Calling convention</param>
 		public MethodSig(CallingConvention callingConvention) {
-			this.callingConvention = callingConvention;
-			parameters = new List<TypeSig>();
+			this.CallingConvention = callingConvention;
+			Parameters = new List<TypeSig>();
 		}
 
 		/// <summary>
@@ -467,9 +476,9 @@ namespace dnlib.DotNet {
 		/// <param name="callingConvention">Calling convention</param>
 		/// <param name="genParamCount">Number of generic parameters</param>
 		public MethodSig(CallingConvention callingConvention, uint genParamCount) {
-			this.callingConvention = callingConvention;
-			this.genParamCount = genParamCount;
-			parameters = new List<TypeSig>();
+			this.CallingConvention = callingConvention;
+			this.GenParamCount = genParamCount;
+			Parameters = new List<TypeSig>();
 		}
 
 		/// <summary>
@@ -479,10 +488,10 @@ namespace dnlib.DotNet {
 		/// <param name="genParamCount">Number of generic parameters</param>
 		/// <param name="retType">Return type</param>
 		public MethodSig(CallingConvention callingConvention, uint genParamCount, TypeSig retType) {
-			this.callingConvention = callingConvention;
-			this.genParamCount = genParamCount;
-			this.retType = retType;
-			parameters = new List<TypeSig>();
+			this.CallingConvention = callingConvention;
+			this.GenParamCount = genParamCount;
+			this.RetType = retType;
+			Parameters = new List<TypeSig>();
 		}
 
 		/// <summary>
@@ -493,10 +502,10 @@ namespace dnlib.DotNet {
 		/// <param name="retType">Return type</param>
 		/// <param name="argType1">Arg type #1</param>
 		public MethodSig(CallingConvention callingConvention, uint genParamCount, TypeSig retType, TypeSig argType1) {
-			this.callingConvention = callingConvention;
-			this.genParamCount = genParamCount;
-			this.retType = retType;
-			parameters = new List<TypeSig> { argType1 };
+			this.CallingConvention = callingConvention;
+			this.GenParamCount = genParamCount;
+			this.RetType = retType;
+			Parameters = new List<TypeSig> { argType1 };
 		}
 
 		/// <summary>
@@ -508,10 +517,10 @@ namespace dnlib.DotNet {
 		/// <param name="argType1">Arg type #1</param>
 		/// <param name="argType2">Arg type #2</param>
 		public MethodSig(CallingConvention callingConvention, uint genParamCount, TypeSig retType, TypeSig argType1, TypeSig argType2) {
-			this.callingConvention = callingConvention;
-			this.genParamCount = genParamCount;
-			this.retType = retType;
-			parameters = new List<TypeSig> { argType1, argType2 };
+			this.CallingConvention = callingConvention;
+			this.GenParamCount = genParamCount;
+			this.RetType = retType;
+			Parameters = new List<TypeSig> { argType1, argType2 };
 		}
 
 		/// <summary>
@@ -524,10 +533,10 @@ namespace dnlib.DotNet {
 		/// <param name="argType2">Arg type #2</param>
 		/// <param name="argType3">Arg type #3</param>
 		public MethodSig(CallingConvention callingConvention, uint genParamCount, TypeSig retType, TypeSig argType1, TypeSig argType2, TypeSig argType3) {
-			this.callingConvention = callingConvention;
-			this.genParamCount = genParamCount;
-			this.retType = retType;
-			parameters = new List<TypeSig> { argType1, argType2, argType3 };
+			this.CallingConvention = callingConvention;
+			this.GenParamCount = genParamCount;
+			this.RetType = retType;
+			Parameters = new List<TypeSig> { argType1, argType2, argType3 };
 		}
 
 		/// <summary>
@@ -538,10 +547,10 @@ namespace dnlib.DotNet {
 		/// <param name="retType">Return type</param>
 		/// <param name="argTypes">Argument types</param>
 		public MethodSig(CallingConvention callingConvention, uint genParamCount, TypeSig retType, params TypeSig[] argTypes) {
-			this.callingConvention = callingConvention;
-			this.genParamCount = genParamCount;
-			this.retType = retType;
-			parameters = new List<TypeSig>(argTypes);
+			this.CallingConvention = callingConvention;
+			this.GenParamCount = genParamCount;
+			this.RetType = retType;
+			Parameters = new List<TypeSig>(argTypes);
 		}
 
 		/// <summary>
@@ -552,10 +561,10 @@ namespace dnlib.DotNet {
 		/// <param name="retType">Return type</param>
 		/// <param name="argTypes">Argument types</param>
 		public MethodSig(CallingConvention callingConvention, uint genParamCount, TypeSig retType, IList<TypeSig> argTypes) {
-			this.callingConvention = callingConvention;
-			this.genParamCount = genParamCount;
-			this.retType = retType;
-			parameters = new List<TypeSig>(argTypes);
+			this.CallingConvention = callingConvention;
+			this.GenParamCount = genParamCount;
+			this.RetType = retType;
+			Parameters = new List<TypeSig>(argTypes);
 		}
 
 		/// <summary>
@@ -567,17 +576,17 @@ namespace dnlib.DotNet {
 		/// <param name="argTypes">Argument types</param>
 		/// <param name="paramsAfterSentinel">Parameters after sentinel</param>
 		public MethodSig(CallingConvention callingConvention, uint genParamCount, TypeSig retType, IList<TypeSig> argTypes, IList<TypeSig> paramsAfterSentinel) {
-			this.callingConvention = callingConvention;
-			this.genParamCount = genParamCount;
-			this.retType = retType;
-			parameters = new List<TypeSig>(argTypes);
+			this.CallingConvention = callingConvention;
+			this.GenParamCount = genParamCount;
+			this.RetType = retType;
+			Parameters = new List<TypeSig>(argTypes);
 			this.paramsAfterSentinel = paramsAfterSentinel == null ? null : new List<TypeSig>(paramsAfterSentinel);
 		}
 
 		/// <summary>
 		/// Clone this
 		/// </summary>
-		public MethodSig Clone() => new MethodSig(callingConvention, genParamCount, retType, parameters, paramsAfterSentinel);
+		public MethodSig Clone() => new MethodSig(CallingConvention, GenParamCount, RetType, Parameters, paramsAfterSentinel);
 
 		/// <inheritdoc/>
 		public override string ToString() => FullNameFactory.MethodBaseSigFullName(this, null);
@@ -665,8 +674,8 @@ namespace dnlib.DotNet {
 		/// Default constructor
 		/// </summary>
 		public PropertySig() {
-			callingConvention = CallingConvention.Property;
-			parameters = new List<TypeSig>();
+			CallingConvention = CallingConvention.Property;
+			Parameters = new List<TypeSig>();
 		}
 
 		/// <summary>
@@ -674,8 +683,8 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="callingConvention">Calling convention (must have Property set)</param>
 		internal PropertySig(CallingConvention callingConvention) {
-			this.callingConvention = callingConvention;
-			parameters = new List<TypeSig>();
+			this.CallingConvention = callingConvention;
+			Parameters = new List<TypeSig>();
 		}
 
 		/// <summary>
@@ -683,8 +692,8 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="hasThis"><c>true</c> if instance, <c>false</c> if static</param>
 		public PropertySig(bool hasThis) {
-			callingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
-			parameters = new List<TypeSig>();
+			CallingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
+			Parameters = new List<TypeSig>();
 		}
 
 		/// <summary>
@@ -693,9 +702,9 @@ namespace dnlib.DotNet {
 		/// <param name="hasThis"><c>true</c> if instance, <c>false</c> if static</param>
 		/// <param name="retType">Return type</param>
 		public PropertySig(bool hasThis, TypeSig retType) {
-			callingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
-			this.retType = retType;
-			parameters = new List<TypeSig>();
+			CallingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
+			this.RetType = retType;
+			Parameters = new List<TypeSig>();
 		}
 
 		/// <summary>
@@ -705,9 +714,9 @@ namespace dnlib.DotNet {
 		/// <param name="retType">Return type</param>
 		/// <param name="argType1">Arg type #1</param>
 		public PropertySig(bool hasThis, TypeSig retType, TypeSig argType1) {
-			callingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
-			this.retType = retType;
-			parameters = new List<TypeSig> { argType1 };
+			CallingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
+			this.RetType = retType;
+			Parameters = new List<TypeSig> { argType1 };
 		}
 
 		/// <summary>
@@ -718,9 +727,9 @@ namespace dnlib.DotNet {
 		/// <param name="argType1">Arg type #1</param>
 		/// <param name="argType2">Arg type #2</param>
 		public PropertySig(bool hasThis, TypeSig retType, TypeSig argType1, TypeSig argType2) {
-			callingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
-			this.retType = retType;
-			parameters = new List<TypeSig> { argType1, argType2 };
+			CallingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
+			this.RetType = retType;
+			Parameters = new List<TypeSig> { argType1, argType2 };
 		}
 
 		/// <summary>
@@ -732,9 +741,9 @@ namespace dnlib.DotNet {
 		/// <param name="argType2">Arg type #2</param>
 		/// <param name="argType3">Arg type #3</param>
 		public PropertySig(bool hasThis, TypeSig retType, TypeSig argType1, TypeSig argType2, TypeSig argType3) {
-			callingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
-			this.retType = retType;
-			parameters = new List<TypeSig> { argType1, argType2, argType3 };
+			CallingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
+			this.RetType = retType;
+			Parameters = new List<TypeSig> { argType1, argType2, argType3 };
 		}
 
 		/// <summary>
@@ -744,9 +753,9 @@ namespace dnlib.DotNet {
 		/// <param name="retType">Return type</param>
 		/// <param name="argTypes">Argument types</param>
 		public PropertySig(bool hasThis, TypeSig retType, params TypeSig[] argTypes) {
-			callingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
-			this.retType = retType;
-			parameters = new List<TypeSig>(argTypes);
+			CallingConvention = CallingConvention.Property | (hasThis ? CallingConvention.HasThis : 0);
+			this.RetType = retType;
+			Parameters = new List<TypeSig>(argTypes);
 		}
 
 		/// <summary>
@@ -758,17 +767,17 @@ namespace dnlib.DotNet {
 		/// <param name="argTypes">Argument types</param>
 		/// <param name="paramsAfterSentinel">Parameters after sentinel</param>
 		internal PropertySig(CallingConvention callingConvention, uint genParamCount, TypeSig retType, IList<TypeSig> argTypes, IList<TypeSig> paramsAfterSentinel) {
-			this.callingConvention = callingConvention;
-			this.genParamCount = genParamCount;
-			this.retType = retType;
-			parameters = new List<TypeSig>(argTypes);
+			this.CallingConvention = callingConvention;
+			this.GenParamCount = genParamCount;
+			this.RetType = retType;
+			Parameters = new List<TypeSig>(argTypes);
 			this.paramsAfterSentinel = paramsAfterSentinel == null ? null : new List<TypeSig>(paramsAfterSentinel);
 		}
 
 		/// <summary>
 		/// Clone this
 		/// </summary>
-		public PropertySig Clone() => new PropertySig(callingConvention, genParamCount, retType, parameters, paramsAfterSentinel);
+		public PropertySig Clone() => new PropertySig(CallingConvention, GenParamCount, RetType, Parameters, paramsAfterSentinel);
 
 		/// <inheritdoc/>
 		public override string ToString() => FullNameFactory.MethodBaseSigFullName(this, null);
@@ -789,7 +798,7 @@ namespace dnlib.DotNet {
 		/// Default constructor
 		/// </summary>
 		public LocalSig() {
-			callingConvention = CallingConvention.LocalSig;
+			CallingConvention = CallingConvention.LocalSig;
 			locals = new List<TypeSig>();
 		}
 
@@ -799,7 +808,7 @@ namespace dnlib.DotNet {
 		/// <param name="callingConvention">Calling convention (must have LocalSig set)</param>
 		/// <param name="count">Number of locals</param>
 		internal LocalSig(CallingConvention callingConvention, uint count) {
-			this.callingConvention = callingConvention;
+			this.CallingConvention = callingConvention;
 			locals = new List<TypeSig>((int)count);
 		}
 
@@ -808,7 +817,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="local1">Local type #1</param>
 		public LocalSig(TypeSig local1) {
-			callingConvention = CallingConvention.LocalSig;
+			CallingConvention = CallingConvention.LocalSig;
 			locals = new List<TypeSig> { local1 };
 		}
 
@@ -818,7 +827,7 @@ namespace dnlib.DotNet {
 		/// <param name="local1">Local type #1</param>
 		/// <param name="local2">Local type #2</param>
 		public LocalSig(TypeSig local1, TypeSig local2) {
-			callingConvention = CallingConvention.LocalSig;
+			CallingConvention = CallingConvention.LocalSig;
 			locals = new List<TypeSig> { local1, local2 };
 		}
 
@@ -829,7 +838,7 @@ namespace dnlib.DotNet {
 		/// <param name="local2">Local type #2</param>
 		/// <param name="local3">Local type #3</param>
 		public LocalSig(TypeSig local1, TypeSig local2, TypeSig local3) {
-			callingConvention = CallingConvention.LocalSig;
+			CallingConvention = CallingConvention.LocalSig;
 			locals = new List<TypeSig> { local1, local2, local3 };
 		}
 
@@ -838,7 +847,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="locals">All locals</param>
 		public LocalSig(params TypeSig[] locals) {
-			callingConvention = CallingConvention.LocalSig;
+			CallingConvention = CallingConvention.LocalSig;
 			this.locals = new List<TypeSig>(locals);
 		}
 
@@ -847,7 +856,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="locals">All locals</param>
 		public LocalSig(IList<TypeSig> locals) {
-			callingConvention = CallingConvention.LocalSig;
+			CallingConvention = CallingConvention.LocalSig;
 			this.locals = new List<TypeSig>(locals);
 		}
 
@@ -857,7 +866,7 @@ namespace dnlib.DotNet {
 		/// <param name="locals">All locals (this instance now owns it)</param>
 		/// <param name="dummy">Dummy</param>
 		internal LocalSig(IList<TypeSig> locals, bool dummy) {
-			callingConvention = CallingConvention.LocalSig;
+			CallingConvention = CallingConvention.LocalSig;
 			this.locals = locals;
 		}
 
@@ -882,7 +891,7 @@ namespace dnlib.DotNet {
 		/// Default constructor
 		/// </summary>
 		public GenericInstMethodSig() {
-			callingConvention = CallingConvention.GenericInst;
+			CallingConvention = CallingConvention.GenericInst;
 			genericArgs = new List<TypeSig>();
 		}
 
@@ -892,7 +901,7 @@ namespace dnlib.DotNet {
 		/// <param name="callingConvention">Calling convention (must have GenericInst set)</param>
 		/// <param name="size">Number of generic args</param>
 		internal GenericInstMethodSig(CallingConvention callingConvention, uint size) {
-			this.callingConvention = callingConvention;
+			this.CallingConvention = callingConvention;
 			genericArgs = new List<TypeSig>((int)size);
 		}
 
@@ -901,7 +910,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="arg1">Generic arg #1</param>
 		public GenericInstMethodSig(TypeSig arg1) {
-			callingConvention = CallingConvention.GenericInst;
+			CallingConvention = CallingConvention.GenericInst;
 			genericArgs = new List<TypeSig> { arg1 };
 		}
 
@@ -911,7 +920,7 @@ namespace dnlib.DotNet {
 		/// <param name="arg1">Generic arg #1</param>
 		/// <param name="arg2">Generic arg #2</param>
 		public GenericInstMethodSig(TypeSig arg1, TypeSig arg2) {
-			callingConvention = CallingConvention.GenericInst;
+			CallingConvention = CallingConvention.GenericInst;
 			genericArgs = new List<TypeSig> { arg1, arg2 };
 		}
 
@@ -922,7 +931,7 @@ namespace dnlib.DotNet {
 		/// <param name="arg2">Generic arg #2</param>
 		/// <param name="arg3">Generic arg #3</param>
 		public GenericInstMethodSig(TypeSig arg1, TypeSig arg2, TypeSig arg3) {
-			callingConvention = CallingConvention.GenericInst;
+			CallingConvention = CallingConvention.GenericInst;
 			genericArgs = new List<TypeSig> { arg1, arg2, arg3 };
 		}
 
@@ -931,7 +940,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="args">Generic args</param>
 		public GenericInstMethodSig(params TypeSig[] args) {
-			callingConvention = CallingConvention.GenericInst;
+			CallingConvention = CallingConvention.GenericInst;
 			genericArgs = new List<TypeSig>(args);
 		}
 
@@ -940,7 +949,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="args">Generic args</param>
 		public GenericInstMethodSig(IList<TypeSig> args) {
-			callingConvention = CallingConvention.GenericInst;
+			CallingConvention = CallingConvention.GenericInst;
 			genericArgs = new List<TypeSig>(args);
 		}
 
@@ -970,14 +979,14 @@ namespace dnlib.DotNet {
 		/// </summary>
 		/// <param name="sig">this</param>
 		/// <returns>The parameters</returns>
-		public static IList<TypeSig> GetParams(this MethodBaseSig sig) => sig?.Params ?? new List<TypeSig>();
+		public static IList<TypeSig> GetParams(this MethodBaseSig sig) => sig?.Parameters ?? new List<TypeSig>();
 
 		/// <summary>
 		/// Gets the parameter count
 		/// </summary>
 		/// <param name="sig">this</param>
 		/// <returns>Parameter count</returns>
-		public static int GetParamCount(this MethodBaseSig sig) => sig?.Params.Count ?? 0;
+		public static int GetParamCount(this MethodBaseSig sig) => sig?.Parameters.Count ?? 0;
 
 		/// <summary>
 		/// Gets the generic parameter count

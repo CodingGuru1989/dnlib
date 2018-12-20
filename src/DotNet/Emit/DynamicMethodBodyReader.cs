@@ -159,9 +159,9 @@ namespace dnlib.DotNet.Emit {
 			ehHeader = rslvExceptionHeaderFieldInfo.Read(obj) as byte[];
 
 			UpdateLocals(rslvLocalsFieldInfo.Read(obj) as byte[]);
-			reader = ByteArrayDataReaderFactory.CreateReader(code);
+			Reader = ByteArrayDataReaderFactory.CreateReader(code);
 			method = CreateMethodDef(delMethod);
-			parameters = method.Parameters;
+			Parameters = method.Parameters;
 		}
 
 		class ExceptionInfo {
@@ -353,22 +353,22 @@ namespace dnlib.DotNet.Emit {
 		}
 
 		/// <inheritdoc/>
-		protected override IField ReadInlineField(Instruction instr) => ReadToken(reader.ReadUInt32()) as IField;
+		protected override IField ReadInlineField(Instruction instr) => ReadToken(Reader.ReadUInt32()) as IField;
 
 		/// <inheritdoc/>
-		protected override IMethod ReadInlineMethod(Instruction instr) => ReadToken(reader.ReadUInt32()) as IMethod;
+		protected override IMethod ReadInlineMethod(Instruction instr) => ReadToken(Reader.ReadUInt32()) as IMethod;
 
 		/// <inheritdoc/>
-		protected override MethodSig ReadInlineSig(Instruction instr) => ReadToken(reader.ReadUInt32()) as MethodSig;
+		protected override MethodSig ReadInlineSig(Instruction instr) => ReadToken(Reader.ReadUInt32()) as MethodSig;
 
 		/// <inheritdoc/>
-		protected override string ReadInlineString(Instruction instr) => ReadToken(reader.ReadUInt32()) as string ?? string.Empty;
+		protected override string ReadInlineString(Instruction instr) => ReadToken(Reader.ReadUInt32()) as string ?? string.Empty;
 
 		/// <inheritdoc/>
-		protected override ITokenOperand ReadInlineTok(Instruction instr) => ReadToken(reader.ReadUInt32()) as ITokenOperand;
+		protected override ITokenOperand ReadInlineTok(Instruction instr) => ReadToken(Reader.ReadUInt32()) as ITokenOperand;
 
 		/// <inheritdoc/>
-		protected override ITypeDefOrRef ReadInlineType(Instruction instr) => ReadToken(reader.ReadUInt32()) as ITypeDefOrRef;
+		protected override ITypeDefOrRef ReadInlineType(Instruction instr) => ReadToken(Reader.ReadUInt32()) as ITypeDefOrRef;
 
 		object ReadToken(uint token) {
 			uint rid = token & 0x00FFFFFF;

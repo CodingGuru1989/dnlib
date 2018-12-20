@@ -442,7 +442,7 @@ namespace dnlib.DotNet {
 				sig.RetType = module.CorLibTypes.Void;
 
 			foreach (var p in mb.GetParameters())
-				sig.Params.Add(ImportAsTypeSig(p, mb.DeclaringType));
+				sig.Parameters.Add(ImportAsTypeSig(p, mb.DeclaringType));
 
 			if (mb.IsGenericMethodDefinition)
 				sig.GenParamCount = (uint)mb.GetGenericArguments().Length;
@@ -813,7 +813,7 @@ namespace dnlib.DotNet {
 			if (!recursionCounter.Increment())
 				return null;
 
-			var result = new FieldSig(sig.GetCallingConvention(), Import(sig.Type));
+			var result = new FieldSig(sig.GettingCallingConvention(), Import(sig.Type));
 
 			recursionCounter.Decrement();
 			return result;
@@ -830,7 +830,7 @@ namespace dnlib.DotNet {
 			if (!recursionCounter.Increment())
 				return null;
 
-			var result = Import(new MethodSig(sig.GetCallingConvention()), sig);
+			var result = Import(new MethodSig(sig.GettingCallingConvention()), sig);
 
 			recursionCounter.Decrement();
 			return result;
@@ -838,8 +838,8 @@ namespace dnlib.DotNet {
 
 		T Import<T>(T sig, T old) where T : MethodBaseSig {
 			sig.RetType = Import(old.RetType);
-			foreach (var p in old.Params)
-				sig.Params.Add(Import(p));
+			foreach (var p in old.Parameters)
+				sig.Parameters.Add(Import(p));
 			sig.GenParamCount = old.GenParamCount;
 			var paramsAfterSentinel = sig.ParamsAfterSentinel;
 			if (paramsAfterSentinel != null) {
@@ -860,7 +860,7 @@ namespace dnlib.DotNet {
 			if (!recursionCounter.Increment())
 				return null;
 
-			var result = Import(new PropertySig(sig.GetCallingConvention()), sig);
+			var result = Import(new PropertySig(sig.GettingCallingConvention()), sig);
 
 			recursionCounter.Decrement();
 			return result;
@@ -877,7 +877,7 @@ namespace dnlib.DotNet {
 			if (!recursionCounter.Increment())
 				return null;
 
-			var result = new LocalSig(sig.GetCallingConvention(), (uint)sig.Locals.Count);
+			var result = new LocalSig(sig.GettingCallingConvention(), (uint)sig.Locals.Count);
 			foreach (var l in sig.Locals)
 				result.Locals.Add(Import(l));
 
@@ -896,7 +896,7 @@ namespace dnlib.DotNet {
 			if (!recursionCounter.Increment())
 				return null;
 
-			var result = new GenericInstMethodSig(sig.GetCallingConvention(), (uint)sig.GenericArguments.Count);
+			var result = new GenericInstMethodSig(sig.GettingCallingConvention(), (uint)sig.GenericArguments.Count);
 			foreach (var l in sig.GenericArguments)
 				result.GenericArguments.Add(Import(l));
 

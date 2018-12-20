@@ -15,7 +15,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The row id in its table
 		/// </summary>
-		protected uint rid;
+		private uint rid;
 
 #if THREAD_SAFE
 		readonly Lock theLock = Lock.Create();
@@ -24,7 +24,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The owner module
 		/// </summary>
-		protected ModuleDef module;
+		private ModuleDef module;
 
 		/// <inheritdoc/>
 		public MDToken MDToken => new MDToken(Table.ExportedType, rid);
@@ -136,7 +136,7 @@ namespace dnlib.DotNet {
 		public bool ContainsGenericParameter => false;
 
 		/// <inheritdoc/>
-		public ModuleDef Module => module;
+		public ModuleDef Module { get => module; set => module = value; }
 
 #pragma warning disable CA1033 // Interface methods should be callable by child types
 		/// <inheritdoc/>
@@ -614,7 +614,7 @@ namespace dnlib.DotNet {
 		/// Constructor
 		/// </summary>
 		/// <param name="module">Owner module</param>
-		public ExportedTypeUser(ModuleDef module) => this.module = module;
+		public ExportedTypeUser(ModuleDef module) => this.Module = module;
 
 		/// <summary>
 		/// Constructor
@@ -626,7 +626,7 @@ namespace dnlib.DotNet {
 		/// <param name="flags">Flags</param>
 		/// <param name="implementation">Implementation</param>
 		public ExportedTypeUser(ModuleDef module, uint typeDefId, UTF8String typeNamespace, UTF8String typeName, TypeAttributes flags, IImplementation implementation) {
-			this.module = module;
+			this.Module = module;
 			this.typeDefId = typeDefId;
 			this.typeName = typeName;
 			this.typeNamespace = typeNamespace;
@@ -682,9 +682,9 @@ namespace dnlib.DotNet {
 				throw new BadImageFormatException($"ExportedType rid {rid} does not exist");
 #endif
 			origRid = rid;
-			this.rid = rid;
+			this.Rid = rid;
 			this.readerModule = readerModule;
-			module = readerModule;
+			Module = readerModule;
 			bool b = readerModule.TablesStream.TryReadExportedTypeRow(origRid, out var row);
 			implementationRid = row.Implementation;
 			attributes = (int)row.Flags;

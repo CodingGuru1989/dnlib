@@ -12,7 +12,7 @@ namespace dnlib.DotNet.Emit {
 		/// <summary>
 		/// The opcode
 		/// </summary>
-		public OpCode OpCode;
+		private OpCode opCode;
 
 		/// <summary>
 		/// The opcode operand
@@ -28,6 +28,11 @@ namespace dnlib.DotNet.Emit {
 		/// PDB sequence point or <c>null</c> if none
 		/// </summary>
 		public SequencePoint SequencePoint;
+
+		/// <summary>
+		/// Encapsulate field
+		/// </summary>
+		public OpCode OpCode { get => opCode; set => opCode = value; }
 
 		/// <summary>
 		/// Default constructor
@@ -403,7 +408,7 @@ namespace dnlib.DotNet.Emit {
 			if (!IsSystemVoid(sig.RetType) || (code == Code.Newobj && sig.HasThis))
 				pushes++;
 
-			pops += sig.Params.Count;
+			pops += sig.Parameters.Count;
 			var paramsAfterSentinel = sig.ParamsAfterSentinel;
 			if (paramsAfterSentinel != null)
 				pops += paramsAfterSentinel.Count;
@@ -750,8 +755,8 @@ namespace dnlib.DotNet.Emit {
 				return declaringType?.IsValueType == true ? new ByRefSig(declaringType.ToTypeSig()) : declaringType.ToTypeSig();
 			if (methodSig.ImplicitThis)
 				index--;
-			if ((uint)index < (uint)methodSig.Params.Count)
-				return methodSig.Params[index];
+			if ((uint)index < (uint)methodSig.Parameters.Count)
+				return methodSig.Parameters[index];
 			return null;
 		}
 

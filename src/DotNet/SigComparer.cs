@@ -2206,10 +2206,10 @@ exit: ;
 				return false;
 			bool result;
 
-			if (a.GetCallingConvention() != b.GetCallingConvention())
+			if (a.GettingCallingConvention() != b.GettingCallingConvention())
 				result = false;
 			else {
-				switch (a.GetCallingConvention() & CallingConvention.Mask) {
+				switch (a.GettingCallingConvention() & CallingConvention.Mask) {
 				case CallingConvention.Default:
 				case CallingConvention.C:
 				case CallingConvention.StdCall:
@@ -2260,7 +2260,7 @@ exit: ;
 				return 0;
 			int hash;
 
-			switch (a.GetCallingConvention() & CallingConvention.Mask) {
+			switch (a.GettingCallingConvention() & CallingConvention.Mask) {
 			case CallingConvention.Default:
 			case CallingConvention.C:
 			case CallingConvention.StdCall:
@@ -2312,9 +2312,9 @@ exit: ;
 			if (!recursionCounter.Increment())
 				return false;
 
-			bool result = a.GetCallingConvention() == b.GetCallingConvention() &&
+			bool result = a.GettingCallingConvention() == b.GettingCallingConvention() &&
 					(DontCompareReturnType || Equals(a.RetType, b.RetType)) &&
-					Equals(a.Params, b.Params) &&
+					Equals(a.Parameters, b.Parameters) &&
 					(!a.Generic || a.GenParamCount == b.GenParamCount) &&
 					(!CompareSentinelParams || Equals(a.ParamsAfterSentinel, b.ParamsAfterSentinel));
 
@@ -2335,7 +2335,7 @@ exit: ;
 			int hash;
 
 			hash = GetHashCode_CallingConvention(a) +
-					GetHashCode(a.Params);
+					GetHashCode(a.Parameters);
 			if (!DontCompareReturnType)
 				hash += GetHashCode(a.RetType);
 			if (a.Generic)
@@ -2347,7 +2347,7 @@ exit: ;
 			return hash;
 		}
 
-		int GetHashCode_CallingConvention(CallingConventionSig a) => GetHashCode(a.GetCallingConvention());
+		int GetHashCode_CallingConvention(CallingConventionSig a) => GetHashCode(a.GettingCallingConvention());
 
 		int GetHashCode(CallingConvention a) {
 			//*******************************************************************
@@ -2388,7 +2388,7 @@ exit: ;
 			if (!recursionCounter.Increment())
 				return false;
 
-			bool result = a.GetCallingConvention() == b.GetCallingConvention() && Equals(a.Type, b.Type);
+			bool result = a.GettingCallingConvention() == b.GettingCallingConvention() && Equals(a.Type, b.Type);
 
 			recursionCounter.Decrement();
 			return result;
@@ -2426,7 +2426,7 @@ exit: ;
 			if (!recursionCounter.Increment())
 				return false;
 
-			bool result = a.GetCallingConvention() == b.GetCallingConvention() && Equals(a.Locals, b.Locals);
+			bool result = a.GettingCallingConvention() == b.GettingCallingConvention() && Equals(a.Locals, b.Locals);
 
 			recursionCounter.Decrement();
 			return result;
@@ -2464,7 +2464,7 @@ exit: ;
 			if (!recursionCounter.Increment())
 				return false;
 
-			bool result = a.GetCallingConvention() == b.GetCallingConvention() && Equals(a.GenericArguments, b.GenericArguments);
+			bool result = a.GettingCallingConvention() == b.GettingCallingConvention() && Equals(a.GenericArguments, b.GenericArguments);
 
 			recursionCounter.Decrement();
 			return result;
@@ -3973,9 +3973,9 @@ exit: ;
 			if (!recursionCounter.Increment())
 				return false;
 
-			bool result = Equals(a.GetCallingConvention(), b) &&
+			bool result = Equals(a.GettingCallingConvention(), b) &&
 					(DontCompareReturnType || ReturnTypeEquals(a.RetType, b)) &&
-					Equals(a.Params, b.GetParameters(), b.DeclaringType) &&
+					Equals(a.Parameters, b.GetParameters(), b.DeclaringType) &&
 					(!a.Generic || a.GenParamCount == b.GetGenericArguments().Length);
 
 			recursionCounter.Decrement();

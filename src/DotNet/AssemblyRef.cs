@@ -23,7 +23,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The row id in its table
 		/// </summary>
-		protected uint rid;
+		private uint rid;
 
 		/// <inheritdoc/>
 		public MDToken MDToken => new MDToken(Table.AssemblyRef, rid);
@@ -59,7 +59,7 @@ namespace dnlib.DotNet {
 			set => version = value ?? throw new ArgumentNullException(nameof(value));
 		}
 		/// <summary/>
-		protected Version version;
+		private Version version;
 
 		/// <summary>
 		/// From column AssemblyRef.Flags
@@ -69,7 +69,7 @@ namespace dnlib.DotNet {
 			set => attributes = (int)value;
 		}
 		/// <summary>Attributes</summary>
-		protected int attributes;
+		private int attributes;
 
 		/// <summary>
 		/// From column AssemblyRef.PublicKeyOrToken
@@ -80,7 +80,7 @@ namespace dnlib.DotNet {
 			set => publicKeyOrToken = value ?? throw new ArgumentNullException(nameof(value));
 		}
 		/// <summary/>
-		protected PublicKeyBase publicKeyOrToken;
+		private PublicKeyBase publicKeyOrToken;
 
 		/// <summary>
 		/// From column AssemblyRef.Name
@@ -90,7 +90,7 @@ namespace dnlib.DotNet {
 			set => name = value;
 		}
 		/// <summary>Name</summary>
-		protected UTF8String name;
+		private UTF8String name;
 
 		/// <summary>
 		/// From column AssemblyRef.Locale
@@ -100,17 +100,17 @@ namespace dnlib.DotNet {
 			set => culture = value;
 		}
 		/// <summary>Culture</summary>
-		protected UTF8String culture;
+		private UTF8String culture;
 
 		/// <summary>
 		/// From column AssemblyRef.HashValue
 		/// </summary>
-		public byte[] Hash {
+		public byte[] HashValue {
 			get => hashValue;
 			set => hashValue = value;
 		}
 		/// <summary/>
-		protected byte[] hashValue;
+		private byte[] hashValue;
 
 		/// <summary>
 		/// Gets all custom attributes
@@ -123,7 +123,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected CustomAttributeCollection customAttributes;
+		internal CustomAttributeCollection customAttributes;
 		/// <summary>Initializes <see cref="customAttributes"/></summary>
 		protected virtual void InitializeCustomAttributes() =>
 			Interlocked.CompareExchange(ref customAttributes, new CustomAttributeCollection(), null);
@@ -148,7 +148,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected IList<PdbCustomDebugInfo> customDebugInfos;
+		internal IList<PdbCustomDebugInfo> customDebugInfos;
 		/// <summary>Initializes <see cref="customDebugInfos"/></summary>
 		protected virtual void InitializeCustomDebugInfos() =>
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
@@ -375,11 +375,11 @@ namespace dnlib.DotNet {
 				throw new ArgumentNullException(nameof(name));
 			if ((object)locale == null)
 				throw new ArgumentNullException(nameof(locale));
-			this.name = name;
-			this.version = version ?? throw new ArgumentNullException(nameof(version));
-			publicKeyOrToken = publicKey;
-			culture = locale;
-			attributes = (int)(publicKey is PublicKey ? AssemblyAttributes.PublicKey : AssemblyAttributes.None);
+			this.Name = name;
+			this.Version = version ?? throw new ArgumentNullException(nameof(version));
+			PublicKeyOrToken = publicKey;
+			Culture = locale;
+			Attributes = (AssemblyAttributes)(publicKey is PublicKey ? AssemblyAttributes.PublicKey : AssemblyAttributes.None);
 		}
 
 		/// <summary>
@@ -388,7 +388,7 @@ namespace dnlib.DotNet {
 		/// <param name="asmName">Assembly name info</param>
 		/// <exception cref="ArgumentNullException">If <paramref name="asmName"/> is <c>null</c></exception>
 		public AssemblyRefUser(AssemblyName asmName)
-			: this(new AssemblyNameInfo(asmName)) => attributes = (int)asmName.Flags;
+			: this(new AssemblyNameInfo(asmName)) => Attributes = (AssemblyAttributes)asmName.Flags;
 
 		/// <summary>
 		/// Constructor
@@ -398,11 +398,11 @@ namespace dnlib.DotNet {
 			if (assembly == null)
 				throw new ArgumentNullException("assembly", "asmName");
 
-			version = assembly.Version ?? new Version(0, 0, 0, 0);
-			publicKeyOrToken = assembly.PublicKeyOrToken;
-			name = UTF8String.IsNullOrEmpty(assembly.Name) ? UTF8String.Empty : assembly.Name;
-			culture = assembly.Culture;
-			attributes = (int)((publicKeyOrToken is PublicKey ? AssemblyAttributes.PublicKey : AssemblyAttributes.None) | assembly.ContentType);
+			Version = assembly.Version ?? new Version(0, 0, 0, 0);
+			PublicKeyOrToken = assembly.PublicKeyOrToken;
+			Name = UTF8String.IsNullOrEmpty(assembly.Name) ? UTF8String.Empty : assembly.Name;
+			Culture = assembly.Culture;
+			Attributes = (AssemblyAttributes)((PublicKeyOrToken is PublicKey ? AssemblyAttributes.PublicKey : AssemblyAttributes.None) | assembly.ContentType);
 		}
 	}
 
@@ -447,20 +447,20 @@ namespace dnlib.DotNet {
 				throw new BadImageFormatException($"AssemblyRef rid {rid} does not exist");
 #endif
 			origRid = rid;
-			this.rid = rid;
+			this.Rid = rid;
 			this.readerModule = readerModule;
 			bool b = readerModule.TablesStream.TryReadAssemblyRefRow(origRid, out var row);
 			Debug.Assert(b);
-			version = new Version(row.MajorVersion, row.MinorVersion, row.BuildNumber, row.RevisionNumber);
-			attributes = (int)row.Flags;
+			Version = new Version(row.MajorVersion, row.MinorVersion, row.BuildNumber, row.RevisionNumber);
+			Attributes = (AssemblyAttributes)row.Flags;
 			var pkData = readerModule.BlobStream.Read(row.PublicKeyOrToken);
-			if ((attributes & (uint)AssemblyAttributes.PublicKey) != 0)
-				publicKeyOrToken = new PublicKey(pkData);
+			if (((uint)Attributes & (uint)AssemblyAttributes.PublicKey) != 0)
+				PublicKeyOrToken = new PublicKey(pkData);
 			else
-				publicKeyOrToken = new PublicKeyToken(pkData);
-			name = readerModule.StringsStream.ReadNoNull(row.Name);
-			culture = readerModule.StringsStream.ReadNoNull(row.Locale);
-			hashValue = readerModule.BlobStream.Read(row.HashValue);
+				PublicKeyOrToken = new PublicKeyToken(pkData);
+			Name = readerModule.StringsStream.ReadNoNull(row.Name);
+			Culture = readerModule.StringsStream.ReadNoNull(row.Locale);
+			HashValue = readerModule.BlobStream.Read(row.HashValue);
 		}
 	}
 }

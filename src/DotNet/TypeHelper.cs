@@ -306,7 +306,7 @@ namespace dnlib.DotNet {
 				return false;
 
 			bool res = ContainsGenericParameterInternal(mbs.RetType) ||
-				ContainsGenericParameter(mbs.Params) ||
+				ContainsGenericParameter(mbs.Parameters) ||
 				ContainsGenericParameter(mbs.ParamsAfterSentinel);
 
 			recursionCounter.Decrement();

@@ -113,9 +113,9 @@ namespace dnlib.DotNet.Writer {
 		/// </summary>
 		public sealed class OrigSection : IDisposable {
 			/// <summary>PE section</summary>
-			public ImageSectionHeader PESection;
+			private ImageSectionHeader pESection;
 			/// <summary>PE section data</summary>
-			public DataReaderChunk Chunk;
+			private DataReaderChunk chunk;
 
 			/// <summary>
 			/// Constructor
@@ -123,6 +123,16 @@ namespace dnlib.DotNet.Writer {
 			/// <param name="peSection">PE section</param>
 			public OrigSection(ImageSectionHeader peSection) =>
 				PESection = peSection;
+
+			/// <summary>
+			/// Encapsulate field
+			/// </summary>
+			public DataReaderChunk Chunk { get => chunk; set => chunk = value; }
+
+			/// <summary>
+			/// Encapsulate field
+			/// </summary>
+			public ImageSectionHeader PESection { get => pESection; set => pESection = value; }
 
 			/// <inheritdoc/>
 			public void Dispose() {

@@ -244,7 +244,7 @@ namespace dnlib.DotNet.Writer {
 				Write(gim);
 			else {
 				helper.Error("Unknown calling convention sig");
-				writer.WriteByte((byte)sig.GetCallingConvention());
+				writer.WriteByte((byte)sig.GettingCallingConvention());
 			}
 
 			recursionCounter.Decrement();
@@ -260,22 +260,22 @@ namespace dnlib.DotNet.Writer {
 				return;
 			}
 
-			writer.WriteByte((byte)sig.GetCallingConvention());
+			writer.WriteByte((byte)sig.GettingCallingConvention());
 			if (sig.Generic)
 				WriteCompressedUInt32(sig.GenParamCount);
 
-			uint numParams = (uint)sig.Params.Count;
+			uint numParams = (uint)sig.Parameters.Count;
 			if (sig.ParamsAfterSentinel != null)
 				numParams += (uint)sig.ParamsAfterSentinel.Count;
 
 			uint count = WriteCompressedUInt32(numParams);
 			Write(sig.RetType);
-			for (uint i = 0; i < count && i < (uint)sig.Params.Count; i++)
-				Write(sig.Params[(int)i]);
+			for (uint i = 0; i < count && i < (uint)sig.Parameters.Count; i++)
+				Write(sig.Parameters[(int)i]);
 
 			if (sig.ParamsAfterSentinel != null && sig.ParamsAfterSentinel.Count > 0) {
 				writer.WriteByte((byte)ElementType.Sentinel);
-				for (uint i = 0, j = (uint)sig.Params.Count; i < (uint)sig.ParamsAfterSentinel.Count && j < count; i++, j++)
+				for (uint i = 0, j = (uint)sig.Parameters.Count; i < (uint)sig.ParamsAfterSentinel.Count && j < count; i++, j++)
 					Write(sig.ParamsAfterSentinel[(int)i]);
 			}
 
@@ -292,7 +292,7 @@ namespace dnlib.DotNet.Writer {
 				return;
 			}
 
-			writer.WriteByte((byte)sig.GetCallingConvention());
+			writer.WriteByte((byte)sig.GettingCallingConvention());
 			Write(sig.Type);
 
 			recursionCounter.Decrement();
@@ -308,7 +308,7 @@ namespace dnlib.DotNet.Writer {
 				return;
 			}
 
-			writer.WriteByte((byte)sig.GetCallingConvention());
+			writer.WriteByte((byte)sig.GettingCallingConvention());
 			uint count = WriteCompressedUInt32((uint)sig.Locals.Count);
 			if (count >= 0x10000) {
 				// ldloc 0xFFFF is invalid, see the ldloc documentation
@@ -330,7 +330,7 @@ namespace dnlib.DotNet.Writer {
 				return;
 			}
 
-			writer.WriteByte((byte)sig.GetCallingConvention());
+			writer.WriteByte((byte)sig.GettingCallingConvention());
 			uint count = WriteCompressedUInt32((uint)sig.GenericArguments.Count);
 			for (uint i = 0; i < count; i++)
 				Write(sig.GenericArguments[(int)i]);

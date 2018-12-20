@@ -487,7 +487,7 @@ namespace dnlib.DotNet {
 
 			methodSig.RetType = ReadType();
 
-			var parameters = methodSig.Params;
+			var parameters = methodSig.Parameters;
 			for (uint i = 0; i < numParams; i++) {
 				var type = ReadType();
 				if (type is SentinelSig) {

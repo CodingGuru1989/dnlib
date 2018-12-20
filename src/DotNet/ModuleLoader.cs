@@ -511,7 +511,7 @@ namespace dnlib.DotNet {
 			Add(obj.PublicKeyOrToken);
 			Add(obj.Name);
 			Add(obj.Culture);
-			Add(obj.Hash);
+			Add(obj.HashValue);
 			Add(obj.CustomAttributes);
 		}
 
@@ -824,7 +824,7 @@ namespace dnlib.DotNet {
 				return;
 			Add(msig.ExtraData);
 			Add(msig.RetType);
-			Add(msig.Params);
+			Add(msig.Parameters);
 			Add(msig.ParamsAfterSentinel);
 		}
 

@@ -252,7 +252,7 @@ namespace dnlib.DotNet {
 				genericArguments.PushTypeArgs(gis.GenericArguments);
 			}
 
-			var methodSigParams = methodSig.Params;
+			var methodSigParams = methodSig.Parameters;
 			bool isEmpty = methodSigParams.Count == 0 && reader.Position == reader.Length;
 			if (!isEmpty && reader.ReadUInt16() != 1)
 				throw new CABlobParserException("Invalid CA blob prolog");

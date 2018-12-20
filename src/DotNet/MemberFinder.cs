@@ -230,7 +230,7 @@ namespace dnlib.DotNet {
 			if (sig == null)
 				return;
 			Add(sig.RetType);
-			Add(sig.Params);
+			Add(sig.Parameters);
 			Add(sig.ParamsAfterSentinel);
 		}
 

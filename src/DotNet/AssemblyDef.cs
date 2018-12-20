@@ -20,7 +20,7 @@ namespace dnlib.DotNet {
 		/// <summary>
 		/// The row id in its table
 		/// </summary>
-		protected uint rid;
+		private uint rid;
 
 		/// <inheritdoc/>
 		public MDToken MDToken => new MDToken(Table.Assembly, rid);
@@ -45,7 +45,7 @@ namespace dnlib.DotNet {
 			set => hashAlgorithm = value;
 		}
 		/// <summary/>
-		protected AssemblyHashAlgorithm hashAlgorithm;
+		private AssemblyHashAlgorithm hashAlgorithm;
 
 		/// <summary>
 		/// From columns Assembly.MajorVersion, Assembly.MinorVersion, Assembly.BuildNumber,
@@ -57,7 +57,7 @@ namespace dnlib.DotNet {
 			set => version = value ?? throw new ArgumentNullException(nameof(value));
 		}
 		/// <summary/>
-		protected Version version;
+		private Version version;
 
 		/// <summary>
 		/// From column Assembly.Flags
@@ -67,7 +67,7 @@ namespace dnlib.DotNet {
 			set => attributes = (int)value;
 		}
 		/// <summary>Attributes</summary>
-		protected int attributes;
+		private int attributes;
 
 		/// <summary>
 		/// From column Assembly.PublicKey
@@ -78,7 +78,7 @@ namespace dnlib.DotNet {
 			set => publicKey = value ?? new PublicKey();
 		}
 		/// <summary/>
-		protected PublicKey publicKey;
+		private PublicKey publicKey;
 
 		/// <summary>
 		/// Gets the public key token which is calculated from <see cref="PublicKey"/>
@@ -93,7 +93,7 @@ namespace dnlib.DotNet {
 			set => name = value;
 		}
 		/// <summary>Name</summary>
-		protected UTF8String name;
+		private UTF8String name;
 
 		/// <summary>
 		/// From column Assembly.Locale
@@ -103,7 +103,7 @@ namespace dnlib.DotNet {
 			set => culture = value;
 		}
 		/// <summary>Name</summary>
-		protected UTF8String culture;
+		private UTF8String culture;
 
 		/// <inheritdoc/>
 		public IList<DeclSecurity> DeclSecurities {
@@ -112,9 +112,10 @@ namespace dnlib.DotNet {
 					InitializeDeclSecurities();
 				return declSecurities;
 			}
+			set => declSecurities = value;
 		}
 		/// <summary/>
-		protected IList<DeclSecurity> declSecurities;
+		internal IList<DeclSecurity> declSecurities;
 		/// <summary>Initializes <see cref="declSecurities"/></summary>
 		protected virtual void InitializeDeclSecurities() =>
 			Interlocked.CompareExchange(ref declSecurities, new List<DeclSecurity>(), null);
@@ -139,7 +140,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected LazyList<ModuleDef> modules;
+		internal LazyList<ModuleDef> modules;
 		/// <summary>Initializes <see cref="modules"/></summary>
 		protected virtual void InitializeModules() =>
 			Interlocked.CompareExchange(ref modules, new LazyList<ModuleDef>(this), null);
@@ -155,7 +156,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected CustomAttributeCollection customAttributes;
+		internal CustomAttributeCollection customAttributes;
 		/// <summary>Initializes <see cref="customAttributes"/></summary>
 		protected virtual void InitializeCustomAttributes() =>
 			Interlocked.CompareExchange(ref customAttributes, new CustomAttributeCollection(), null);
@@ -181,7 +182,7 @@ namespace dnlib.DotNet {
 			}
 		}
 		/// <summary/>
-		protected IList<PdbCustomDebugInfo> customDebugInfos;
+		internal IList<PdbCustomDebugInfo> customDebugInfos;
 		/// <summary>Initializes <see cref="customDebugInfos"/></summary>
 		protected virtual void InitializeCustomDebugInfos() =>
 			Interlocked.CompareExchange(ref customDebugInfos, new List<PdbCustomDebugInfo>(), null);
@@ -510,7 +511,7 @@ namespace dnlib.DotNet {
 		/// </summary>
 		public string GetFullNameWithPublicKeyToken() => GetFullName(publicKey.Token);
 
-		string GetFullName(PublicKeyBase pkBase) => Utils.GetAssemblyNameString(name, version, culture, pkBase, Attributes);
+		string GetFullName(PublicKeyBase pkBase) => Utils.GetAssemblyNameString(name, version, culture, pkBase, (AssemblyAttributes)Attributes);
 
 		/// <summary>
 		/// Finds a <see cref="TypeDef"/>. For speed, enable <see cref="ModuleDef.EnableTypeDefFindCache"/>
@@ -658,11 +659,11 @@ namespace dnlib.DotNet {
 			if (ctor == null)
 				return false;
 			var sig = ctor.MethodSig;
-			if (sig == null || sig.Params.Count != 2)
+			if (sig == null || sig.Parameters.Count != 2)
 				return false;
-			if (sig.Params[0].GetElementType() != ElementType.String)
+			if (sig.Parameters[0].GetElementType() != ElementType.String)
 				return false;
-			if (sig.Params[1].GetElementType() != ElementType.String)
+			if (sig.Parameters[1].GetElementType() != ElementType.String)
 				return false;
 			if (ca.ConstructorArguments.Count != 2)
 				return false;
@@ -792,11 +793,11 @@ namespace dnlib.DotNet {
 			if ((object)locale == null)
 				throw new ArgumentNullException(nameof(locale));
 			modules = new LazyList<ModuleDef>(this);
-			this.name = name;
-			this.version = version ?? throw new ArgumentNullException(nameof(version));
-			this.publicKey = publicKey ?? new PublicKey();
-			culture = locale;
-			attributes = (int)AssemblyAttributes.None;
+			this.Name = name;
+			this.Version = version ?? throw new ArgumentNullException(nameof(version));
+			this.PublicKey = publicKey ?? new PublicKey();
+			Culture = locale;
+			Attributes = (int)AssemblyAttributes.None;
 		}
 
 		/// <summary>
@@ -806,8 +807,8 @@ namespace dnlib.DotNet {
 		/// <exception cref="ArgumentNullException">If <paramref name="asmName"/> is <c>null</c></exception>
 		public AssemblyDefUser(AssemblyName asmName)
 			: this(new AssemblyNameInfo(asmName)) {
-			hashAlgorithm = (AssemblyHashAlgorithm)asmName.HashAlgorithm;
-			attributes = (int)asmName.Flags;
+			HashAlgorithm = (AssemblyHashAlgorithm)asmName.HashAlgorithm;
+			Attributes = (AssemblyAttributes)asmName.Flags;
 		}
 
 		/// <summary>
@@ -819,12 +820,12 @@ namespace dnlib.DotNet {
 			if (asmName == null)
 				throw new ArgumentNullException(nameof(asmName));
 			modules = new LazyList<ModuleDef>(this);
-			name = asmName.Name;
-			version = asmName.Version ?? new Version(0, 0, 0, 0);
-			publicKey = asmName.PublicKeyOrToken as PublicKey ?? new PublicKey();
-			culture = asmName.Culture;
-			attributes = (int)AssemblyAttributes.None;
-			hashAlgorithm = AssemblyHashAlgorithm.SHA1;
+			Name = asmName.Name;
+			Version = asmName.Version ?? new Version(0, 0, 0, 0);
+			PublicKey = asmName.PublicKeyOrToken as PublicKey ?? new PublicKey();
+			Culture = asmName.Culture;
+			Attributes = (int)AssemblyAttributes.None;
+			HashAlgorithm = AssemblyHashAlgorithm.SHA1;
 		}
 	}
 
@@ -1035,18 +1036,18 @@ namespace dnlib.DotNet {
 				throw new BadImageFormatException($"Assembly rid {rid} does not exist");
 #endif
 			origRid = rid;
-			this.rid = rid;
+			this.Rid = rid;
 			this.readerModule = readerModule;
 			if (rid != 1)
 				modules = new LazyList<ModuleDef>(this);
 			bool b = readerModule.TablesStream.TryReadAssemblyRow(origRid, out var row);
 			Debug.Assert(b);
-			hashAlgorithm = (AssemblyHashAlgorithm)row.HashAlgId;
-			version = new Version(row.MajorVersion, row.MinorVersion, row.BuildNumber, row.RevisionNumber);
-			attributes = (int)row.Flags;
-			name = readerModule.StringsStream.ReadNoNull(row.Name);
-			culture = readerModule.StringsStream.ReadNoNull(row.Locale);
-			publicKey = new PublicKey(readerModule.BlobStream.Read(row.PublicKey));
+			HashAlgorithm = (AssemblyHashAlgorithm)row.HashAlgId;
+			Version = new Version(row.MajorVersion, row.MinorVersion, row.BuildNumber, row.RevisionNumber);
+			Attributes = (AssemblyAttributes)row.Flags;
+			Name = readerModule.StringsStream.ReadNoNull(row.Name);
+			Culture = readerModule.StringsStream.ReadNoNull(row.Locale);
+			PublicKey = new PublicKey(readerModule.BlobStream.Read(row.PublicKey));
 		}
 	}
 }

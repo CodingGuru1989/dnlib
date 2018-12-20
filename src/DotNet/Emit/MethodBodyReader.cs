@@ -301,8 +301,8 @@ namespace dnlib.DotNet.Emit {
 				return true;
 			hasReadHeader = true;
 
-			startOfHeader = reader.Position;
-			byte b = reader.ReadByte();
+			startOfHeader = Reader.Position;
+			byte b = Reader.ReadByte();
 			switch (b & 7) {
 			case 2:
 			case 6:
@@ -316,15 +316,15 @@ namespace dnlib.DotNet.Emit {
 
 			case 3:
 				// Fat header. Can have locals and exception handlers
-				flags = (ushort)((reader.ReadByte() << 8) | b);
+				flags = (ushort)((Reader.ReadByte() << 8) | b);
 				headerSize = (byte)(flags >> 12);
-				maxStack = reader.ReadUInt16();
-				codeSize = reader.ReadUInt32();
-				localVarSigTok = reader.ReadUInt32();
+				maxStack = Reader.ReadUInt16();
+				codeSize = Reader.ReadUInt32();
+				localVarSigTok = Reader.ReadUInt32();
 
 				// The CLR allows the code to start inside the method header. But if it does,
 				// the CLR doesn't read any exceptions.
-				reader.Position = reader.Position - 12 + headerSize * 4U;
+				reader.Position = Reader.Position - 12 + headerSize * 4U;
 				if (headerSize < 3)
 					flags &= 0xFFF7;
 				headerSize *= 4;
@@ -334,7 +334,7 @@ namespace dnlib.DotNet.Emit {
 				return false;
 			}
 
-			if ((ulong)reader.Position + codeSize > reader.Length)
+			if ((ulong)Reader.Position + codeSize > Reader.Length)
 				return false;
 
 			return true;
@@ -360,14 +360,14 @@ namespace dnlib.DotNet.Emit {
 		void ReadInstructions() => ReadInstructionsNumBytes(codeSize);
 
 		/// <inheritdoc/>
-		protected override IField ReadInlineField(Instruction instr) => opResolver.ResolveToken(reader.ReadUInt32(), gpContext) as IField;
+		protected override IField ReadInlineField(Instruction instr) => opResolver.ResolveToken(Reader.ReadUInt32(), gpContext) as IField;
 
 		/// <inheritdoc/>
-		protected override IMethod ReadInlineMethod(Instruction instr) => opResolver.ResolveToken(reader.ReadUInt32(), gpContext) as IMethod;
+		protected override IMethod ReadInlineMethod(Instruction instr) => opResolver.ResolveToken(Reader.ReadUInt32(), gpContext) as IMethod;
 
 		/// <inheritdoc/>
 		protected override MethodSig ReadInlineSig(Instruction instr) {
-			var standAloneSig = opResolver.ResolveToken(reader.ReadUInt32(), gpContext) as StandAloneSig;
+			var standAloneSig = opResolver.ResolveToken(Reader.ReadUInt32(), gpContext) as StandAloneSig;
 			if (standAloneSig == null)
 				return null;
 			var sig = standAloneSig.MethodSig;
@@ -377,20 +377,20 @@ namespace dnlib.DotNet.Emit {
 		}
 
 		/// <inheritdoc/>
-		protected override string ReadInlineString(Instruction instr) => opResolver.ReadUserString(reader.ReadUInt32()) ?? string.Empty;
+		protected override string ReadInlineString(Instruction instr) => opResolver.ReadUserString(Reader.ReadUInt32()) ?? string.Empty;
 
 		/// <inheritdoc/>
-		protected override ITokenOperand ReadInlineTok(Instruction instr) => opResolver.ResolveToken(reader.ReadUInt32(), gpContext) as ITokenOperand;
+		protected override ITokenOperand ReadInlineTok(Instruction instr) => opResolver.ResolveToken(Reader.ReadUInt32(), gpContext) as ITokenOperand;
 
 		/// <inheritdoc/>
-		protected override ITypeDefOrRef ReadInlineType(Instruction instr) => opResolver.ResolveToken(reader.ReadUInt32(), gpContext) as ITypeDefOrRef;
+		protected override ITypeDefOrRef ReadInlineType(Instruction instr) => opResolver.ResolveToken(Reader.ReadUInt32(), gpContext) as ITypeDefOrRef;
 
 		/// <summary>
 		/// Reads all exception handlers
 		/// </summary>
 		void ReadExceptionHandlers(out uint totalBodySize) {
 			if ((flags & 8) == 0) {
-				totalBodySize = startOfHeader == uint.MaxValue ? 0 : reader.Position - startOfHeader;
+				totalBodySize = startOfHeader == uint.MaxValue ? 0 : Reader.Position - startOfHeader;
 				return;
 			}
 			bool canSaveTotalBodySize;
@@ -401,13 +401,13 @@ namespace dnlib.DotNet.Emit {
 			}
 			else {
 				canSaveTotalBodySize = true;
-				ehReader = reader;
+				ehReader = Reader;
 				ehReader.Position = (ehReader.Position + 3) & ~3U;
 			}
 			// Only read the first one. Any others aren't used.
 			byte b = ehReader.ReadByte();
 			if ((b & 0x3F) != 1) {
-				totalBodySize = startOfHeader == uint.MaxValue ? 0 : reader.Position - startOfHeader;
+				totalBodySize = startOfHeader == uint.MaxValue ? 0 : Reader.Position - startOfHeader;
 				return;	// Not exception handler clauses
 			}
 			if ((b & 0x40) != 0)
