@@ -20,9 +20,7 @@ namespace dnlib.DotNet {
 		public AssemblyHash(AssemblyHashAlgorithm hashAlgo) {
 			switch (hashAlgo) {
 			case AssemblyHashAlgorithm.MD5:
-#pragma warning disable CA5351 // Do Not Use Broken Cryptographic Algorithms
 				hasher = MD5.Create();
-#pragma warning restore CA5351 // Do Not Use Broken Cryptographic Algorithms
 				break;
 
 			case AssemblyHashAlgorithm.None:
@@ -35,9 +33,7 @@ namespace dnlib.DotNet {
 			case AssemblyHashAlgorithm.TLS1PRF:
 			case AssemblyHashAlgorithm.HASH_REPLACE_OWF:
 			default:
-#pragma warning disable CA5350 // Do Not Use Weak Cryptographic Algorithms
 				hasher = SHA1.Create();
-#pragma warning restore CA5350 // Do Not Use Weak Cryptographic Algorithms
 				break;
 
 			case AssemblyHashAlgorithm.SHA_256:

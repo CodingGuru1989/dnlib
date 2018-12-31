@@ -8,9 +8,7 @@ namespace dnlib.DotNet.Writer {
 	static class Hasher {
 		static HashAlgorithm CreateHasher(ChecksumAlgorithm checksumAlgorithm) {
 			switch (checksumAlgorithm) {
-#pragma warning disable CA5350 // Do Not Use Weak Cryptographic Algorithms
 			case ChecksumAlgorithm.SHA1:		return SHA1.Create();
-#pragma warning restore CA5350 // Do Not Use Weak Cryptographic Algorithms
 			case ChecksumAlgorithm.SHA256:		return SHA256.Create();
 			case ChecksumAlgorithm.SHA384:		return SHA384.Create();
 			case ChecksumAlgorithm.SHA512:		return SHA512.Create();
