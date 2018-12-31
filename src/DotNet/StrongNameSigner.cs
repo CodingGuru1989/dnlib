@@ -56,7 +56,7 @@ namespace dnlib.DotNet {
 		/// <returns>The strong name signature</returns>
 		public byte[] CalculateSignature(StrongNameKey snk, long snSigOffset) {
 			uint snSigSize = (uint)snk.SignatureSize;
-			var hashAlg = snk.HashAlgorithm == 0 ? AssemblyHashAlgorithm.SHA1 : snk.HashAlgorithm;
+			var hashAlg = snk.HashAlgorithm == 0 ? AssemblyHashAlgorithm.SHA_256 : snk.HashAlgorithm;
 			var hash = StrongNameHashData(hashAlg, snSigOffset, snSigSize);
 			var snSig = GetStrongNameSignature(snk, hashAlg, hash);
 			if (snSig.Length != snSigSize)
@@ -160,7 +160,7 @@ namespace dnlib.DotNet {
 		byte[] GetStrongNameSignature(StrongNameKey snk, AssemblyHashAlgorithm hashAlg, byte[] hash) {
 			using (var rsa = snk.CreateRSA()) {
 				var rsaFmt = new RSAPKCS1SignatureFormatter(rsa);
-				string hashName = hashAlg.GetName() ?? AssemblyHashAlgorithm.SHA1.GetName();
+				string hashName = hashAlg.GetName() ?? AssemblyHashAlgorithm.SHA_256.GetName();
 				rsaFmt.SetHashAlgorithm(hashName);
 				var snSig = rsaFmt.CreateSignature(hash);
 				Array.Reverse(snSig);

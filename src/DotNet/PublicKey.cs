@@ -7,7 +7,7 @@ namespace dnlib.DotNet {
 	/// Represents a public key
 	/// </summary>
 	public sealed class PublicKey : PublicKeyBase {
-		const AssemblyHashAlgorithm DEFAULT_ALGORITHM = AssemblyHashAlgorithm.SHA1;
+		const AssemblyHashAlgorithm DEFAULT_ALGORITHM = AssemblyHashAlgorithm.SHA_256;
 		PublicKeyToken publicKeyToken;
 
 		/// <summary>

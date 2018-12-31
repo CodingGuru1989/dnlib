@@ -27,9 +27,7 @@ namespace dnlib.DotNet.Pdb.Portable {
 			else
 				sb.Append(language.ToString());
 			sb.Append(", ");
-			if (checkSumAlgorithmId == PdbDocumentConstants.HashSHA1)
-				sb.Append("SHA-1");
-			else if (checkSumAlgorithmId == PdbDocumentConstants.HashSHA256)
+			if (checkSumAlgorithmId == PdbDocumentConstants.HashSHA256)
 				sb.Append("SHA-256");
 			else
 				sb.Append(checkSumAlgorithmId.ToString());

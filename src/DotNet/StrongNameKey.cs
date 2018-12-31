@@ -113,7 +113,7 @@ namespace dnlib.DotNet {
 		/// <param name="modulus">Modulus</param>
 		/// <param name="publicExponent">Public exponent</param>
 		public StrongNamePublicKey(byte[] modulus, byte[] publicExponent)
-			: this(modulus, publicExponent, AssemblyHashAlgorithm.SHA1, SignatureAlgorithm.CALG_RSA_SIGN) {
+			: this(modulus, publicExponent, AssemblyHashAlgorithm.SHA_256, SignatureAlgorithm.CALG_RSA_SIGN) {
 		}
 
 		/// <summary>
@@ -264,7 +264,7 @@ namespace dnlib.DotNet {
 		public int SignatureSize => modulus.Length;
 
 		/// <summary>
-		/// Gets the public key hash algorithm. It's usually <see cref="AssemblyHashAlgorithm.SHA1"/>
+		/// Gets the public key hash algorithm. It's usually <see cref="AssemblyHashAlgorithm.SHA_256"/>
 		/// </summary>
 		public AssemblyHashAlgorithm HashAlgorithm => hashAlg;
 
@@ -342,7 +342,7 @@ namespace dnlib.DotNet {
 			 *
 			 *	struct PublicKeyBlob {
 			 *	  unsigned int SigAlgID;	// sig algorithm used to create the sig (00002400 = CALG_RSA_SIGN)
-			 *	  unsigned int HashAlgID;	// hash alg used to create the sig (usually 00008004 = CALG_SHA1)
+			 *	  unsigned int HashAlgID;	// hash alg used to create the sig
 			 *	  ULONG        cbPublicKey;	// Size of the data that follows
 			 *	  // the rest is here
 			 *	}
@@ -437,7 +437,7 @@ namespace dnlib.DotNet {
 		}
 
 		byte[] CreatePublicKey() {
-			var halg = hashAlg == 0 ? AssemblyHashAlgorithm.SHA1 : hashAlg;
+			var halg = hashAlg == 0 ? AssemblyHashAlgorithm.SHA_256 : hashAlg;
 			return StrongNamePublicKey.CreatePublicKey(SignatureAlgorithm.CALG_RSA_SIGN, halg, modulus, publicExponent);
 		}
 

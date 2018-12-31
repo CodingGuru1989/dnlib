@@ -5,10 +5,6 @@ namespace dnlib.DotNet.Writer {
 	/// Checksum algorithm
 	/// </summary>
 	public enum ChecksumAlgorithm {
-		/// <summary>
-		/// SHA-1
-		/// </summary>
-		SHA1,
 
 		/// <summary>
 		/// SHA-256

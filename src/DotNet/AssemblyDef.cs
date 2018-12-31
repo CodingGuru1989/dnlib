@@ -825,7 +825,7 @@ namespace dnlib.DotNet {
 			PublicKey = asmName.PublicKeyOrToken as PublicKey ?? new PublicKey();
 			Culture = asmName.Culture;
 			Attributes = (int)AssemblyAttributes.None;
-			HashAlgorithm = AssemblyHashAlgorithm.SHA1;
+			HashAlgorithm = AssemblyHashAlgorithm.SHA_256;
 		}
 	}
 
