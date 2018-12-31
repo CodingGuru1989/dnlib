@@ -20,14 +20,13 @@ namespace dnlib.DotNet {
 		public AssemblyHash(AssemblyHashAlgorithm hashAlgo) {
 			switch (hashAlgo) {
 			case AssemblyHashAlgorithm.None:
-			case AssemblyHashAlgorithm.SHA1:
 			case AssemblyHashAlgorithm.MAC:
 			case AssemblyHashAlgorithm.SSL3_SHAMD5:
 			case AssemblyHashAlgorithm.HMAC:
 			case AssemblyHashAlgorithm.TLS1PRF:
 			case AssemblyHashAlgorithm.HASH_REPLACE_OWF:
 			default:
-				hasher = SHA1.Create();
+				hasher = SHA256.Create();
 				break;
 
 			case AssemblyHashAlgorithm.SHA_256:

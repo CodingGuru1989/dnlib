@@ -8,7 +8,6 @@ namespace dnlib.DotNet.Writer {
 	static class Hasher {
 		static HashAlgorithm CreateHasher(ChecksumAlgorithm checksumAlgorithm) {
 			switch (checksumAlgorithm) {
-			case ChecksumAlgorithm.SHA1:		return SHA1.Create();
 			case ChecksumAlgorithm.SHA256:		return SHA256.Create();
 			case ChecksumAlgorithm.SHA384:		return SHA384.Create();
 			case ChecksumAlgorithm.SHA512:		return SHA512.Create();
@@ -19,7 +18,6 @@ namespace dnlib.DotNet.Writer {
 		public static string GetChecksumName(ChecksumAlgorithm checksumAlgorithm) {
 			// https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PE-COFF.md#pdb-checksum-debug-directory-entry-type-19
 			switch (checksumAlgorithm) {
-			case ChecksumAlgorithm.SHA1:		return "SHA1";
 			case ChecksumAlgorithm.SHA256:		return "SHA256";
 			case ChecksumAlgorithm.SHA384:		return "SHA384";
 			case ChecksumAlgorithm.SHA512:		return "SHA512";
@@ -29,10 +27,6 @@ namespace dnlib.DotNet.Writer {
 
 		public static bool TryGetChecksumAlgorithm(string checksumName, out ChecksumAlgorithm pdbChecksumAlgorithm, out int checksumSize) {
 			switch (checksumName) {
-			case "SHA1":
-				pdbChecksumAlgorithm = ChecksumAlgorithm.SHA1;
-				checksumSize = 20;
-				return true;
 
 			case "SHA256":
 				pdbChecksumAlgorithm = ChecksumAlgorithm.SHA256;
