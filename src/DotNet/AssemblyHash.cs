@@ -19,13 +19,7 @@ namespace dnlib.DotNet {
 		/// <param name="hashAlgo">The algorithm to use</param>
 		public AssemblyHash(AssemblyHashAlgorithm hashAlgo) {
 			switch (hashAlgo) {
-			case AssemblyHashAlgorithm.MD5:
-				hasher = MD5.Create();
-				break;
-
 			case AssemblyHashAlgorithm.None:
-			case AssemblyHashAlgorithm.MD2:
-			case AssemblyHashAlgorithm.MD4:
 			case AssemblyHashAlgorithm.SHA1:
 			case AssemblyHashAlgorithm.MAC:
 			case AssemblyHashAlgorithm.SSL3_SHAMD5:
