@@ -264,18 +264,18 @@ namespace dnlib.DotNet.Writer {
 			if (sig.Generic)
 				WriteCompressedUInt32(sig.GenParamCount);
 
-			uint numParams = (uint)sig.Parameters.Count;
+			uint numParams = (uint)sig.Params.Count;
 			if (sig.ParamsAfterSentinel != null)
 				numParams += (uint)sig.ParamsAfterSentinel.Count;
 
 			uint count = WriteCompressedUInt32(numParams);
 			Write(sig.RetType);
-			for (uint i = 0; i < count && i < (uint)sig.Parameters.Count; i++)
-				Write(sig.Parameters[(int)i]);
+			for (uint i = 0; i < count && i < (uint)sig.Params.Count; i++)
+				Write(sig.Params[(int)i]);
 
 			if (sig.ParamsAfterSentinel != null && sig.ParamsAfterSentinel.Count > 0) {
 				writer.WriteByte((byte)ElementType.Sentinel);
-				for (uint i = 0, j = (uint)sig.Parameters.Count; i < (uint)sig.ParamsAfterSentinel.Count && j < count; i++, j++)
+				for (uint i = 0, j = (uint)sig.Params.Count; i < (uint)sig.ParamsAfterSentinel.Count && j < count; i++, j++)
 					Write(sig.ParamsAfterSentinel[(int)i]);
 			}
 

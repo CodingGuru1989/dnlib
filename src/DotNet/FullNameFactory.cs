@@ -2125,7 +2125,7 @@ namespace dnlib.DotNet {
 				sb.Append('>');
 			}
 			sb.Append('(');
-			int count = PrintMethodArgList(methodSig.Parameters, false, false);
+			int count = PrintMethodArgList(methodSig.Params, false, false);
 			PrintMethodArgList(methodSig.ParamsAfterSentinel, count > 0, true);
 			sb.Append(')');
 		}

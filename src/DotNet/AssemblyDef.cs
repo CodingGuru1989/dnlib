@@ -659,11 +659,11 @@ namespace dnlib.DotNet {
 			if (ctor == null)
 				return false;
 			var sig = ctor.MethodSig;
-			if (sig == null || sig.Parameters.Count != 2)
+			if (sig == null || sig.Params.Count != 2)
 				return false;
-			if (sig.Parameters[0].GetElementType() != ElementType.String)
+			if (sig.Params[0].GetElementType() != ElementType.String)
 				return false;
-			if (sig.Parameters[1].GetElementType() != ElementType.String)
+			if (sig.Params[1].GetElementType() != ElementType.String)
 				return false;
 			if (ca.ConstructorArguments.Count != 2)
 				return false;

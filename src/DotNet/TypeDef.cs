@@ -1117,7 +1117,7 @@ namespace dnlib.DotNet {
 				if (!method.IsInstanceConstructor)
 					continue;
 				var sig = method.MethodSig;
-				if (sig != null && sig.Parameters.Count == 0)
+				if (sig != null && sig.Params.Count == 0)
 					return method;
 			}
 			return null;

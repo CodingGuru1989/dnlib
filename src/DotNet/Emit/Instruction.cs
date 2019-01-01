@@ -408,7 +408,7 @@ namespace dnlib.DotNet.Emit {
 			if (!IsSystemVoid(sig.RetType) || (code == Code.Newobj && sig.HasThis))
 				pushes++;
 
-			pops += sig.Parameters.Count;
+			pops += sig.Params.Count;
 			var paramsAfterSentinel = sig.ParamsAfterSentinel;
 			if (paramsAfterSentinel != null)
 				pops += paramsAfterSentinel.Count;
@@ -755,8 +755,8 @@ namespace dnlib.DotNet.Emit {
 				return declaringType?.IsValueType == true ? new ByRefSig(declaringType.ToTypeSig()) : declaringType.ToTypeSig();
 			if (methodSig.ImplicitThis)
 				index--;
-			if ((uint)index < (uint)methodSig.Parameters.Count)
-				return methodSig.Parameters[index];
+			if ((uint)index < (uint)methodSig.Params.Count)
+				return methodSig.Params[index];
 			return null;
 		}
 

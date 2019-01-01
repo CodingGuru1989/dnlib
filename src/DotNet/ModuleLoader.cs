@@ -824,7 +824,7 @@ namespace dnlib.DotNet {
 				return;
 			Add(msig.ExtraData);
 			Add(msig.RetType);
-			Add(msig.Parameters);
+			Add(msig.Params);
 			Add(msig.ParamsAfterSentinel);
 		}
 

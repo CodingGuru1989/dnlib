@@ -143,11 +143,11 @@ namespace dnlib.DotNet {
 			if (UpdateThisParameter_NoLock(sig))
 				parameters.Clear();
 			returnParameter.Type = sig.RetType;
-			ResizeParameters_NoLock(sig.Parameters.Count + methodSigIndexBase);
+			ResizeParameters_NoLock(sig.Params.Count + methodSigIndexBase);
 			if (methodSigIndexBase > 0)
 				parameters[0] = hiddenThisParameter;
-			for (int i = 0; i < sig.Parameters.Count; i++)
-				parameters[i + methodSigIndexBase].Type = sig.Parameters[i];
+			for (int i = 0; i < sig.Params.Count; i++)
+				parameters[i + methodSigIndexBase].Type = sig.Params[i];
 #if THREAD_SAFE
 			} finally { theLock.ExitWriteLock(); }
 #endif
@@ -215,7 +215,7 @@ namespace dnlib.DotNet {
 			if (index == Parameter.RETURN_TYPE_METHOD_SIG_INDEX)
 				sig.RetType = param.Type;
 			else if (index >= 0)
-				sig.Parameters[index] = param.Type;
+				sig.Params[index] = param.Type;
 		}
 
 		internal void CreateParamDef(Parameter param) {

@@ -442,7 +442,7 @@ namespace dnlib.DotNet {
 				sig.RetType = module.CorLibTypes.Void;
 
 			foreach (var p in mb.GetParameters())
-				sig.Parameters.Add(ImportAsTypeSig(p, mb.DeclaringType));
+				sig.Params.Add(ImportAsTypeSig(p, mb.DeclaringType));
 
 			if (mb.IsGenericMethodDefinition)
 				sig.GenParamCount = (uint)mb.GetGenericArguments().Length;
@@ -838,8 +838,8 @@ namespace dnlib.DotNet {
 
 		T Import<T>(T sig, T old) where T : MethodBaseSig {
 			sig.RetType = Import(old.RetType);
-			foreach (var p in old.Parameters)
-				sig.Parameters.Add(Import(p));
+			foreach (var p in old.Params)
+				sig.Params.Add(Import(p));
 			sig.GenParamCount = old.GenParamCount;
 			var paramsAfterSentinel = sig.ParamsAfterSentinel;
 			if (paramsAfterSentinel != null) {
