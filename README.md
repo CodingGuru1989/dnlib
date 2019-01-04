@@ -1,3 +1,11 @@
+This repo will be archived soon.
+
+Use Official [NuGet](https://www.nuget.org/packages/dnlib/) package.
+
+API model is different from Mono.Cecil
+
+PE model in C++ style.
+
 ## Build status
 
 | Build server | Platform     | Build status                                                                                                                                  |
