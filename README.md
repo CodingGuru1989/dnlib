@@ -4,7 +4,7 @@ Use Official [NuGet](https://www.nuget.org/packages/dnlib/) package.
 
 API model is different from Mono.Cecil
 
-PE model in C++ style.
+PE model in Win32 style.
 
 ## Build status
 
